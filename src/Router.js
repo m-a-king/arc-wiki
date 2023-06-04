@@ -5,6 +5,7 @@ import SignUp from "./views/SignUp";
 import SignIn from "./views/SignIn";
 import FindId from "./views/FindId";
 import FindPw from "./views/FindPw";
+import MyPage from "./views/MyPage";
 
 function Router() {
   return < BrowserRouter>
@@ -15,6 +16,7 @@ function Router() {
         <Route path="/signin" element={<SignIn />} />
         <Route path="/findid" element={<FindId />} />
         <Route path="/findpw" element={<FindPw />} />
+        <Route path="/mypage" element={<MyPage />} />
         <Route path ="*" element = {<div>There's nothing here!</div>} />
       </Route>
     </Routes>

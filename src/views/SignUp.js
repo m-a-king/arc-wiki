@@ -1,18 +1,17 @@
 import * as React from 'react';
-import Avatar from '@mui/material/Avatar';
-import Button from '@mui/material/Button';
-import TextField from '@mui/material/TextField';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Checkbox from '@mui/material/Checkbox';
-import Link from '@mui/material/Link';
-import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
-import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
-import Typography from '@mui/material/Typography';
+import Button from '@mui/material/Button';
+import Checkbox from '@mui/material/Checkbox';
 import Container from '@mui/material/Container';
-import Snackbar from '@mui/material/Snackbar';
 import FormControl from "@mui/material/FormControl";
+import FormControlLabel from '@mui/material/FormControlLabel';
 import FormHelperText from "@mui/material/FormHelperText";
+import Grid from '@mui/material/Grid';
+import Link from '@mui/material/Link';
+import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
+import Snackbar from '@mui/material/Snackbar';
+import TextField from '@mui/material/TextField';
+import ViewTitle from '../components/ViewTitle';
 import { useNavigate } from 'react-router-dom';
 import { useState } from "react";
 
@@ -20,7 +19,6 @@ export default function SignUp() {
   const navigate = useNavigate();
   const [submitted, setSubmitted] = useState(false);
   const [snackbarOpen, setSnackbarOpen] = useState(false);
-
   const [formData, setFormData] = useState({
     id: '',
     password: '',
@@ -29,7 +27,6 @@ export default function SignUp() {
     email: '',
     allowExtraEmails: false,
   });
-
   const [formError, setFormError] = useState({
     id: false,
     password: false,
@@ -89,124 +86,112 @@ export default function SignUp() {
 
   return (
     <Container maxWidth="xs">
-      <Box
-        sx={{
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-        }}
-      >
-        {/* Title */}
-        <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
-          <LockOutlinedIcon />
-        </Avatar>
-        <Typography component="h1" variant="h5">
-          Sign up
-        </Typography>
+      {/* Title */}
+      <ViewTitle IconComponent={LockOutlinedIcon} title="Sign up" />
         
-        {/* Form */}
-        <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
-          <Grid container spacing={2}>
-            {/* Id */}
-            <Grid item xs={12}>
-              <TextField
-                required
-                fullWidth
-                id="id"
-                label="Id"
-                name="id"
-                autoComplete="given-name"
-                inputProps={{ maxLength: 50 }}
-                onChange={handleChange}
-                onBlur={validateForm}
-                error={submitted && formError.id}
-                helperText={submitted && formError.id && 'Id is required'}
-              />
-            </Grid>
+      {/* Form */}
+      <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
+        <Grid container spacing={2}>
+          {/* Id */}
+          <Grid item xs={12}>
+            <TextField
+              required
+              fullWidth
+              id="id"
+              label="Id"
+              name="id"
+              autoComplete="given-name"
+              inputProps={{ maxLength: 50 }}
+              onChange={handleChange}
+              onBlur={validateForm}
+              error={submitted && formError.id}
+              helperText={submitted && formError.id && 'Id is required'}
+            />
+          </Grid>
 
-            {/* Password */}
-            <Grid item xs={12}>
-              <TextField
-                required
-                fullWidth
-                name="password"
-                label="Password"
-                type="password"
-                id="password"
-                autoComplete="new-password"
-                inputProps={{ maxLength: 50 }}
-                onChange={handleChange}
-                onBlur={validateForm}
-                error={submitted && formError.password}
-                helperText={
-                  submitted &&
-                  formError.password &&
-                  (!formData.password
-                    ? 'Password is required'
-                    : formData.password.length < 8 && 'Password must be at least 8 characters')
-                }
-              />
-            </Grid>
+          {/* Password */}
+          <Grid item xs={12}>
+            <TextField
+              required
+              fullWidth
+              name="password"
+              label="Password"
+              type="password"
+              id="password"
+              autoComplete="new-password"
+              inputProps={{ maxLength: 50 }}
+              onChange={handleChange}
+              onBlur={validateForm}
+              error={submitted && formError.password}
+              helperText={
+                submitted &&
+                formError.password &&
+                (!formData.password
+                  ? 'Password is required'
+                  : formData.password.length < 8 && 'Password must be at least 8 characters')
+              }
+            />
+          </Grid>
 
-            {/* Name */}
-            <Grid item xs={12}>
-              <TextField
-                required
-                fullWidth
-                id="name"
-                label="Name"
-                name="name"
-                autoComplete="username"
-                inputProps={{ maxLength: 50 }}
-                onChange={handleChange}
-                onBlur={validateForm}
-                error={submitted && formError.name}
-                helperText={submitted && formError.name && 'Name is required'}
-              />
-            </Grid>
+          {/* Name */}
+          <Grid item xs={12}>
+            <TextField
+              required
+              fullWidth
+              id="name"
+              label="Name"
+              name="name"
+              autoComplete="username"
+              inputProps={{ maxLength: 50 }}
+              onChange={handleChange}
+              onBlur={validateForm}
+              error={submitted && formError.name}
+              helperText={submitted && formError.name && 'Name is required'}
+            />
+          </Grid>
 
-            {/* Nickname */}
-            <Grid item xs={12}>
-              <TextField
-                required
-                fullWidth
-                id="nickname"
-                label="Nickname"
-                name="nickname"
-                autoComplete="nickname"
-                inputProps={{ maxLength: 50 }}
-                onChange={handleChange}
-                onBlur={validateForm}
-                error={submitted && formError.nickname}
-                helperText={submitted && formError.nickname && 'Nickname is required'}
-              />
-            </Grid>
+          {/* Nickname */}
+          <Grid item xs={12}>
+            <TextField
+              required
+              fullWidth
+              id="nickname"
+              label="Nickname"
+              name="nickname"
+              autoComplete="nickname"
+              inputProps={{ maxLength: 50 }}
+              onChange={handleChange}
+              onBlur={validateForm}
+              error={submitted && formError.nickname}
+              helperText={submitted && formError.nickname && 'Nickname is required'}
+            />
+          </Grid>
 
-            {/* Email */}
-            <Grid item xs={12}>
-              <TextField
-                required
-                fullWidth
-                id="email"
-                label="Email Address"
-                name="email"
-                autoComplete="email"
-                inputProps={{ maxLength: 100 }}
-                onChange={handleChange}
-                onBlur={validateForm}
-                error={submitted && formError.email}
-                helperText={
-                  submitted &&
-                  formError.email &&
-                  (!formData.email
-                    ? 'Email is required'
-                    : !isValidEmail(formData.email) && 'Invalid email address')
-                }
-              />
-            </Grid>
+          {/* Email */}
+          <Grid item xs={12}>
+            <TextField
+              required
+              fullWidth
+              id="email"
+              label="Email Address"
+              name="email"
+              autoComplete="email"
+              inputProps={{ maxLength: 100 }}
+              onChange={handleChange}
+              onBlur={validateForm}
+              error={submitted && formError.email}
+              helperText={
+                submitted &&
+                formError.email &&
+                (!formData.email
+                  ? 'Email is required'
+                  : !isValidEmail(formData.email) && 'Invalid email address')
+              }
+            />
+          </Grid>
 
-            {/* Acceptance */}
-            <Grid item xs={12}>
+          {/* Acceptance */}
+          <Grid item xs={12}>
             <FormControl error={submitted && formError.allowExtraEmails}>
               <FormControlLabel
                 control={
@@ -223,29 +208,28 @@ export default function SignUp() {
                 <FormHelperText>Acceptance is required</FormHelperText>
               )}
             </FormControl>
-            </Grid>
           </Grid>
+        </Grid>
 
-          {/* Submit */}
-          <Button
-            type="submit"
-            fullWidth
-            variant="contained"
-            size="large"
-            sx={{ mt: 3, mb: 2 }}
-          >
-            Sign Up
-          </Button>
+        {/* Submit */}
+        <Button
+          type="submit"
+          fullWidth
+          variant="contained"
+          size="large"
+          sx={{ mt: 3, mb: 2 }}
+        >
+          Sign Up
+        </Button>
 
-          {/* Sign in */}
-          <Grid container justifyContent="flex-end">
-            <Grid item>
-              <Link href="/signin" variant="body2">
-                Already have an account? Sign in
-              </Link>
-            </Grid>
+        {/* Sign in */}
+        <Grid container justifyContent="flex-end">
+          <Grid item>
+            <Link href="/signin" variant="body2">
+              Already have an account? Sign in
+            </Link>
           </Grid>
-        </Box>
+        </Grid>
       </Box>
 
       {/* Message */}

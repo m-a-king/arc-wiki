@@ -1,29 +1,26 @@
 import * as React from 'react';
-import Avatar from "@mui/material/Avatar";
-import Button from "@mui/material/Button";
-import TextField from "@mui/material/TextField";
-import Link from "@mui/material/Link";
-import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
-import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
-import Typography from "@mui/material/Typography";
+import Button from "@mui/material/Button";
 import Container from "@mui/material/Container";
+import Grid from "@mui/material/Grid";
+import Link from "@mui/material/Link";
+import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Snackbar from '@mui/material/Snackbar';
+import TextField from "@mui/material/TextField";
+import ViewTitle from '../components/ViewTitle';
+import { useAuth } from '../AuthContext';
 import { useNavigate } from 'react-router-dom';
 import { useState } from "react";
-import { useAuth } from '../AuthContext';
 
 export default function SignIn() {
+  const { login } = useAuth();
   const navigate = useNavigate();
   const [submitted, setSubmitted] = useState(false);
   const [snackbarOpen, setSnackbarOpen] = useState(false);
-  const { login } = useAuth();
-
   const [formData, setFormData] = useState({
     id: '',
     password: '',
   });
-
   const [formError, setFormError] = React.useState({
     id: false,
     password: false,
@@ -67,101 +64,88 @@ export default function SignIn() {
 
   return (
     <Container component="main" maxWidth="xs">
-      <Box
-        sx={{
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-        }}
-      >
-        {/* Title */}
-        <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
-          <LockOutlinedIcon />
-        </Avatar>
-        <Typography component="h1" variant="h5">
-          Sign in
-        </Typography>
+      {/* Title */}
+      <ViewTitle IconComponent={LockOutlinedIcon} title="Sign in" />
+
+      {/* Form */}
+      <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
+        <Grid container spacing={2}>
+          {/* Id */}
+          <Grid item xs={12}>
+            <TextField
+              required
+              fullWidth
+              id="id"
+              label="Id"
+              name="id"
+              autoComplete="given-name"
+              inputProps={{ maxLength: 50 }}
+              onChange={handleChange}
+              onBlur={validateForm}
+              error={submitted && formError.id}
+              helperText={submitted && formError.id && 'Id is required'}
+            />
+          </Grid>
+          
+          {/* Password */}
+          <Grid item xs={12}>
+            <TextField
+              required
+              fullWidth
+              name="password"
+              label="Password"
+              type="password"
+              id="password"
+              autoComplete="current-password"
+              inputProps={{ maxLength: 50 }}
+              onChange={handleChange}
+              onBlur={validateForm}
+              error={submitted && formError.password}
+              helperText={submitted && formError.password && 'Password is required'}
+            />
+          </Grid>
+        </Grid>
         
-        {/* Form */}
-        <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
-          <Grid container spacing={2}>
-            {/* Id */}
-            <Grid item xs={12}>
-              <TextField
-                required
-                fullWidth
-                id="id"
-                label="Id"
-                name="id"
-                autoComplete="given-name"
-                inputProps={{ maxLength: 50 }}
-                onChange={handleChange}
-                onBlur={validateForm}
-                error={submitted && formError.id}
-                helperText={submitted && formError.id && 'Id is required'}
-              />
-            </Grid>
-            
-            {/* Password */}
-            <Grid item xs={12}>
-              <TextField
-                required
-                fullWidth
-                name="password"
-                label="Password"
-                type="password"
-                id="password"
-                autoComplete="current-password"
-                inputProps={{ maxLength: 50 }}
-                onChange={handleChange}
-                onBlur={validateForm}
-                error={submitted && formError.password}
-                helperText={submitted && formError.password && 'Password is required'}
-              />
-            </Grid>
+        {/* Submit */}
+        <Button
+          type="submit"
+          fullWidth
+          variant="contained"
+          size="large"
+          sx={{ mt: 3, mb: 2 }}
+        >
+          Sign In
+        </Button>
+        
+        {/* Controll */}
+        <Grid
+          container
+          spacing={3}
+          sx={{
+            justifyContent: 'center',
+          }}
+        >
+          {/* Forgot id */}
+          <Grid item>
+            <Link href="/findid" variant="body2">
+              Forgot id
+            </Link>
           </Grid>
-          
-          {/* Submit */}
-          <Button
-            type="submit"
-            fullWidth
-            variant="contained"
-            size="large"
-            sx={{ mt: 3, mb: 2 }}
-          >
-            Sign In
-          </Button>
-          
-          {/* Controll */}
-          <Grid
-            container
-            spacing={3}
-            sx={{
-              justifyContent: 'center',
-            }}
-          >
-            {/* Forgot id */}
-            <Grid item>
-              <Link href="/findid" variant="body2">
-                Forgot id
-              </Link>
-            </Grid>
 
-            {/* Forgot password */}
-            <Grid item>
-              <Link href="/findpw" variant="body2">
-                Forgot password
-              </Link>
-            </Grid>
-
-            {/* Sign up */}
-            <Grid item>
-              <Link href="/signup" variant="body2">
-                Sign up
-              </Link>
-            </Grid>
+          {/* Forgot password */}
+          <Grid item>
+            <Link href="/findpw" variant="body2">
+              Forgot password
+            </Link>
           </Grid>
-        </Box>
+
+          {/* Sign up */}
+          <Grid item>
+            <Link href="/signup" variant="body2">
+              Sign up
+            </Link>
+          </Grid>
+        </Grid>
       </Box>
 
       {/* Message */}

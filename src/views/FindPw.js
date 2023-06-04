@@ -1,14 +1,13 @@
 import * as React from 'react';
-import Avatar from "@mui/material/Avatar";
-import Button from "@mui/material/Button";
-import TextField from "@mui/material/TextField";
-import Link from "@mui/material/Link";
-import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
-import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
-import Typography from "@mui/material/Typography";
+import Button from "@mui/material/Button";
 import Container from "@mui/material/Container";
+import Grid from "@mui/material/Grid";
+import Link from "@mui/material/Link";
+import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Snackbar from '@mui/material/Snackbar';
+import TextField from "@mui/material/TextField";
+import ViewTitle from '../components/ViewTitle';
 import { useNavigate } from 'react-router-dom';
 import { useState } from "react";
 
@@ -16,13 +15,11 @@ export default function FindPw() {
   const navigate = useNavigate();
   const [submitted, setSubmitted] = useState(false);
   const [snackbarOpen, setSnackbarOpen] = useState(false);
-  
   const [formData, setFormData] = useState({
     id: '',
     name: '',
     email: '',
   });
-
   const [formError, setFormError] = React.useState({
     id: false,
     name: false,
@@ -75,110 +72,97 @@ export default function FindPw() {
 
   return (
     <Container component="main" maxWidth="xs">
-      <Box
-        sx={{
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-        }}
-      >
-        {/* Title */}
-        <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
-          <LockOutlinedIcon />
-        </Avatar>
-        <Typography component="h1" variant="h5">
-          Find password
-        </Typography>
+      {/* Title */}
+      <ViewTitle IconComponent={LockOutlinedIcon} title="Find password" />
         
-        {/* Form */}
-        <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
-          <Grid container spacing={2}>
-            {/* Id */}
-            <Grid item xs={12}>
-              <TextField
-                required
-                fullWidth
-                id="id"
-                label="Id"
-                name="id"
-                autoComplete="given-name"
-                inputProps={{ maxLength: 50 }}
-                onChange={handleChange}
-                onBlur={validateForm}
-                error={submitted && formError.id}
-                helperText={submitted && formError.id && 'Id is required'}
-              />
-            </Grid>
-              
-            {/* Name */}
-            <Grid item xs={12}>
-              <TextField
-                required
-                fullWidth
-                id="name"
-                label="Name"
-                name="name"
-                autoComplete="username"
-                inputProps={{ maxLength: 50 }}
-                onChange={handleChange}
-                onBlur={validateForm}
-                error={submitted && formError.name}
-                helperText={submitted && formError.name && 'Name is required'}
-              />
-            </Grid>
-              
-            {/* Email */}
-            <Grid item xs={12}>
-              <TextField
-                required
-                fullWidth
-                id="email"
-                label="Email Address"
-                name="email"
-                autoComplete="email"
-                inputProps={{ maxLength: 100 }}
-                onChange={handleChange}
-                onBlur={validateForm}
-                error={submitted && formError.email}
-                helperText={
-                  submitted &&
-                  formError.email &&
-                  (!formData.email
-                    ? 'Email is required'
-                    : !isValidEmail(formData.email) && 'Invalid email address')
-                }
-              />
-            </Grid>
+      {/* Form */}
+      <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
+        <Grid container spacing={2}>
+          {/* Id */}
+          <Grid item xs={12}>
+            <TextField
+              required
+              fullWidth
+              id="id"
+              label="Id"
+              name="id"
+              autoComplete="given-name"
+              inputProps={{ maxLength: 50 }}
+              onChange={handleChange}
+              onBlur={validateForm}
+              error={submitted && formError.id}
+              helperText={submitted && formError.id && 'Id is required'}
+            />
           </Grid>
-          
-          {/* Submit */}
-          <Button
-            type="submit"
-            fullWidth
-            variant="contained"
-            size="large"
-            sx={{ mt: 3, mb: 2 }}
-          >
-            Find password
-          </Button>
-          
-          {/* Controll */}
-          <Grid container>
-            {/* Forgot id */}
-            <Grid item xs>
-              <Link href="/findid" variant="body2">
-                Forgot id
-              </Link>
-            </Grid>
+            
+          {/* Name */}
+          <Grid item xs={12}>
+            <TextField
+              required
+              fullWidth
+              id="name"
+              label="Name"
+              name="name"
+              autoComplete="username"
+              inputProps={{ maxLength: 50 }}
+              onChange={handleChange}
+              onBlur={validateForm}
+              error={submitted && formError.name}
+              helperText={submitted && formError.name && 'Name is required'}
+            />
+          </Grid>
+            
+          {/* Email */}
+          <Grid item xs={12}>
+            <TextField
+              required
+              fullWidth
+              id="email"
+              label="Email Address"
+              name="email"
+              autoComplete="email"
+              inputProps={{ maxLength: 100 }}
+              onChange={handleChange}
+              onBlur={validateForm}
+              error={submitted && formError.email}
+              helperText={
+                submitted &&
+                formError.email &&
+                (!formData.email
+                  ? 'Email is required'
+                  : !isValidEmail(formData.email) && 'Invalid email address')
+              }
+            />
+          </Grid>
+        </Grid>
+        
+        {/* Submit */}
+        <Button
+          type="submit"
+          fullWidth
+          variant="contained"
+          size="large"
+          sx={{ mt: 3, mb: 2 }}
+        >
+          Find password
+        </Button>
+        
+        {/* Controll */}
+        <Grid container>
+          {/* Forgot id */}
+          <Grid item xs>
+            <Link href="/findid" variant="body2">
+              Forgot id
+            </Link>
+          </Grid>
 
-            {/* Sign in */}
-            <Grid item>
-              <Link href="/signin" variant="body2">
-                Already know an account? Sign in
-              </Link>
-            </Grid>
+          {/* Sign in */}
+          <Grid item>
+            <Link href="/signin" variant="body2">
+              Already know an account? Sign in
+            </Link>
           </Grid>
-        </Box>
+        </Grid>
       </Box>
 
       {/* Message */}
