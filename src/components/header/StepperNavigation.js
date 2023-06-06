@@ -1,7 +1,9 @@
 import * as React from 'react';
-import Step from '@mui/material/Step';
-import StepLabel from '@mui/material/StepLabel';
-import Stepper from '@mui/material/Stepper';
+import {
+  Step,
+  StepLabel,
+  Stepper,
+} from '@mui/material';
 
 export default function StepperNavigation({ steps, activeStep, selectedSteps }) {
   return (

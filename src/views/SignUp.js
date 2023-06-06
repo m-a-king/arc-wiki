@@ -1,19 +1,21 @@
 import * as React from 'react';
-import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
-import Checkbox from '@mui/material/Checkbox';
-import Container from '@mui/material/Container';
-import FormControl from "@mui/material/FormControl";
-import FormControlLabel from '@mui/material/FormControlLabel';
-import FormHelperText from "@mui/material/FormHelperText";
-import Grid from '@mui/material/Grid';
-import Link from '@mui/material/Link';
-import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
-import Snackbar from '@mui/material/Snackbar';
-import TextField from '@mui/material/TextField';
-import ViewTitle from '../components/ViewTitle';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useState } from "react";
+import {
+  Box,
+  Button,
+  Checkbox,
+  Container,
+  FormControl,
+  FormControlLabel,
+  FormHelperText,
+  Grid,
+  Link,
+  Snackbar,
+  TextField,
+} from '@mui/material';
+import { LockOutlined } from '@mui/icons-material';
+import ViewTitle from '../components/ViewTitle';
 
 export default function SignUp() {
   const navigate = useNavigate();
@@ -87,7 +89,7 @@ export default function SignUp() {
   return (
     <Container maxWidth="xs">
       {/* Title */}
-      <ViewTitle IconComponent={LockOutlinedIcon} title="Sign up" />
+      <ViewTitle IconComponent={LockOutlined} title="Sign up" />
         
       {/* Form */}
       <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>

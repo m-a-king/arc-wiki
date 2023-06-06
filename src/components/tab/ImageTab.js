@@ -1,5 +1,5 @@
 import * as React from 'react';
-import Tab from '@mui/material/Tab';
+import { Tab } from '@mui/material';
 
 export default function ImageTab(props) {
   const { image } = props;

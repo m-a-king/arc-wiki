@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { useState } from "react";
 import Box from '@mui/material/Box';
 import Tab from '@mui/material/Tab';
 import TabContext from '@mui/lab/TabContext';
@@ -6,9 +7,9 @@ import TabList from '@mui/lab/TabList';
 import TabPanel from '@mui/lab/TabPanel';
 import PersonOutlineOutlinedIcon from '@mui/icons-material/PersonOutlineOutlined';
 import ViewTitle from '../components/ViewTitle';
-import Profile from "../components/Profile";
-import Products from "../components/Products";
-import { useState } from "react";
+import Profile from "../components/mypage/Profile";
+import Scraps from "../components/mypage/Scraps";
+import Reviews from "../components/mypage/Reviews";
 
 export default function MyPage() {
   const [value, setValue] = useState('1');
@@ -32,7 +33,7 @@ export default function MyPage() {
           <Tab label="Profile" value="1" />
           <Tab label="Scrap" value="2" />
           <Tab label="Review" value="3" />
-          <Tab label="Comments" value="4" />
+          <Tab label="Comment" value="4" />
           <Tab label="Request" value="5" />
         </TabList>
         
@@ -43,12 +44,12 @@ export default function MyPage() {
         
         {/* Scrap */}
         <TabPanel value="2" sx={{ p: 0 }}>
-          <Products />
+          <Scraps />
         </TabPanel>
         
         {/* Review */}
         <TabPanel value="3" sx={{ p: 0 }}>
-
+          <Reviews />
         </TabPanel>
         
         {/* Comments */}

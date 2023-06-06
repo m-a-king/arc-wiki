@@ -1,11 +1,13 @@
 import * as React from 'react';
-import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
-import Container from '@mui/material/Container';
-import Grid from '@mui/material/Grid';
-import Snackbar from '@mui/material/Snackbar';
-import TextField from '@mui/material/TextField';
 import { useState } from "react";
+import {
+  Box,
+  Button,
+  Container,
+  Grid,
+  Snackbar,
+  TextField,
+} from '@mui/material';
 
 export default function MyPage() {
   const initialFormData = {

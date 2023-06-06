@@ -1,13 +1,18 @@
 import * as React from 'react';
-import Card from '@mui/material/Card';
-import CardContent from '@mui/material/CardContent';
-import FavoriteIcon from '@mui/icons-material/Favorite';
-import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
-import IconButton from '@mui/material/IconButton';
 import { useState } from 'react';
-import ItemTabs from './ItemTabs';
-import { Button, Typography } from '@mui/material';
+import {
+  Button,
+  Card,
+  CardContent,
+  IconButton,
+  Typography,
+} from '@mui/material';
+import {
+  Favorite,
+  FavoriteBorder,
+} from '@mui/icons-material';
 import { pink } from '@mui/material/colors';
+import ItemTabs from './ItemTabs';
 
 export default function ItemCard({ item }) {
   const [scrap, setScrap] = useState(item.scrap);
@@ -37,9 +42,9 @@ export default function ItemCard({ item }) {
         {/* Scrap */}
         <IconButton onClick={handleScrapToggle}>
           {scrap ? (
-            <FavoriteIcon sx={{ color: pink[500] }} />
+            <Favorite sx={{ color: pink[500] }} />
           ) : (
-            <FavoriteBorderIcon sx={{ color: pink[500] }} />
+            <FavoriteBorder sx={{ color: pink[500] }} />
           )}
         </IconButton>
 

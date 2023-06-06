@@ -1,13 +1,15 @@
 import * as React from 'react';
-import Box from "@mui/material/Box";
-import Button from "@mui/material/Button";
-import Container from "@mui/material/Container";
-import Grid from "@mui/material/Grid";
-import Link from "@mui/material/Link";
-import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
-import TextField from "@mui/material/TextField";
-import ViewTitle from '../components/ViewTitle';
 import { useState } from "react";
+import {
+  Box,
+  Button,
+  Container,
+  Grid,
+  Link,
+  TextField,
+} from '@mui/material';
+import { LockOutlined } from '@mui/icons-material';
+import ViewTitle from '../components/ViewTitle';
 
 export default function FindId() {
   const [submitted, setSubmitted] = useState(false);
@@ -66,7 +68,7 @@ export default function FindId() {
   return (
     <Container component="main" maxWidth="xs">
       {/* Title */}
-      <ViewTitle IconComponent={LockOutlinedIcon} title="Find id" />
+      <ViewTitle IconComponent={LockOutlined} title="Find id" />
 
       {foundId ? (
         <>

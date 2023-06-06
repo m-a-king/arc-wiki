@@ -1,16 +1,18 @@
 import * as React from 'react';
-import Box from "@mui/material/Box";
-import Button from "@mui/material/Button";
-import Container from "@mui/material/Container";
-import Grid from "@mui/material/Grid";
-import Link from "@mui/material/Link";
-import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
-import Snackbar from '@mui/material/Snackbar';
-import TextField from "@mui/material/TextField";
-import ViewTitle from '../components/ViewTitle';
-import { useAuth } from '../AuthContext';
-import { useNavigate } from 'react-router-dom';
 import { useState } from "react";
+import { useNavigate } from 'react-router-dom';
+import {
+  Box,
+  Button,
+  Container,
+  Grid,
+  Link,
+  Snackbar,
+  TextField,
+} from '@mui/material';
+import { LockOutlined } from '@mui/icons-material';
+import { useAuth } from '../AuthContext';
+import ViewTitle from '../components/ViewTitle';
 
 export default function SignIn() {
   const { login } = useAuth();
@@ -65,7 +67,7 @@ export default function SignIn() {
   return (
     <Container component="main" maxWidth="xs">
       {/* Title */}
-      <ViewTitle IconComponent={LockOutlinedIcon} title="Sign in" />
+      <ViewTitle IconComponent={LockOutlined} title="Sign in" />
 
       {/* Form */}
       <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>

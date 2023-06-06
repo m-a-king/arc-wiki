@@ -1,7 +1,9 @@
 import * as React from 'react';
-import Avatar from '@mui/material/Avatar';
-import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
+import {
+  Avatar,
+  Box,
+  Typography,
+} from '@mui/material';
 
 export default function ViewTitle({ IconComponent, title }) {
   return (

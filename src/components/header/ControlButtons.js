@@ -1,7 +1,9 @@
 import * as React from 'react';
-import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
-import { useAuth } from '../AuthContext';
+import {
+  Box,
+  Button,
+} from '@mui/material';
+import { useAuth } from '../../AuthContext';
 
 export default function ControlButtons() {
   const { isLoggedIn, logout } = useAuth();

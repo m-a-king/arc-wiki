@@ -1,6 +1,6 @@
 import * as React from 'react';
-import Snackbar from '@mui/material/Snackbar';
 import { createContext, useContext, useState } from 'react';
+import { Snackbar } from '@mui/material';
 
 const AuthContext = createContext();
 

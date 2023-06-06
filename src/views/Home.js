@@ -1,14 +1,18 @@
 import * as React from 'react';
-import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
-import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
-import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
-import Card from '@mui/material/Card';
-import CardContent from '@mui/material/CardContent';
-import CardMedia from '@mui/material/CardMedia';
-import Grid from '@mui/material/Grid';
-import SearchIcon from '@mui/icons-material/Search';
-import Typography from '@mui/material/Typography';
+import {
+  Box,
+  Button,
+  Card,
+  CardContent,
+  CardMedia,
+  Grid,
+  Typography,
+ } from '@mui/material';
+import {
+  ArrowBackIosNew,
+  ArrowForwardIos,
+  Search,
+} from '@mui/icons-material';
 
 export default function Home({
   activeStep,
@@ -67,7 +71,7 @@ export default function Home({
         disabled={activeStep === 0}
         onClick={() => setActiveStep(activeStep - 1)}
       >
-        <ArrowBackIosNewIcon />
+        <ArrowBackIosNew />
       </Button>
 
       {/* Category */}
@@ -109,7 +113,7 @@ export default function Home({
           sx={{ minWidth: '50px' }}
           onClick={() => setActiveStep(activeStep + 1)}
         >
-          <ArrowForwardIosIcon />
+          <ArrowForwardIos />
         </Button>
       ) : (
         <Button
@@ -122,7 +126,7 @@ export default function Home({
             resetSelectedSteps();
           }}
         >
-          <SearchIcon />
+          <Search />
         </Button>
       )}
     </Box>

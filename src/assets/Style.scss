@@ -47,3 +47,42 @@
     }
   }
 }
+
+.MuiDataGrid-toolbarContainer {
+  min-height: 52px;
+}
+
+.custom-data-grid {
+  .MuiDataGrid-columnHeaders {
+    min-height: 1px !important;
+    max-height: 1px !important;
+  }
+
+  .MuiDataGrid-virtualScroller {
+    overflow: hidden;
+  }
+
+  .MuiDataGrid-virtualScrollerContent {
+    height: auto !important;
+  }
+
+  .MuiDataGrid-virtualScrollerRenderZone {
+    position: relative;
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: 100%;
+  }
+
+  .MuiDataGrid-row {
+    flex-direction: column;
+    flex: 25%;
+    max-width: 25%;
+    max-height: none !important;
+  }
+
+  .MuiDataGrid-cell {
+    display: flex;
+    flex-direction: column;
+    max-height: none !important;
+  }
+}

@@ -1,11 +1,11 @@
-import { BrowserRouter, Route, Routes } from "react-router-dom";
-import Layout from "./layouts/Layout";
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import Layout from './layouts/Layout';
 import Home from './views/Home';
-import SignUp from "./views/SignUp";
-import SignIn from "./views/SignIn";
-import FindId from "./views/FindId";
-import FindPw from "./views/FindPw";
-import MyPage from "./views/MyPage";
+import SignUp from './views/SignUp';
+import SignIn from './views/SignIn';
+import FindId from './views/FindId';
+import FindPw from './views/FindPw';
+import MyPage from './views/MyPage';
 
 function Router() {
   return < BrowserRouter>

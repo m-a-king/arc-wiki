@@ -1,16 +1,18 @@
 import * as React from 'react';
 import { useState } from 'react';
-import TabContext from '@mui/lab/TabContext';
-import TabList from '@mui/lab/TabList';
-import TabPanel from '@mui/lab/TabPanel';
+import {
+  TabContext,
+  TabList,
+  TabPanel,
+} from '@mui/lab';
 import ImageTab from './ImageTab';
 
-export default function ItemTabs({ item }) {
-  const [value, setValue] = useState(item.images[0]?.id.toString());
+export default function ItemTabs({ images }) {
+  const [value, setValue] = useState(images[0]?.id.toString());
 
   return (
     <TabContext value={value}>
-      {item.images.map((image) => (
+      {images.map((image) => (
         <TabPanel key={image.id} value={image.id.toString()} sx={{ p: 0 }}>
           <img
             src={`${image.url}?w=248&fit=crop&auto=format`}
@@ -28,7 +30,7 @@ export default function ItemTabs({ item }) {
         scrollButtons="auto"
         onChange={(e, newValue) => setValue(newValue)}
       >
-        {item.images.map((image) => (
+        {images.map((image) => (
           <ImageTab key={image.id} value={image.id.toString()} image={image} />
         ))}
       </TabList>

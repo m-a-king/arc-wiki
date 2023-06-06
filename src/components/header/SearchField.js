@@ -1,12 +1,15 @@
-import React, { useState } from 'react';
-import Box from '@mui/material/Box';
-import ClickAwayListener from '@mui/material/ClickAwayListener';
-import Grow from '@mui/material/Grow';
-import IconButton from '@mui/material/IconButton';
-import SearchIcon from '@mui/icons-material/Search';
-import TextField from '@mui/material/TextField';
+import * as React from 'react';
+import { useState } from 'react';
+import {
+  Box,
+  ClickAwayListener,
+  Grow,
+  IconButton,
+  TextField,
+} from '@mui/material';
+import { Search } from '@mui/icons-material';
 
-export default function Search() {
+export default function SearchField() {
   const [openSearch, setOpenSearch] = useState(false);
   const [searchText, setSearchText] = useState('');
 
@@ -42,7 +45,7 @@ export default function Search() {
           />
         </Grow>
         <IconButton onClick={handleSearchClick}>
-          <SearchIcon />
+          <Search />
         </IconButton>
       </Box>
     </ClickAwayListener>

@@ -1,11 +1,13 @@
 import '../assets/Style.scss';
 import * as React from 'react';
-import CssBaseline from '@mui/material/CssBaseline';
-import Box from '@mui/material/Box';
-import Container from '@mui/material/Container';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
-import { useLocation, Outlet } from "react-router-dom";
 import { useState } from 'react';
+import { useLocation, Outlet } from "react-router-dom";
+import {
+  Box,
+  Container,
+  CssBaseline,
+ } from '@mui/material';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
 import Header from "../containers/Header";
 import Footer from "../containers/Footer";
 import Home from '../views/Home';
