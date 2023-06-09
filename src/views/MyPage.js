@@ -10,6 +10,8 @@ import ViewTitle from '../components/ViewTitle';
 import Profile from "../components/mypage/Profile";
 import Scraps from "../components/mypage/Scraps";
 import Reviews from "../components/mypage/Reviews";
+import Comments from "../components/mypage/Comments";
+import Requests from "../components/mypage/Requests";
 
 export default function MyPage() {
   const [value, setValue] = useState('1');
@@ -54,12 +56,12 @@ export default function MyPage() {
         
         {/* Comments */}
         <TabPanel value="4" sx={{ p: 0 }}>
-
+          <Comments />
         </TabPanel>
         
         {/* Request */}
         <TabPanel value="5" sx={{ p: 0 }}>
-
+          <Requests />
         </TabPanel>
       </TabContext>
     </Box>

@@ -19,30 +19,45 @@ export default function Scraps() {
       field: 'images',
       headerName: 'images',
       flex: 1,
+      filterable: false,
       renderCell: (params) => <ItemTabs images={params.value} />,
     },
     {
       field: 'title',
       headerName: 'title',
       flex: 1,
-      renderCell: (params) => 
-      <Button href="/product" variant="text" color="inherit" size="small">
-        {params.value}
-      </Button>,
+      renderCell: (params) => (
+        <Box>
+          {/* Title */}
+          <Button
+            href="/product"
+            variant="text"
+            color="primary"
+            size="small"
+            sx={{
+              minWidth: 0,
+              padding: '4px 0',
+            }}
+          >
+            {params.value}
+          </Button>
+          
+          {/* Scrap */}
+          <IconButton onClick={() => handleScrapToggle(params.id)}>
+            {params.row.scrap ? (
+              <Favorite sx={{ color: pink[500] }} />
+            ) : (
+              <FavoriteBorder sx={{ color: pink[500] }} />
+            )}
+          </IconButton>
+        </Box>
+      ),
     },
     {
       field: 'scrap',
       headerName: 'scrap',
       flex: 1,
-      renderCell: (params) => (
-        <IconButton onClick={() => handleScrapToggle(params.id)}>
-          {params.value ? (
-            <Favorite sx={{ color: pink[500] }} />
-          ) : (
-            <FavoriteBorder sx={{ color: pink[500] }} />
-          )}
-        </IconButton>
-      ),
+      cellClassName: 'custom-hide-cell',
     },
     {
       field: 'price',

@@ -14,48 +14,59 @@ import {
   InsertDriveFileOutlined,
 } from '@mui/icons-material';
 
-function CustomToolbar({ rows, useDelete, useAdd }) {
-  const isDisabled = rows.length === 0;
-
+function CustomToolbar({
+  rows,
+  selectedRows,
+  setRows,
+  useDelete,
+  useAdd,
+  openModal,
+}) {
   const del = () => {
-    console.log("Delete", rows);
-  };
-
-  const add = () => {
-    console.log("Add");
+    const newRows = rows.filter(
+      (row) => !selectedRows.includes(row.id)
+    );
+    setRows(newRows);
+    console.log("Delete", selectedRows);
   };
 
   return (
     <GridToolbarContainer sx={{ justifyContent: 'space-between' }}>
       <GridToolbarFilterButton />
       <Box>
-
-      {/* Delete */}
-      {useDelete && (
-        <Button
-          startIcon={<DeleteOutline />}
-          onClick={del}
-          disabled={isDisabled}
-        >
-        Delete 
-        </Button>
-      )}
-      
-      {/* Add */}
-      {useAdd && (
-        <Button
-          startIcon={<InsertDriveFileOutlined />}
-          onClick={add}
-        >
-        Add 
-        </Button>
-      )}
+        {/* Delete */}
+        {useDelete && (
+          <Button
+            startIcon={<DeleteOutline />}
+            onClick={del}
+            disabled={selectedRows.length === 0}
+          >
+          Delete 
+          </Button>
+        )}
+        
+        {/* Add */}
+        {useAdd && (
+          <Button
+            startIcon={<InsertDriveFileOutlined />}
+            onClick={openModal}
+          >
+          Add 
+          </Button>
+        )}
       </Box>
     </GridToolbarContainer>
   );
 }
 
-export default function DataTable({ columns, rows, useDelete, useAdd }) {
+export default function DataTable({
+  columns,
+  rows,
+  setRows,
+  useDelete,
+  useAdd,
+  openModal
+}) {
   const [selectedRows, setSelectedRows] = useState([]);
 
   return (
@@ -78,13 +89,17 @@ export default function DataTable({ columns, rows, useDelete, useAdd }) {
         }}
         componentsProps={{
           toolbar: {
-            rows: selectedRows,
-            useDelete: useDelete,
-            useAdd: useAdd,
+            rows,
+            selectedRows,
+            setRows,
+            useDelete,
+            useAdd,
+            openModal,
           },
         }}
+        checkboxSelection={useDelete}
+        disableRowSelectionOnClick={!useDelete}
         density="comfortable"
-        checkboxSelection
       />
     </div>
   );
