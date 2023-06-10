@@ -109,7 +109,7 @@ export default function FindId() {
         ) : (
         <>
           {/* Form */}
-          <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
+          <Box component="form" noValidate autocomplete="off" onSubmit={handleSubmit} sx={{ mt: 3 }}>
             <Grid container spacing={2}>
               {/* Name */}
               <Grid item xs={12}>
@@ -119,7 +119,6 @@ export default function FindId() {
                   id="name"
                   label="Name"
                   name="name"
-                  autoComplete="username"
                   inputProps={{ maxLength: 50 }}
                   onChange={handleChange}
                   onBlur={validateForm}
@@ -136,7 +135,6 @@ export default function FindId() {
                   id="email"
                   label="Email Address"
                   name="email"
-                  autoComplete="email"
                   inputProps={{ maxLength: 100 }}
                   onChange={handleChange}
                   onBlur={validateForm}

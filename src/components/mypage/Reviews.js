@@ -97,19 +97,26 @@ export default function Reviews() {
     {
       field: 'createDate',
       headerName: 'Create date',
+      width: 120,
+      valueFormatter: (params) => {
+        const date = new Date(params.value);
+        return date.getFullYear()
+          + '-' + (date.getMonth() + 1)
+          + '-' + date.getDate();
+      },
     },
   ];
   
   const [rows, setRows] = useState([
-    { id: 1, reviewImage: 'https://images.unsplash.com/photo-1551963831-b3b1ca40c98e', productName: 'Snow', reviewTitle: 'Snow', reviewContent: 'Jon', reviewScore: 4.5, createDate: '2023-06-10' },
-    { id: 2, reviewImage: 'https://images.unsplash.com/photo-1551963831-b3b1ca40c98e', productName: 'Lannister', reviewTitle: 'Lannister', reviewContent: 'Cersei', reviewScore: 5, createDate: '2023-06-10' },
-    { id: 3, reviewImage: 'https://images.unsplash.com/photo-1551963831-b3b1ca40c98e', productName: 'Lannister', reviewTitle: 'Lannister', reviewContent: 'Jaime', reviewScore: 4, createDate: '2023-06-10' },
-    { id: 4, reviewImage: 'https://images.unsplash.com/photo-1551963831-b3b1ca40c98e', productName: 'Stark', reviewTitle: 'Stark', reviewContent: 'Arya', reviewScore: 4, createDate: '2023-06-10' },
-    { id: 5, reviewImage: 'https://images.unsplash.com/photo-1551963831-b3b1ca40c98e', productName: 'Targaryen', reviewTitle: 'Targaryen', reviewContent: 'Daenerys', reviewScore: 3, createDate: '2023-06-10' },
-    { id: 6, reviewImage: 'https://images.unsplash.com/photo-1551963831-b3b1ca40c98e', productName: 'Melisandre', reviewTitle: 'Melisandre', reviewContent: 'making', reviewScore: 3, createDate: '2023-06-10' },
-    { id: 7, reviewImage: 'https://images.unsplash.com/photo-1551963831-b3b1ca40c98e', productName: 'Clifford', reviewTitle: 'Clifford', reviewContent: 'Ferrara', reviewScore: 2, createDate: '2023-06-10' },
-    { id: 8, reviewImage: 'https://images.unsplash.com/photo-1551963831-b3b1ca40c98e', productName: 'Frances', reviewTitle: 'Frances', reviewContent: 'Rossini', reviewScore: 2, createDate: '2023-06-10' },
-    { id: 9, reviewImage: 'https://images.unsplash.com/photo-1551963831-b3b1ca40c98e', productName: 'Roxie', reviewTitle: 'Roxie', reviewContent: 'Harvey', reviewScore: 0, createDate: '2023-06-10' },
+    { id: 1, reviewImage: 'https://images.unsplash.com/photo-1551963831-b3b1ca40c98e', productName: 'Snow', reviewTitle: 'Snow', reviewContent: 'Jon', reviewScore: 4.5, createDate: '2023-06-10 00:00:01' },
+    { id: 2, reviewImage: 'https://images.unsplash.com/photo-1551963831-b3b1ca40c98e', productName: 'Lannister', reviewTitle: 'Lannister', reviewContent: 'Cersei', reviewScore: 5, createDate: '2023-06-10 00:00:02' },
+    { id: 3, reviewImage: 'https://images.unsplash.com/photo-1551963831-b3b1ca40c98e', productName: 'Lannister', reviewTitle: 'Lannister', reviewContent: 'Jaime', reviewScore: 4, createDate: '2023-06-10 00:00:03' },
+    { id: 4, reviewImage: 'https://images.unsplash.com/photo-1551963831-b3b1ca40c98e', productName: 'Stark', reviewTitle: 'Stark', reviewContent: 'Arya', reviewScore: 4, createDate: '2023-06-10 00:00:04' },
+    { id: 5, reviewImage: 'https://images.unsplash.com/photo-1551963831-b3b1ca40c98e', productName: 'Targaryen', reviewTitle: 'Targaryen', reviewContent: 'Daenerys', reviewScore: 3, createDate: '2023-06-10 00:00:05' },
+    { id: 6, reviewImage: 'https://images.unsplash.com/photo-1551963831-b3b1ca40c98e', productName: 'Melisandre', reviewTitle: 'Melisandre', reviewContent: 'making', reviewScore: 3, createDate: '2023-06-10 00:00:06' },
+    { id: 7, reviewImage: 'https://images.unsplash.com/photo-1551963831-b3b1ca40c98e', productName: 'Clifford', reviewTitle: 'Clifford', reviewContent: 'Ferrara', reviewScore: 2, createDate: '2023-06-10 00:00:07' },
+    { id: 8, reviewImage: 'https://images.unsplash.com/photo-1551963831-b3b1ca40c98e', productName: 'Frances', reviewTitle: 'Frances', reviewContent: 'Rossini', reviewScore: 2, createDate: '2023-06-10 00:00:08' },
+    { id: 9, reviewImage: 'https://images.unsplash.com/photo-1551963831-b3b1ca40c98e', productName: 'Roxie', reviewTitle: 'Roxie', reviewContent: 'Harvey', reviewScore: 0, createDate: '2023-06-10 00:00:09' },
   ]);
   
   return (

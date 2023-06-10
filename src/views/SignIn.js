@@ -70,7 +70,7 @@ export default function SignIn() {
       <ViewTitle IconComponent={LockOutlined} title="Sign in" />
 
       {/* Form */}
-      <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
+      <Box component="form" noValidate autocomplete="off" onSubmit={handleSubmit} sx={{ mt: 3 }}>
         <Grid container spacing={2}>
           {/* Id */}
           <Grid item xs={12}>
@@ -80,7 +80,6 @@ export default function SignIn() {
               id="id"
               label="Id"
               name="id"
-              autoComplete="given-name"
               inputProps={{ maxLength: 50 }}
               onChange={handleChange}
               onBlur={validateForm}
@@ -98,7 +97,6 @@ export default function SignIn() {
               label="Password"
               type="password"
               id="password"
-              autoComplete="current-password"
               inputProps={{ maxLength: 50 }}
               onChange={handleChange}
               onBlur={validateForm}

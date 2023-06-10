@@ -92,7 +92,7 @@ export default function SignUp() {
       <ViewTitle IconComponent={LockOutlined} title="Sign up" />
         
       {/* Form */}
-      <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
+      <Box component="form" noValidate autocomplete="off" onSubmit={handleSubmit} sx={{ mt: 3 }}>
         <Grid container spacing={2}>
           {/* Id */}
           <Grid item xs={12}>
@@ -102,7 +102,6 @@ export default function SignUp() {
               id="id"
               label="Id"
               name="id"
-              autoComplete="given-name"
               inputProps={{ maxLength: 50 }}
               onChange={handleChange}
               onBlur={validateForm}
@@ -120,7 +119,6 @@ export default function SignUp() {
               label="Password"
               type="password"
               id="password"
-              autoComplete="new-password"
               inputProps={{ maxLength: 50 }}
               onChange={handleChange}
               onBlur={validateForm}
@@ -143,7 +141,6 @@ export default function SignUp() {
               id="name"
               label="Name"
               name="name"
-              autoComplete="username"
               inputProps={{ maxLength: 50 }}
               onChange={handleChange}
               onBlur={validateForm}
@@ -160,7 +157,6 @@ export default function SignUp() {
               id="nickname"
               label="Nickname"
               name="nickname"
-              autoComplete="nickname"
               inputProps={{ maxLength: 50 }}
               onChange={handleChange}
               onBlur={validateForm}
@@ -177,7 +173,6 @@ export default function SignUp() {
               id="email"
               label="Email Address"
               name="email"
-              autoComplete="email"
               inputProps={{ maxLength: 100 }}
               onChange={handleChange}
               onBlur={validateForm}

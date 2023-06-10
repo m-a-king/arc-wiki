@@ -78,7 +78,7 @@ export default function FindPw() {
       <ViewTitle IconComponent={LockOutlined} title="Find password" />
         
       {/* Form */}
-      <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
+      <Box component="form" noValidate autocomplete="off" onSubmit={handleSubmit} sx={{ mt: 3 }}>
         <Grid container spacing={2}>
           {/* Id */}
           <Grid item xs={12}>
@@ -88,7 +88,6 @@ export default function FindPw() {
               id="id"
               label="Id"
               name="id"
-              autoComplete="given-name"
               inputProps={{ maxLength: 50 }}
               onChange={handleChange}
               onBlur={validateForm}
@@ -105,7 +104,6 @@ export default function FindPw() {
               id="name"
               label="Name"
               name="name"
-              autoComplete="username"
               inputProps={{ maxLength: 50 }}
               onChange={handleChange}
               onBlur={validateForm}
@@ -122,7 +120,6 @@ export default function FindPw() {
               id="email"
               label="Email Address"
               name="email"
-              autoComplete="email"
               inputProps={{ maxLength: 100 }}
               onChange={handleChange}
               onBlur={validateForm}

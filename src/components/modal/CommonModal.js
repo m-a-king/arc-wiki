@@ -10,6 +10,7 @@ import {
 
 export default function CommonModal({
   open,
+  onSubmit,
   onClose,
   title,
   children,
@@ -58,6 +59,7 @@ export default function CommonModal({
               variant="contained"
               size="small"
               sx={{ mr: 1 }}
+              onClick={onSubmit}
             >
               Submit
             </Button>

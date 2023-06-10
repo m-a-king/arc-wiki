@@ -92,7 +92,7 @@ export default function MyPage() {
         }}
       >        
         {/* Form */}
-        <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
+        <Box component="form" noValidate autocomplete="off" onSubmit={handleSubmit} sx={{ mt: 3 }}>
           <Grid container spacing={2}>
             {/* Id */}
             <Grid item xs={12}>
@@ -102,7 +102,6 @@ export default function MyPage() {
                 id="id"
                 label="Id"
                 name="id"
-                autoComplete="given-name"
                 inputProps={{ maxLength: 50 }}
                 value={formData.id}
                 onChange={handleChange}
@@ -124,7 +123,6 @@ export default function MyPage() {
                 label="Password"
                 type="password"
                 id="password"
-                autoComplete="new-password"
                 inputProps={{ maxLength: 50 }}
                 value={formData.password}
                 onChange={handleChange}
@@ -148,7 +146,6 @@ export default function MyPage() {
                 id="name"
                 label="Name"
                 name="name"
-                autoComplete="username"
                 inputProps={{ maxLength: 50 }}
                 value={formData.name}
                 onChange={handleChange}
@@ -169,7 +166,6 @@ export default function MyPage() {
                 id="nickname"
                 label="Nickname"
                 name="nickname"
-                autoComplete="nickname"
                 inputProps={{ maxLength: 50 }}
                 value={formData.nickname}
                 onChange={handleChange}
@@ -190,7 +186,6 @@ export default function MyPage() {
                 id="email"
                 label="Email Address"
                 name="email"
-                autoComplete="email"
                 inputProps={{ maxLength: 100 }}
                 value={formData.email}
                 onChange={handleChange}
