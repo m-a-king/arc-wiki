@@ -19,7 +19,7 @@ export default function MyPage() {
   return (
     <Box sx={{ flex: 1, pt: 3 }}>
       {/* Title */}
-      <ViewTitle IconComponent={PersonOutlineOutlinedIcon} title="My page" />
+      <ViewTitle IconComponent={PersonOutlineOutlinedIcon} title="마이페이지" />
       
       {/* Tab */}
       <TabContext value={value}>
@@ -32,11 +32,11 @@ export default function MyPage() {
           onChange={(e, newValue) => setValue(newValue)}
           sx={{ mt: 3 }}
         >
-          <Tab label="Profile" value="1" />
-          <Tab label="Scrap" value="2" />
-          <Tab label="Review" value="3" />
-          <Tab label="Comment" value="4" />
-          <Tab label="Request" value="5" />
+          <Tab label="프로필" value="1" />
+          <Tab label="스크랩" value="2" />
+          <Tab label="리뷰" value="3" />
+          <Tab label="댓글" value="4" />
+          <Tab label="요청" value="5" />
         </TabList>
         
         {/* Profile */}

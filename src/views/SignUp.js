@@ -25,6 +25,7 @@ export default function SignUp() {
   const [formData, setFormData] = useState({
     id: '',
     password: '',
+    passwordCheck: '',
     name: '',
     nickname: '',
     email: '',
@@ -33,6 +34,7 @@ export default function SignUp() {
   const [formError, setFormError] = useState({
     id: false,
     password: false,
+    passwordCheck: false,
     name: false,
     nickname: false,
     email: false,
@@ -59,6 +61,10 @@ export default function SignUp() {
 
     if (formData.password && formData.password.length < 8) {
       errors.password = true;
+    }
+
+    if (formData.password !== formData.passwordCheck) {
+      errors.passwordCheck = true;
     }
 
     if (formData.email && !isValidEmail(formData.email)) {
@@ -130,6 +136,29 @@ export default function SignUp() {
                 (!formData.password
                   ? '비밀번호는 필수항목 입니다.'
                   : formData.password.length < 8 && '비밀번호는 영문 기준 8자 이상 입니다.')
+              }
+            />
+          </Grid>
+
+          {/* Password check */}
+          <Grid item xs={12}>
+            <TextField
+              required
+              fullWidth
+              name="passwordCheck"
+              label="비밀번호 확인"
+              type="password"
+              id="passwordCheck"
+              inputProps={{ maxLength: 50 }}
+              onChange={handleChange}
+              onBlur={validateForm}
+              error={submitted && formError.passwordCheck}
+              helperText={
+                submitted &&
+                formError.passwordCheck &&
+                (!formData.passwordCheck
+                  ? '비밀번호 확인은 필수항목 입니다.'
+                  : formData.password !== formData.passwordCheck && '비밀번호와 일치하지 않습니다.')
               }
             />
           </Grid>

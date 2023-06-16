@@ -18,6 +18,11 @@ main > .MuiContainer-root {
   }
 }
 
+/* Input */
+.MuiOutlinedInput-input:read-only {
+  background-color: #f3f3f3;
+}
+
 /* Tab */
 .custom-tabs {
   &.MuiTabs-root {
@@ -76,6 +81,7 @@ main > .MuiContainer-root {
 
 .MuiDataGrid-virtualScroller {
   min-height: 100px;
+  overflow: hidden !important;
 }
 
 .MuiDataGrid-cell:focus-within {
@@ -86,10 +92,6 @@ main > .MuiContainer-root {
   .MuiDataGrid-columnHeaders {
     min-height: 1px !important;
     max-height: 1px !important;
-  }
-
-  .MuiDataGrid-virtualScroller {
-    overflow: hidden;
   }
 
   .MuiDataGrid-virtualScrollerContent {

@@ -82,28 +82,36 @@ export default function Layout() {
           activeStep={activeStep}
           selectedSteps={selectedSteps}
         />
-        <Container
-          component="main"
-          sx={{
-            display: 'flex',
-            flexDirection: 'column',
-            justifyContent: 'center',
-            flex: 1,
-          }}
-          maxWidth="lg"
+        <Box
+            sx={{
+              display: 'flex',
+              flex: 1,
+              bgcolor: location.pathname === "/mypage" ? 'common.white' : '',
+            }}
         >
-          {location.pathname === "/" ? (
-            <Home
-              activeStep={activeStep}
-              setActiveStep={setActiveStep}
-              selectedSteps={selectedSteps}
-              handleCardSelection={handleCardSelection}
-              resetSelectedSteps={resetSelectedSteps}
-            />
-          ) : (
-            <Outlet />
-          )}
-        </Container>
+          <Container
+            component="main"
+            sx={{
+              display: 'flex',
+              flexDirection: 'column',
+              justifyContent: 'center',
+              flex: 1,
+            }}
+            maxWidth="lg"
+          >
+            {location.pathname === "/" ? (
+              <Home
+                activeStep={activeStep}
+                setActiveStep={setActiveStep}
+                selectedSteps={selectedSteps}
+                handleCardSelection={handleCardSelection}
+                resetSelectedSteps={resetSelectedSteps}
+              />
+            ) : (
+              <Outlet />
+            )}
+          </Container>
+        </Box>
         <Footer />
       </Box>
     </ThemeProvider>

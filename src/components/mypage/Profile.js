@@ -13,6 +13,7 @@ export default function MyPage() {
   const initialFormData = {
     id: 'making',
     password: '',
+    passwordCheck: '',
     name: '조재중',
     nickname: '부재중',
     email: 'making@kumoh.co.kr',
@@ -24,6 +25,7 @@ export default function MyPage() {
   const [formError, setFormError] = useState({
     id: false,
     password: false,
+    passwordCheck: false,
     name: false,
     nickname: false,
     email: false,
@@ -55,6 +57,10 @@ export default function MyPage() {
 
     if (formData.password && formData.password.length < 8) {
       errors.password = true;
+    }
+
+    if (formData.password !== formData.passwordCheck) {
+      errors.passwordCheck = true;
     }
 
     if (formData.email && !isValidEmail(formData.email)) {
@@ -100,58 +106,87 @@ export default function MyPage() {
                 required
                 fullWidth
                 id="id"
-                label="Id"
+                label="아이디"
                 name="id"
                 inputProps={{ maxLength: 50 }}
                 value={formData.id}
                 onChange={handleChange}
                 onBlur={validateForm}
                 error={submitted && formError.id}
-                helperText={submitted && formError.id && 'Id is required'}
+                helperText={submitted && formError.id && '아이디는 필수항목 입니다.'}
                 InputProps={{
                   readOnly: !editMode,
                 }}
               />
             </Grid>
 
-            {/* Password */}
-            <Grid item xs={12} style={{ display: editMode ? 'block' : 'none' }}>
-              <TextField
-                required
-                fullWidth
-                name="password"
-                label="Password"
-                type="password"
-                id="password"
-                inputProps={{ maxLength: 50 }}
-                value={formData.password}
-                onChange={handleChange}
-                onBlur={validateForm}
-                error={submitted && formError.password}
-                helperText={
-                  submitted &&
-                  formError.password &&
-                  (!formData.password
-                    ? 'Password is required'
-                    : formData.password.length < 8 && 'Password must be at least 8 characters')
-                }
-              />
-            </Grid>
+            {editMode ? (
+              <>
+                {/* Password */}
+                <Grid item xs={12}>
+                  <TextField
+                    required
+                    fullWidth
+                    name="password"
+                    label="비밀번호"
+                    type="password"
+                    id="password"
+                    inputProps={{ maxLength: 50 }}
+                    value={formData.password}
+                    onChange={handleChange}
+                    onBlur={validateForm}
+                    error={submitted && formError.password}
+                    helperText={
+                      submitted &&
+                      formError.password &&
+                      (!formData.password
+                        ? '비밀번호는 필수항목 입니다.'
+                        : formData.password.length < 8 && '비밀번호는 영문 기준 8자 이상 입니다.')
+                    }
+                  />
+                </Grid>
 
+                {/* Password check */}
+                <Grid item xs={12}>
+                  <TextField
+                    required
+                    fullWidth
+                    name="passwordCheck"
+                    label="비밀번호 확인"
+                    type="password"
+                    id="passwordCheck"
+                    inputProps={{ maxLength: 50 }}
+                    onChange={handleChange}
+                    onBlur={validateForm}
+                    error={submitted && formError.passwordCheck}
+                    helperText={
+                      submitted &&
+                      formError.passwordCheck &&
+                      (!formData.passwordCheck
+                        ? '비밀번호 확인은 필수항목 입니다.'
+                        : formData.password !== formData.passwordCheck && '비밀번호와 일치하지 않습니다.')
+                    }
+                  />
+                </Grid>
+              </>
+            ) : (
+              <></>
+            )}
+            
             {/* Name */}
             <Grid item xs={12}>
               <TextField
                 required
                 fullWidth
                 id="name"
-                label="Name"
+                label="이름"
                 name="name"
                 inputProps={{ maxLength: 50 }}
                 value={formData.name}
                 onChange={handleChange}
                 onBlur={validateForm}
                 error={submitted && formError.name}
-                helperText={submitted && formError.name && 'Name is required'}
+                helperText={submitted && formError.name && '이름은 필수항목 입니다.'}
                 InputProps={{
                   readOnly: !editMode,
                 }}
@@ -164,14 +199,14 @@ export default function MyPage() {
                 required
                 fullWidth
                 id="nickname"
-                label="Nickname"
+                label="닉네임"
                 name="nickname"
                 inputProps={{ maxLength: 50 }}
                 value={formData.nickname}
                 onChange={handleChange}
                 onBlur={validateForm}
                 error={submitted && formError.nickname}
-                helperText={submitted && formError.nickname && 'Nickname is required'}
+                helperText={submitted && formError.nickname && '닉네임은 필수항목 입니다.'}
                 InputProps={{
                   readOnly: !editMode,
                 }}
@@ -184,7 +219,7 @@ export default function MyPage() {
                 required
                 fullWidth
                 id="email"
-                label="Email Address"
+                label="이메일"
                 name="email"
                 inputProps={{ maxLength: 100 }}
                 value={formData.email}
@@ -195,8 +230,8 @@ export default function MyPage() {
                   submitted &&
                   formError.email &&
                   (!formData.email
-                    ? 'Email is required'
-                    : !isValidEmail(formData.email) && 'Invalid email address')
+                    ? '이메일은 필수항목 입니다.'
+                    : !isValidEmail(formData.email) && '유효하지 않은 이메일 입니다.')
                 }
                 InputProps={{
                   readOnly: !editMode,
@@ -216,7 +251,7 @@ export default function MyPage() {
                 sx={{ mt: 3, mb: 2 }}
                 onClick={handleCancel}
               >
-                Cancel
+                취소
               </Button>
 
               {/* Submit */}
@@ -226,7 +261,7 @@ export default function MyPage() {
                 variant="contained"
                 size="large"
               >
-                Edit
+                변경
               </Button>
             </>
           ) : (
@@ -239,7 +274,7 @@ export default function MyPage() {
                 sx={{ mt: 3, mb: 2 }}
                 onClick={() => setEditMode(true)}
               >
-                Edit
+                변경
               </Button>
             </>
           )}
@@ -251,7 +286,7 @@ export default function MyPage() {
         anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
         open={snackbarOpen}
         onClose={() => setSnackbarOpen(false)}
-        message="Edit success"
+        message="프로필 변경에 성공하였습니다."
         autoHideDuration={1000}
         key={'snackbar'}
       />
