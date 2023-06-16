@@ -7,6 +7,7 @@ import {
   Grid,
   Link,
   TextField,
+  Typography,
 } from '@mui/material';
 import { LockOutlined } from '@mui/icons-material';
 import ViewTitle from '../components/ViewTitle';
@@ -68,7 +69,7 @@ export default function FindId() {
   return (
     <Container component="main" maxWidth="xs">
       {/* Title */}
-      <ViewTitle IconComponent={LockOutlined} title="Find id" />
+      <ViewTitle IconComponent={LockOutlined} title="아이디 찾기" />
 
       {foundId ? (
         <>
@@ -79,7 +80,7 @@ export default function FindId() {
                 <TextField
                   required
                   fullWidth
-                  label="Your ID has been found"
+                  label={`${formData.name} 님의 아이디`}
                   value={foundId}
                   InputProps={{
                     readOnly: true,
@@ -93,23 +94,26 @@ export default function FindId() {
               {/* Forgot password */}
               <Grid item xs>
                 <Link href="/findpw" variant="body2">
-                  Forgot password
+                  비밀번호 찾기
                 </Link>
               </Grid>
 
               {/* Sign in */}
-              <Grid item>
-                <Link href="/signin" variant="body2">
-                  Already know an account? Sign in
+              <Box sx={{ textAlign: 'right' }}>
+                <Typography variant="body2" sx={{ display: 'inline' }}>
+                  이미 계정이 있으신가요?
+                </Typography>
+                <Link href="/signin" variant="body2" sx={{ ml: 1 }}>
+                  로그인
                 </Link>
-              </Grid>
+              </Box>
             </Grid>
           </Box>
         </>
         ) : (
         <>
           {/* Form */}
-          <Box component="form" noValidate autocomplete="off" onSubmit={handleSubmit} sx={{ mt: 3 }}>
+          <Box component="form" noValidate autoComplete="off" onSubmit={handleSubmit} sx={{ mt: 3 }}>
             <Grid container spacing={2}>
               {/* Name */}
               <Grid item xs={12}>
@@ -117,13 +121,13 @@ export default function FindId() {
                   required
                   fullWidth
                   id="name"
-                  label="Name"
+                  label="이름"
                   name="name"
                   inputProps={{ maxLength: 50 }}
                   onChange={handleChange}
                   onBlur={validateForm}
                   error={submitted && formError.name}
-                  helperText={submitted && formError.name && 'Name is required'}
+                  helperText={submitted && formError.name && '이름은 필수항목 입니다.'}
                 />
               </Grid>
               
@@ -133,7 +137,7 @@ export default function FindId() {
                   required
                   fullWidth
                   id="email"
-                  label="Email Address"
+                  label="이메일"
                   name="email"
                   inputProps={{ maxLength: 100 }}
                   onChange={handleChange}
@@ -143,8 +147,8 @@ export default function FindId() {
                     submitted &&
                     formError.email &&
                     (!formData.email
-                      ? 'Email is required'
-                      : !isValidEmail(formData.email) && 'Invalid email address')
+                      ? '이메일은 필수항목 입니다.'
+                      : !isValidEmail(formData.email) && '유효하지 않은 이메일 입니다.')
                   }
                 />
               </Grid>
@@ -158,7 +162,7 @@ export default function FindId() {
               size="large"
               sx={{ mt: 3, mb: 2 }}
             >
-              Find id
+              아이디 찾기
             </Button>
             
             {/* Controll */}
@@ -166,16 +170,19 @@ export default function FindId() {
               {/* Forgot password */}
               <Grid item xs>
                 <Link href="/findpw" variant="body2">
-                  Forgot password
+                  비밀번호 찾기
                 </Link>
               </Grid>
 
               {/* Sign in */}
-              <Grid item>
-                <Link href="/signin" variant="body2">
-                  Already know an account? Sign in
+              <Box sx={{ textAlign: 'right' }}>
+                <Typography variant="body2" sx={{ display: 'inline' }}>
+                  이미 계정이 있으신가요?
+                </Typography>
+                <Link href="/signin" variant="body2" sx={{ ml: 1 }}>
+                  로그인
                 </Link>
-              </Grid>
+              </Box>
             </Grid>
           </Box>
         </>

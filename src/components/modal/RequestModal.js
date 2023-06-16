@@ -67,7 +67,7 @@ export default function RequestModal({
       onClose={onClose}
       title={title}
     >
-      <Box component="form" noValidate autocomplete="off" onSubmit={onSubmit}>
+      <Box component="form" noValidate autoComplete="off" onSubmit={onSubmit}>
         <Grid container spacing={2}>
           {/* Product name */}
           <Grid item xs={12}>

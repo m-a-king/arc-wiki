@@ -20,7 +20,7 @@ export default function Header({ activeStep, selectedSteps }) {
         sx={{
           justifyContent: 'space-between',
           minHeight: 115,
-          backgroundColor: 'rgba(0, 0, 0, .5)',
+          bgcolor: 'rgba(0, 0, 0, .5)',
           color: 'common.white',
         }}
       >

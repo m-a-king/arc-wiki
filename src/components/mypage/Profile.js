@@ -92,7 +92,7 @@ export default function MyPage() {
         }}
       >        
         {/* Form */}
-        <Box component="form" noValidate autocomplete="off" onSubmit={handleSubmit} sx={{ mt: 3 }}>
+        <Box component="form" noValidate autoComplete="off" onSubmit={handleSubmit} sx={{ mt: 3 }}>
           <Grid container spacing={2}>
             {/* Id */}
             <Grid item xs={12}>
@@ -252,7 +252,7 @@ export default function MyPage() {
         open={snackbarOpen}
         onClose={() => setSnackbarOpen(false)}
         message="Edit success"
-        autoHideDuration={500}
+        autoHideDuration={1000}
         key={'snackbar'}
       />
     </Container>

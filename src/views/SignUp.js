@@ -13,6 +13,7 @@ import {
   Link,
   Snackbar,
   TextField,
+  Typography,
 } from '@mui/material';
 import { LockOutlined } from '@mui/icons-material';
 import ViewTitle from '../components/ViewTitle';
@@ -78,7 +79,7 @@ export default function SignUp() {
       
       setTimeout(() => {
         navigate('/signin');
-      }, 500);
+      }, 1000);
       
       console.log({
         ...formData,
@@ -89,10 +90,10 @@ export default function SignUp() {
   return (
     <Container maxWidth="xs">
       {/* Title */}
-      <ViewTitle IconComponent={LockOutlined} title="Sign up" />
+      <ViewTitle IconComponent={LockOutlined} title="회원가입" />
         
       {/* Form */}
-      <Box component="form" noValidate autocomplete="off" onSubmit={handleSubmit} sx={{ mt: 3 }}>
+      <Box component="form" noValidate autoComplete="off" onSubmit={handleSubmit} sx={{ mt: 3 }}>
         <Grid container spacing={2}>
           {/* Id */}
           <Grid item xs={12}>
@@ -100,13 +101,13 @@ export default function SignUp() {
               required
               fullWidth
               id="id"
-              label="Id"
+              label="아이디"
               name="id"
               inputProps={{ maxLength: 50 }}
               onChange={handleChange}
               onBlur={validateForm}
               error={submitted && formError.id}
-              helperText={submitted && formError.id && 'Id is required'}
+              helperText={submitted && formError.id && '아이디는 필수항목 입니다.'}
             />
           </Grid>
 
@@ -116,7 +117,7 @@ export default function SignUp() {
               required
               fullWidth
               name="password"
-              label="Password"
+              label="비밀번호"
               type="password"
               id="password"
               inputProps={{ maxLength: 50 }}
@@ -127,8 +128,8 @@ export default function SignUp() {
                 submitted &&
                 formError.password &&
                 (!formData.password
-                  ? 'Password is required'
-                  : formData.password.length < 8 && 'Password must be at least 8 characters')
+                  ? '비밀번호는 필수항목 입니다.'
+                  : formData.password.length < 8 && '비밀번호는 영문 기준 8자 이상 입니다.')
               }
             />
           </Grid>
@@ -139,13 +140,13 @@ export default function SignUp() {
               required
               fullWidth
               id="name"
-              label="Name"
+              label="이름"
               name="name"
               inputProps={{ maxLength: 50 }}
               onChange={handleChange}
               onBlur={validateForm}
               error={submitted && formError.name}
-              helperText={submitted && formError.name && 'Name is required'}
+              helperText={submitted && formError.name && '이름은 필수항목 입니다.'}
             />
           </Grid>
 
@@ -155,13 +156,13 @@ export default function SignUp() {
               required
               fullWidth
               id="nickname"
-              label="Nickname"
+              label="닉네임"
               name="nickname"
               inputProps={{ maxLength: 50 }}
               onChange={handleChange}
               onBlur={validateForm}
               error={submitted && formError.nickname}
-              helperText={submitted && formError.nickname && 'Nickname is required'}
+              helperText={submitted && formError.nickname && '닉네임은 필수항목 입니다.'}
             />
           </Grid>
 
@@ -171,7 +172,7 @@ export default function SignUp() {
               required
               fullWidth
               id="email"
-              label="Email Address"
+              label="이메일"
               name="email"
               inputProps={{ maxLength: 100 }}
               onChange={handleChange}
@@ -181,8 +182,8 @@ export default function SignUp() {
                 submitted &&
                 formError.email &&
                 (!formData.email
-                  ? 'Email is required'
-                  : !isValidEmail(formData.email) && 'Invalid email address')
+                  ? '이메일은 필수항목 입니다.'
+                  : !isValidEmail(formData.email) && '유효하지 않은 이메일 입니다.')
               }
             />
           </Grid>
@@ -199,10 +200,10 @@ export default function SignUp() {
                     onBlur={validateForm}
                   />
                 }
-                label="I want to receive inspiration, marketing promotions and updates via email."
+                label="개인정보 수집 및 활용에 동의합니다."
               />
               {submitted && formError.allowExtraEmails && (
-                <FormHelperText>Acceptance is required</FormHelperText>
+                <FormHelperText>개인정보 수집 및 활용 동의는 필수항목 입니다.</FormHelperText>
               )}
             </FormControl>
           </Grid>
@@ -216,17 +217,18 @@ export default function SignUp() {
           size="large"
           sx={{ mt: 3, mb: 2 }}
         >
-          Sign Up
+          회원가입
         </Button>
 
         {/* Sign in */}
-        <Grid container justifyContent="flex-end">
-          <Grid item>
-            <Link href="/signin" variant="body2">
-              Already have an account? Sign in
-            </Link>
-          </Grid>
-        </Grid>
+        <Box sx={{ textAlign: 'right' }}>
+          <Typography variant="body2" sx={{ display: 'inline' }}>
+            이미 계정이 있으신가요?
+          </Typography>
+          <Link href="/signin" variant="body2" sx={{ ml: 1 }}>
+            로그인
+          </Link>
+        </Box>
       </Box>
 
       {/* Message */}
@@ -234,8 +236,8 @@ export default function SignUp() {
         anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
         open={snackbarOpen}
         onClose={() => setSnackbarOpen(false)}
-        message="Sign up success"
-        autoHideDuration={500}
+        message="회원가입에 성공하였습니다."
+        autoHideDuration={1000}
         key={'snackbar'}
       />
     </Container>

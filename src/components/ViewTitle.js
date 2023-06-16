@@ -14,7 +14,7 @@ export default function ViewTitle({ IconComponent, title }) {
         alignItems: 'center',
       }}
     >
-      <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
+      <Avatar sx={{ m: 1, bgcolor: 'primary.main' }}>
         <IconComponent />
       </Avatar>
       <Typography component="h1" variant="h5">

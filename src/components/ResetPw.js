@@ -4,28 +4,26 @@ import { useNavigate } from 'react-router-dom';
 import {
   Box,
   Button,
-  Container,
   Grid,
-  Link,
   Snackbar,
+  Link,
   TextField,
+  Typography,
 } from '@mui/material';
 import { LockOutlined } from '@mui/icons-material';
-import { useAuth } from '../AuthContext';
-import ViewTitle from '../components/ViewTitle';
+import ViewTitle from './ViewTitle';
 
-export default function SignIn() {
-  const { login } = useAuth();
+export default function ResetPw() {
   const navigate = useNavigate();
   const [submitted, setSubmitted] = useState(false);
   const [snackbarOpen, setSnackbarOpen] = useState(false);
   const [formData, setFormData] = useState({
-    id: '',
     password: '',
+    passwordCheck: '',
   });
   const [formError, setFormError] = React.useState({
-    id: false,
     password: false,
+    passwordCheck: false,
   });
   
   const handleChange = event => {
@@ -41,6 +39,14 @@ export default function SignIn() {
       }
     }
 
+    if (formData.password && formData.password.length < 8) {
+      errors.password = true;
+    }
+
+    if (formData.password !== formData.passwordCheck) {
+      errors.passwordCheck = true;
+    }
+
     setFormError(errors);
     return Object.keys(errors).length === 0;
   };
@@ -54,8 +60,7 @@ export default function SignIn() {
       setSnackbarOpen(true);
       
       setTimeout(() => {
-        login();
-        navigate('/');
+        navigate('/signin');
       }, 1000);
 
       console.log({
@@ -65,29 +70,13 @@ export default function SignIn() {
   };
 
   return (
-    <Container component="main" maxWidth="xs">
+    <>
       {/* Title */}
-      <ViewTitle IconComponent={LockOutlined} title="로그인" />
+      <ViewTitle IconComponent={LockOutlined} title="비밀번호 재설정" />
 
       {/* Form */}
       <Box component="form" noValidate autoComplete="off" onSubmit={handleSubmit} sx={{ mt: 3 }}>
         <Grid container spacing={2}>
-          {/* Id */}
-          <Grid item xs={12}>
-            <TextField
-              required
-              fullWidth
-              id="id"
-              label="아이디"
-              name="id"
-              inputProps={{ maxLength: 50 }}
-              onChange={handleChange}
-              onBlur={validateForm}
-              error={submitted && formError.id}
-              helperText={submitted && formError.id && '아이디는 필수항목 입니다.'}
-            />
-          </Grid>
-          
           {/* Password */}
           <Grid item xs={12}>
             <TextField
@@ -101,7 +90,36 @@ export default function SignIn() {
               onChange={handleChange}
               onBlur={validateForm}
               error={submitted && formError.password}
-              helperText={submitted && formError.password && '비밀번호는 필수항목 입니다.'}
+              helperText={
+                submitted &&
+                formError.password &&
+                (!formData.password
+                  ? '비밀번호는 필수항목 입니다.'
+                  : formData.password.length < 8 && '비밀번호는 영문 기준 8자 이상 입니다.')
+              }
+            />
+          </Grid>
+
+          {/* Password check */}
+          <Grid item xs={12}>
+            <TextField
+              required
+              fullWidth
+              name="passwordCheck"
+              label="비밀번호 확인"
+              type="password"
+              id="passwordCheck"
+              inputProps={{ maxLength: 50 }}
+              onChange={handleChange}
+              onBlur={validateForm}
+              error={submitted && formError.passwordCheck}
+              helperText={
+                submitted &&
+                formError.passwordCheck &&
+                (!formData.passwordCheck
+                  ? '비밀번호 확인은 필수항목 입니다.'
+                  : formData.password !== formData.passwordCheck && '비밀번호와 일치하지 않습니다.')
+              }
             />
           </Grid>
         </Grid>
@@ -114,37 +132,27 @@ export default function SignIn() {
           size="large"
           sx={{ mt: 3, mb: 2 }}
         >
-          로그인
+          비밀번호 재설정
         </Button>
-        
+              
         {/* Controll */}
-        <Grid
-          container
-          spacing={3}
-          sx={{
-            justifyContent: 'center',
-          }}
-        >
+        <Grid container>
           {/* Forgot id */}
-          <Grid item>
+          <Grid item xs>
             <Link href="/findid" variant="body2">
               아이디 찾기
             </Link>
           </Grid>
 
-          {/* Forgot password */}
-          <Grid item>
-            <Link href="/findpw" variant="body2">
-              비밀번호 찾기
+          {/* Sign in */}
+          <Box sx={{ textAlign: 'right' }}>
+            <Typography variant="body2" sx={{ display: 'inline' }}>
+              이미 계정이 있으신가요?
+            </Typography>
+            <Link href="/signin" variant="body2" sx={{ ml: 1 }}>
+              로그인
             </Link>
-          </Grid>
-
-          {/* Sign up */}
-          <Grid item>
-            <Link href="/signup" variant="body2">
-              회원가입
-            </Link>
-          </Grid>
+          </Box>
         </Grid>
       </Box>
 
@@ -153,10 +161,10 @@ export default function SignIn() {
         anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
         open={snackbarOpen}
         onClose={() => setSnackbarOpen(false)}
-        message="로그인에 성공하였습니다."
+        message="비밀번호 재설정에 성공하였습니다."
         autoHideDuration={1000}
         key={'snackbar'}
       />
-    </Container>
+    </>
   );
 }

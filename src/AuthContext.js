@@ -31,7 +31,7 @@ export const AuthProvider = ({ children }) => {
         open={snackbarOpen}
         onClose={() => setSnackbarOpen(false)}
         message="Log out success"
-        autoHideDuration={500}
+        autoHideDuration={1000}
         key={'snackbar'}
       />
     </AuthContext.Provider>

@@ -42,11 +42,11 @@ export default function Home({
         size="small"
         sx={{
           minWidth: '50px',
-          backgroundColor: 'rgba(0, 0, 0, .5)',
+          bgcolor: 'rgba(0, 0, 0, .5)',
           color: 'common.white',
           borderRight: '1px solid rgba(255, 255, 255, .2)',
           '&:hover' : {
-            backgroundColor: 'rgba(0, 0, 0, .65)',
+            bgcolor: 'rgba(0, 0, 0, .65)',
             color: 'common.white',
             borderRight: '1px solid rgba(255, 255, 255, .2)',
           },
@@ -67,7 +67,7 @@ export default function Home({
           <Grid className='custom-card-grid' item key={card.id} md={6}>
             <Card
               sx={{
-                backgroundColor: selectedSteps[activeStep].includes(card.id) ?
+                bgcolor: selectedSteps[activeStep].includes(card.id) ?
                 'rgba(0, 0, 0, .6)' : 'rgba(0, 0, 0, .5)'
               }}
               onClick={() => handleCardSelection(activeStep, card.id)}
@@ -98,11 +98,11 @@ export default function Home({
           size="small"
           sx={{
             minWidth: '50px',
-            backgroundColor: 'rgba(0, 0, 0, .5)',
+            bgcolor: 'rgba(0, 0, 0, .5)',
             color: 'common.white',
             borderLeft: '1px solid rgba(255, 255, 255, .2)',
             '&:hover' : {
-              backgroundColor: 'rgba(0, 0, 0, .65)',
+              bgcolor: 'rgba(0, 0, 0, .65)',
               color: 'common.white',
               borderLeft: '1px solid rgba(255, 255, 255, .2)',
             },
@@ -121,11 +121,11 @@ export default function Home({
           size="small"
           sx={{
             minWidth: '50px',
-            backgroundColor: 'rgba(0, 0, 0, .5)',
+            bgcolor: 'rgba(0, 0, 0, .5)',
             color: 'common.white',
             borderLeft: '1px solid rgba(255, 255, 255, .2)',
             '&:hover' : {
-              backgroundColor: 'rgba(0, 0, 0, .65)',
+              bgcolor: 'rgba(0, 0, 0, .65)',
               color: 'common.white',
               borderLeft: '1px solid rgba(255, 255, 255, .2)',
             },
