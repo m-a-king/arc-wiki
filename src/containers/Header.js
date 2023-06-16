@@ -16,10 +16,12 @@ export default function Header({ activeStep, selectedSteps }) {
   return (
     <header>
       <Toolbar
+        variant="dense"
         sx={{
           justifyContent: 'space-between',
-          borderBottom: 1,
-          borderColor: 'divider',
+          minHeight: 115,
+          backgroundColor: 'rgba(0, 0, 0, .5)',
+          color: 'common.white',
         }}
       >
         {/* Logo */}

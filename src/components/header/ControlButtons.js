@@ -23,8 +23,9 @@ export default function ControlButtons() {
             variant="text"
             color="inherit"
             size="small"
+            sx={{ ml: 2 }}
           >
-            My page
+            마이페이지
           </Button>
 
           {/* Log out */}
@@ -32,9 +33,10 @@ export default function ControlButtons() {
             variant="text"
             color="inherit"
             size="small"
+            sx={{ ml: 2 }}
             onClick={() => logout()}
           >
-            Log out
+            로그아웃
           </Button>
         </>
       ) : (
@@ -45,8 +47,9 @@ export default function ControlButtons() {
             variant="text"
             color="inherit"
             size="small"
+            sx={{ ml: 2 }}
           >
-            Sign up
+            회원가입
           </Button>
 
           {/* Sign in */}
@@ -55,8 +58,9 @@ export default function ControlButtons() {
             variant="text"
             color="inherit"
             size="small"
+            sx={{ ml: 2 }}
           >
-            Sign in
+            로그인
           </Button>
         </>
       )}

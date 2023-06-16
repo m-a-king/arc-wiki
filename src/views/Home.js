@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { useEffect, useState } from 'react';
 import {
   Box,
   Button,
@@ -13,6 +14,7 @@ import {
   ArrowForwardIos,
   Search,
 } from '@mui/icons-material';
+import stepCards from '../data/stepCards.json';
 
 export default function Home({
   activeStep,
@@ -21,39 +23,10 @@ export default function Home({
   handleCardSelection,
   resetSelectedSteps,
 }) {
-  const stepCards = [
-    [
-      { id: 1, title: 'Step 1 Heading 1', content: 'Step 1 Description 1' },
-      { id: 2, title: 'Step 1 Heading 2', content: 'Step 1 Description 2' },
-      { id: 3, title: 'Step 1 Heading 3', content: 'Step 1 Description 3' },
-      { id: 4, title: 'Step 1 Heading 4', content: 'Step 1 Description 4' },
-      { id: 5, title: 'Step 1 Heading 5', content: 'Step 1 Description 5' },
-      { id: 6, title: 'Step 1 Heading 6', content: 'Step 1 Description 6' },
-      { id: 7, title: 'Step 1 Heading 7', content: 'Step 1 Description 7' },
-      { id: 8, title: 'Step 1 Heading 8', content: 'Step 1 Description 8' },
-    ],
-    [
-      { id: 9, title: 'Step 2 Heading 1', content: 'Step 2 Description 1' },
-      { id: 10, title: 'Step 2 Heading 2', content: 'Step 2 Description 2' },
-      { id: 11, title: 'Step 2 Heading 3', content: 'Step 2 Description 3' },
-      { id: 12, title: 'Step 2 Heading 4', content: 'Step 2 Description 4' },
-      { id: 13, title: 'Step 2 Heading 5', content: 'Step 2 Description 5' },
-      { id: 14, title: 'Step 2 Heading 6', content: 'Step 2 Description 6' },
-      { id: 15, title: 'Step 2 Heading 7', content: 'Step 2 Description 7' },
-      { id: 16, title: 'Step 2 Heading 8', content: 'Step 2 Description 8' },
-    ],
-    [
-      { id: 17, title: 'Step 3 Heading 1', content: 'Step 3 Description 1' },
-      { id: 18, title: 'Step 3 Heading 2', content: 'Step 3 Description 2' },
-      { id: 19, title: 'Step 3 Heading 3', content: 'Step 3 Description 3' },
-      { id: 20, title: 'Step 3 Heading 4', content: 'Step 3 Description 4' },
-      { id: 21, title: 'Step 3 Heading 5', content: 'Step 3 Description 5' },
-      { id: 22, title: 'Step 3 Heading 6', content: 'Step 3 Description 6' },
-      { id: 23, title: 'Step 3 Heading 7', content: 'Step 3 Description 7' },
-      { id: 24, title: 'Step 3 Heading 8', content: 'Step 3 Description 8' },
-    ],
-  ];
-  const cards = stepCards[activeStep];
+  const [cards, setCards] = useState([]);
+  useEffect(() => {
+    setCards(stepCards[activeStep]);
+  }, [activeStep]);
 
   return (
     <Box
@@ -67,7 +40,21 @@ export default function Home({
       <Button
         variant="outlined"
         size="small"
-        sx={{ minWidth: '50px' }}
+        sx={{
+          minWidth: '50px',
+          backgroundColor: 'rgba(0, 0, 0, .5)',
+          color: 'common.white',
+          borderRight: '1px solid rgba(255, 255, 255, .2)',
+          '&:hover' : {
+            backgroundColor: 'rgba(0, 0, 0, .65)',
+            color: 'common.white',
+            borderRight: '1px solid rgba(255, 255, 255, .2)',
+          },
+          '&.Mui-disabled' : {
+            color: '#ccc',
+            borderRight: '1px solid rgba(255, 255, 255, .2)',
+          },
+        }}
         disabled={activeStep === 0}
         onClick={() => setActiveStep(activeStep - 1)}
       >
@@ -75,28 +62,27 @@ export default function Home({
       </Button>
 
       {/* Category */}
-      <Grid container spacing={1}>
+      <Grid container>
         {cards.map((card) => (
-          <Grid item key={card.id} md={6}>
+          <Grid className='custom-card-grid' item key={card.id} md={6}>
             <Card
               sx={{
-                height: '100%',
-                display: 'flex',
-                flexDirection: 'row',
-                opacity: selectedSteps[activeStep].includes(card.id) ? 0.5 : 1,
+                backgroundColor: selectedSteps[activeStep].includes(card.id) ?
+                'rgba(0, 0, 0, .6)' : 'rgba(0, 0, 0, .5)'
               }}
               onClick={() => handleCardSelection(activeStep, card.id)}
             >
-              <CardMedia
-                component="img"
-                sx={{ width: 100 }}
-                image="https://source.unsplash.com/random?wallpapers"
-              />
-              <CardContent sx={{ flexGrow: 1 }}>
-                <Typography gutterBottom variant="h5" component="h2">
+              {/* Image */}
+              <CardContent>
+                <CardMedia component="img" image={card.url} />
+              </CardContent>
+
+              {/* Desc */}
+              <CardContent>
+                <Typography gutterBottom variant="button" sx={{ fontWeight: 'bold' }}>
                   {card.title}
                 </Typography>
-                <Typography>
+                <Typography variant="body2">
                   {card.content}
                 </Typography>
               </CardContent>
@@ -110,7 +96,21 @@ export default function Home({
         <Button
           variant="outlined"
           size="small"
-          sx={{ minWidth: '50px' }}
+          sx={{
+            minWidth: '50px',
+            backgroundColor: 'rgba(0, 0, 0, .5)',
+            color: 'common.white',
+            borderLeft: '1px solid rgba(255, 255, 255, .2)',
+            '&:hover' : {
+              backgroundColor: 'rgba(0, 0, 0, .65)',
+              color: 'common.white',
+              borderLeft: '1px solid rgba(255, 255, 255, .2)',
+            },
+            '&.Mui-disabled' : {
+              color: '#ccc',
+              borderLeft: '1px solid rgba(255, 255, 255, .2)',
+            },
+          }}
           onClick={() => setActiveStep(activeStep + 1)}
         >
           <ArrowForwardIos />
@@ -119,7 +119,21 @@ export default function Home({
         <Button
           variant="outlined"
           size="small"
-          sx={{ minWidth: '50px' }}
+          sx={{
+            minWidth: '50px',
+            backgroundColor: 'rgba(0, 0, 0, .5)',
+            color: 'common.white',
+            borderLeft: '1px solid rgba(255, 255, 255, .2)',
+            '&:hover' : {
+              backgroundColor: 'rgba(0, 0, 0, .65)',
+              color: 'common.white',
+              borderLeft: '1px solid rgba(255, 255, 255, .2)',
+            },
+            '&.Mui-disabled' : {
+              color: '#ccc',
+              borderLeft: '1px solid rgba(255, 255, 255, .2)',
+            },
+          }}
           onClick={() => {
             // Add your submit logic here
             console.log('Selected cards:', selectedSteps);

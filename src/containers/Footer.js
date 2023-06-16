@@ -8,7 +8,7 @@ import {
 
 function Copyright() {
   return (
-    <Typography variant="body2" color="text.secondary">
+    <Typography variant="body2" sx={{ color: 'grey.400' }}>
       {'Copyright © '}
       <Link color="inherit" href="https://github.com/m-a-king/arc-wiki">
         arc-wiki
@@ -25,12 +25,10 @@ export default function Footer() {
       <Box
         component="footer"
         sx={{
+          backgroundColor: 'rgba(0, 0, 0, .5)',
+          color: 'common.white',
           py: 3,
           px: 2,
-          backgroundColor: (theme) =>
-            theme.palette.mode === 'light'
-              ? theme.palette.grey[200]
-              : theme.palette.grey[800],
         }}
       >
         <Container maxWidth="md">

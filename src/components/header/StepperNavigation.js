@@ -17,7 +17,18 @@ export default function StepperNavigation({ steps, activeStep, selectedSteps }) 
       }}
     >
       {steps.map((label, index) => (
-        <Step key={label}>
+        <Step
+          key={label}
+          sx={{
+            '& .MuiStepLabel-label.MuiStepLabel-alternativeLabel': {
+                color: 'common.white',
+                fontWeight: 200,
+            },
+            '& .MuiStepLabel-label.Mui-active.MuiStepLabel-alternativeLabel': {
+                fontWeight: 500,
+            },
+          }}
+        >
           <StepLabel>{label + ' (' + selectedSteps[index].length + ')'}</StepLabel>
         </Step>
       ))}

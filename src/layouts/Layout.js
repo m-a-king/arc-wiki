@@ -13,7 +13,32 @@ import Footer from "../containers/Footer";
 import Home from '../views/Home';
 
 export default function Layout() {
-  const defaultTheme = createTheme();
+  const defaultTheme = createTheme({
+    typography: {
+      fontFamily: [
+        'Pretendard',
+        '-apple-system',
+        'Roboto',
+        'sans-serif',
+      ].join(','),
+      fontSize: 15,
+      fontWeightRegular: 200,
+      fontWeightBold: 500,
+    },
+    palette: {
+      primary: {
+        main: '#000',
+        contrastText: '#fff',
+      },
+      secondary: {
+        main: '#fff',
+        contrastText: '#000',
+      },
+      common: {
+        white: '#fff',
+      },
+    },
+  });
   const location = useLocation();
   const [activeStep, setActiveStep] = useState(0);
   const [selectedSteps, setSelectedSteps] = useState([[], [], []]);
@@ -48,6 +73,9 @@ export default function Layout() {
           display: 'flex',
           flexDirection: 'column',
           minHeight: '100vh',
+          backgroundImage: 'url(/img/main_banner_left_01_230605.jpg)',
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
         }}
       >
         <Header

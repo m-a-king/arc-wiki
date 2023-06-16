@@ -31,21 +31,36 @@ export default function SearchField() {
         sx={{
           display: 'flex',
           flexDirection: 'row',
+          '& .MuiFormLabel-root': {
+            color: '#ccc',
+            fontSize: '.875rem',
+          }
         }}
       >
         <Grow in={openSearch}>
           <TextField
             variant="standard"
+            color="secondary"
             size="small"
-            label="Search"
+            label="키워드 검색"
             value={searchText}
-            sx={{ ml: 2 }}
+            sx={{
+              mt: '-0.75rem',
+              ml: 2,
+              '& .MuiInputBase-root': {
+                  color: 'common.white',
+                  fontSize: '.875rem',
+              },
+              '& .MuiInputBase-root:before, & .MuiInputBase-root:hover:not(.Mui-disabled, .Mui-error):before': {
+                  borderBottom: '1px solid #ccc',
+              },
+            }}
             onChange={(e) => setSearchText(e.target.value)}
             inputProps={{ 'aria-label': 'search' }}
           />
         </Grow>
-        <IconButton onClick={handleSearchClick}>
-          <Search />
+        <IconButton sx={{ ml: 1 }} onClick={handleSearchClick}>
+          <Search color="secondary" />
         </IconButton>
       </Box>
     </ClickAwayListener>
