@@ -69,7 +69,7 @@ export default function Comments() {
   ]);
   
   return (
-    <Box sx={{ py: 8 }}>
+    <Box>
       <DataTable        
         columns={columns}
         rows={rows}

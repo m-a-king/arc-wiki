@@ -6,6 +6,9 @@ import SignIn from './views/SignIn';
 import FindId from './views/FindId';
 import FindPw from './views/FindPw';
 import MyPage from './views/MyPage';
+import Projucts from './views/Projucts';
+import Projuct from './views/Projuct';
+import Review from './views/Review';
 
 function Router() {
   return < BrowserRouter>
@@ -17,6 +20,9 @@ function Router() {
         <Route path="/findid" element={<FindId />} />
         <Route path="/findpw" element={<FindPw />} />
         <Route path="/mypage" element={<MyPage />} />
+        <Route path="/products" element={<Projucts />} />
+        <Route path="/product" element={<Projuct />} />
+        <Route path="/review" element={<Review />} />
         <Route path ="*" element = {<div>There's nothing here!</div>} />
       </Route>
     </Routes>

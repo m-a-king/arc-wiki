@@ -70,7 +70,7 @@ export default function SignIn() {
       <ViewTitle IconComponent={LockOutlined} title="로그인" />
 
       {/* Form */}
-      <Box component="form" noValidate autoComplete="off" onSubmit={handleSubmit} sx={{ mt: 3 }}>
+      <Box component="form" noValidate autoComplete="off" onSubmit={handleSubmit}>
         <Grid container spacing={2}>
           {/* Id */}
           <Grid item xs={12}>

@@ -1,11 +1,15 @@
 import * as React from 'react';
 import { useState } from "react";
-import Box from '@mui/material/Box';
-import Tab from '@mui/material/Tab';
-import TabContext from '@mui/lab/TabContext';
-import TabList from '@mui/lab/TabList';
-import TabPanel from '@mui/lab/TabPanel';
-import PersonOutlineOutlinedIcon from '@mui/icons-material/PersonOutlineOutlined';
+import {
+  Box,
+  Tab,
+} from '@mui/material';
+import {
+  TabContext,
+  TabList,
+  TabPanel,
+} from '@mui/lab';
+import { PersonOutlineOutlined } from '@mui/icons-material';
 import ViewTitle from '../components/ViewTitle';
 import Profile from "../components/mypage/Profile";
 import Scraps from "../components/mypage/Scraps";
@@ -17,9 +21,9 @@ export default function MyPage() {
   const [value, setValue] = useState('1');
 
   return (
-    <Box sx={{ flex: 1, pt: 3 }}>
+    <Box sx={{ flex: 1 }}>
       {/* Title */}
-      <ViewTitle IconComponent={PersonOutlineOutlinedIcon} title="마이페이지" />
+      <ViewTitle IconComponent={PersonOutlineOutlined} title="마이페이지" />
       
       {/* Tab */}
       <TabContext value={value}>
@@ -30,7 +34,7 @@ export default function MyPage() {
           variant="scrollable"
           scrollButtons="auto"
           onChange={(e, newValue) => setValue(newValue)}
-          sx={{ mt: 3 }}
+          sx={{ mb: 6 }}
         >
           <Tab label="프로필" value="1" />
           <Tab label="스크랩" value="2" />

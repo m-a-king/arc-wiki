@@ -120,7 +120,7 @@ export default function Reviews() {
   ]);
   
   return (
-    <Box sx={{ py: 8 }}>
+    <Box>
       <DataTable
         columns={columns}
         rows={rows}

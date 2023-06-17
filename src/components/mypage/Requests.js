@@ -95,7 +95,7 @@ export default function Requests() {
   };
   
   return (
-    <Box sx={{ py: 8 }}>
+    <Box>
       {/* Table */}
       <DataTable
         columns={columns}

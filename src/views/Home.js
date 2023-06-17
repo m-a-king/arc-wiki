@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import {
   Box,
   Button,
@@ -23,6 +24,7 @@ export default function Home({
   handleCardSelection,
   resetSelectedSteps,
 }) {
+  const navigate = useNavigate();
   const [cards, setCards] = useState([]);
   useEffect(() => {
     setCards(stepCards[activeStep]);
@@ -137,7 +139,7 @@ export default function Home({
           onClick={() => {
             // Add your submit logic here
             console.log('Selected cards:', selectedSteps);
-            resetSelectedSteps();
+            navigate('/products');
           }}
         >
           <Search />

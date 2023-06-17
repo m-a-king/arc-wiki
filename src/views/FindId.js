@@ -73,7 +73,7 @@ export default function FindId() {
 
       {foundId ? (
         <>
-          <Box sx={{ mt: 3, width: '100%' }}>
+          <Box>
             <Grid container spacing={2}>
               {/* Found id */}
               <Grid item xs={12}>
@@ -113,7 +113,7 @@ export default function FindId() {
         ) : (
         <>
           {/* Form */}
-          <Box component="form" noValidate autoComplete="off" onSubmit={handleSubmit} sx={{ mt: 3 }}>
+          <Box component="form" noValidate autoComplete="off" onSubmit={handleSubmit}>
             <Grid container spacing={2}>
               {/* Name */}
               <Grid item xs={12}>

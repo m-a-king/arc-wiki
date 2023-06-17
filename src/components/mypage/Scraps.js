@@ -143,7 +143,7 @@ export default function Scraps() {
   };
     
   return (
-    <Box sx={{ py: 8 }}>
+    <Box>
       <ProductTable
         columns={columns}
         rows={rows}

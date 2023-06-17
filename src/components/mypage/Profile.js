@@ -89,7 +89,7 @@ export default function MyPage() {
   };
 
   return (
-    <Container maxWidth="xs" sx={{ py: 8 }}>
+    <Container maxWidth="xs">
       <Box
         sx={{
           display: 'flex',

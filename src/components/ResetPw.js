@@ -75,7 +75,7 @@ export default function ResetPw() {
       <ViewTitle IconComponent={LockOutlined} title="비밀번호 재설정" />
 
       {/* Form */}
-      <Box component="form" noValidate autoComplete="off" onSubmit={handleSubmit} sx={{ mt: 3 }}>
+      <Box component="form" noValidate autoComplete="off" onSubmit={handleSubmit}>
         <Grid container spacing={2}>
           {/* Password */}
           <Grid item xs={12}>
