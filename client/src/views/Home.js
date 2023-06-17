@@ -15,7 +15,7 @@ import {
   ArrowForwardIos,
   Search,
 } from '@mui/icons-material';
-import stepCards from '../data/stepCards.json';
+import HTTP from '../apiClient';
 
 export default function Home({
   activeStep,
@@ -26,8 +26,16 @@ export default function Home({
 }) {
   const navigate = useNavigate();
   const [cards, setCards] = useState([]);
+
   useEffect(() => {
-    setCards(stepCards[activeStep]);
+    HTTP.get('/api/categories')
+      .then((response) => {
+        // setCategories(response.data);
+        console.log(response.data);
+      })
+      .catch((error) => {
+        console.error('There was an error!', error);
+      });
   }, [activeStep]);
 
   return (

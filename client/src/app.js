@@ -1,6 +1,6 @@
-import './assets/App.css';
-import Router from './Router';
-import AuthProvider from './AuthContext';
+import './assets/app.css';
+import Router from './router';
+import AuthProvider from './authContext';
 
 export default function App() {
   return (

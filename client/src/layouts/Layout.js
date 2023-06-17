@@ -1,4 +1,4 @@
-import '../assets/Style.scss';
+import '../assets/style.scss';
 import * as React from 'react';
 import { useState } from 'react';
 import { useLocation, Outlet } from "react-router-dom";
