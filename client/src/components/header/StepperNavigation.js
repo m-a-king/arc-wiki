@@ -1,14 +1,34 @@
 import * as React from 'react';
 import {
+  useEffect,
+  useState,
+} from 'react';
+import {
   Step,
   StepLabel,
   Stepper,
 } from '@mui/material';
+import { useObserver } from 'mobx-react';
+import Stores from '../../stores';
+import HTTP from '../../apiClient';
 
-export default function StepperNavigation({ steps, activeStep, selectedSteps }) {
-  return (
+export default function StepperNavigation() {
+  // category-groups 조회
+  const [steps, setSteps] = useState([]);
+  useEffect(() => {
+    HTTP.get('/api/category-groups')
+      .then((response) => {
+        setSteps(response.data);
+      })
+      .catch((error) => {
+        console.error('There was an error!', error);
+      });
+  }, []);
+
+  const { stepStore }  = Stores();
+  return useObserver(() => (
     <Stepper
-      activeStep={activeStep}
+      activeStep={stepStore.activeStep}
       alternativeLabel
       sx={{
         width: '100%',
@@ -16,9 +36,9 @@ export default function StepperNavigation({ steps, activeStep, selectedSteps }) 
         py: 3,
       }}
     >
-      {steps.map((label, index) => (
+      {steps.map((step, index) => (
         <Step
-          key={label}
+          key={step.category_group_code}
           sx={{
             '& .MuiStepLabel-label.MuiStepLabel-alternativeLabel': {
                 color: 'common.white',
@@ -29,9 +49,9 @@ export default function StepperNavigation({ steps, activeStep, selectedSteps }) 
             },
           }}
         >
-          <StepLabel>{label + ' (' + selectedSteps[index].length + ')'}</StepLabel>
+          <StepLabel>{step.category_group_title + ' (' + stepStore.selectedSteps[index].length + ')'}</StepLabel>
         </Step>
       ))}
     </Stepper>
-  );
+  ));
 }

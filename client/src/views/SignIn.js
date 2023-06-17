@@ -11,7 +11,7 @@ import {
   TextField,
 } from '@mui/material';
 import { LockOutlined } from '@mui/icons-material';
-import { useAuth } from '../authContext';
+import { useAuth } from '../stores/authContext';
 import ViewTitle from '../components/ViewTitle';
 
 export default function SignIn() {

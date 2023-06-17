@@ -1,6 +1,6 @@
 import './assets/app.css';
 import Router from './router';
-import AuthProvider from './authContext';
+import AuthProvider from './stores/authContext';
 
 export default function App() {
   return (

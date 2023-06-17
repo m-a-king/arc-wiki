@@ -9,8 +9,7 @@ import StepperNavigation from '../components/header/StepperNavigation';
 import SearchField from '../components/header/SearchField';
 import ControlButtons from '../components/header/ControlButtons';
 
-export default function Header({ activeStep, selectedSteps }) {
-  const steps = ['Collections', 'Product modifiers', 'Product family'];
+export default function Header() {
   const location = useLocation();
 
   return (
@@ -31,11 +30,7 @@ export default function Header({ activeStep, selectedSteps }) {
 
         {/* Stepper */}
         {location.pathname === '/' && (
-          <StepperNavigation
-            steps={steps}
-            activeStep={activeStep}
-            selectedSteps={selectedSteps}
-          />
+          <StepperNavigation />
         )}
 
         {/* Control */}

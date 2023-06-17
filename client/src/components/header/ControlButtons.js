@@ -3,7 +3,7 @@ import {
   Box,
   Button,
 } from '@mui/material';
-import { useAuth } from '../../authContext';
+import { useAuth } from '../../stores/authContext';
 
 export default function ControlButtons() {
   const { isLoggedIn, logout } = useAuth();

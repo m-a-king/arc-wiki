@@ -1,6 +1,5 @@
 import '../assets/style.scss';
 import * as React from 'react';
-import { useState } from 'react';
 import { useLocation, Outlet } from "react-router-dom";
 import {
   Box,
@@ -40,30 +39,6 @@ export default function Layout() {
     },
   });
   const location = useLocation();
-  const [activeStep, setActiveStep] = useState(0);
-  const [selectedSteps, setSelectedSteps] = useState([[], [], []]);
-
-  const handleCardSelection = (stepIndex, cardId) => {
-    const isSelected = selectedSteps[stepIndex].includes(cardId);
-  
-    if (isSelected) {
-      setSelectedSteps(
-        selectedSteps.map((step, index) =>
-          index === stepIndex ? step.filter((id) => id !== cardId) : step
-        )
-      );
-    } else {
-      setSelectedSteps(
-        selectedSteps.map((step, index) =>
-          index === stepIndex ? [...step, cardId] : step
-        )
-      );
-    }
-  };
-
-  const resetSelectedSteps = () => {
-    setSelectedSteps((prev) => prev.map(() => []));
-  };
 
   return (
     <ThemeProvider theme={defaultTheme}>
@@ -78,10 +53,7 @@ export default function Layout() {
           backgroundPosition: 'center',
         }}
       >
-        <Header
-          activeStep={activeStep}
-          selectedSteps={selectedSteps}
-        />
+        <Header />
         <Box
             sx={{
               display: 'flex',
@@ -100,13 +72,7 @@ export default function Layout() {
             maxWidth="lg"
           >
             {location.pathname === "/" ? (
-              <Home
-                activeStep={activeStep}
-                setActiveStep={setActiveStep}
-                selectedSteps={selectedSteps}
-                handleCardSelection={handleCardSelection}
-                resetSelectedSteps={resetSelectedSteps}
-              />
+              <Home />
             ) : (
               <Outlet />
             )}

@@ -27,6 +27,7 @@ export default function Home({
   const navigate = useNavigate();
   const [cards, setCards] = useState([]);
 
+  // categories 조회
   useEffect(() => {
     HTTP.get('/api/categories')
       .then((response) => {
