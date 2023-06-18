@@ -2,22 +2,23 @@ import { DataTypes } from 'sequelize';
 import sequelize from '../config/db.js';
 
 const Category = sequelize.define('Category', {
-  category_code: {
+  code: {
+    field: 'category_code',
     type: DataTypes.STRING,
-    primaryKey: true
+    primaryKey: true,
   },
-  category_group_code: {
-    type: DataTypes.STRING
+  title: {
+    field: 'category_title',
+    type: DataTypes.STRING,
   },
-  category_title: {
-    type: DataTypes.STRING
-  },
-  category_description: {
+  desc: {
+    field: 'category_description',
     type: DataTypes.TEXT
   },
-  category_icon: {
+  icon: {
+    field: 'category_icon',
     type: DataTypes.STRING
-  }
+  },
 }, {
   tableName: 'categories',
   timestamps: false

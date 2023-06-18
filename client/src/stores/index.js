@@ -1,7 +1,7 @@
-import stepStore from './stepStore';
+import categoryStore from './categoryStore';
 
 const Stores = () => ({ 
-  stepStore
+  categoryStore
 });
 
 export default Stores;

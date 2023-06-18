@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { useLocation } from 'react-router-dom';
 import {
   Box,
   Toolbar,
@@ -10,8 +9,6 @@ import SearchField from '../components/header/SearchField';
 import ControlButtons from '../components/header/ControlButtons';
 
 export default function Header() {
-  const location = useLocation();
-
   return (
     <header>
       <Toolbar
@@ -29,9 +26,7 @@ export default function Header() {
         </Box>
 
         {/* Stepper */}
-        {location.pathname === '/' && (
-          <StepperNavigation />
-        )}
+        <StepperNavigation />
 
         {/* Control */}
         <Box

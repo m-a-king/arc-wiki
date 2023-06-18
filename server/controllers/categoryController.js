@@ -15,11 +15,12 @@ export const getCategories = async (req, res) => {
   try {
     const categories = await Category.findAll({
       where: {
-        category_group_code: req.params.category_group_code
+        category_group_code: req.query.categoryGroupCode
       },
       include: [{
         model: CategoryGroup,
-        required: true
+        required: true,
+        as: 'group',
       }]
     });
     res.json(categories);

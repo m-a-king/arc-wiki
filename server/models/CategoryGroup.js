@@ -2,12 +2,14 @@ import { DataTypes } from 'sequelize';
 import sequelize from '../config/db.js';
 
 const CategoryGroup = sequelize.define('CategoryGroup', {
-  category_group_code: {
+  code: {
+    field: 'category_group_code',
     type: DataTypes.STRING,
-    primaryKey: true
+    primaryKey: true,
   },
-  category_group_title: {
-    type: DataTypes.STRING
+  title: {
+    field: 'category_group_title',
+    type: DataTypes.STRING,
   }
 }, {
   tableName: 'category_groups',
