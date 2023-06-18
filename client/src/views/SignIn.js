@@ -22,7 +22,7 @@ export default function SignIn() {
   const [submitted, setSubmitted] = useState(false);
   const [snackbarOpen, setSnackbarOpen] = useState(false);
   
-  // Define form error state
+  // Define initial form state
   const [formData, setFormData] = useState({
     id: '',
     password: '',

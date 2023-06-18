@@ -66,6 +66,27 @@ export const signIn = async (req, res) => {
       console.log(error);
     }
   };
+  
+  export const findId = async (req, res) => {
+    try {
+      const { name, email } = req.body;
+  
+      const user = await User.findOne({
+        where: {
+          name: name,
+          email: email
+        }
+      });
+      if (!user) {
+        return res.status(404).json({ message: 'User not found.' });
+      }
+  
+      res.status(200).json({ id: user.id });
+    } catch (error) {
+      res.status(500).json({ message: 'Something went wrong.' });
+      console.log(error);
+    }
+  };
 
   export const getUser = async (req, res) => {
     try {

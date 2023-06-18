@@ -11,28 +11,38 @@ import {
 } from '@mui/material';
 import { LockOutlined } from '@mui/icons-material';
 import ViewTitle from '../components/ViewTitle';
+import HTTP from '../apiClient';
 
 export default function FindId() {
   const [submitted, setSubmitted] = useState(false);
-  const [foundId, setFoundId] = useState('');
+
+  // Define initial form state
   const [formData, setFormData] = useState({
     name: '',
     email: '',
   });
+  
+  // Define form error state
   const [formError, setFormError] = React.useState({
     name: false,
     email: false,
   });
+
+  // Define found form state
+  const [foundId, setFoundId] = useState('');
   
+  // Function to handle form change
   const handleChange = event => {
     setFormData({ ...formData, [event.target.name]: event.target.value });
   };
 
+  // Function to check if email is valid
   const isValidEmail = email => {
     const re = /^[\w.%+-]+@[\w.-]+\.[A-Za-z]{2,6}$/;
     return re.test(String(email).toLowerCase());
   };
 
+  // Function to validate form
   const validateForm = () => {
     let errors = {};
 
@@ -42,6 +52,7 @@ export default function FindId() {
       }
     }
 
+    // Check email
     if (formData.email && !isValidEmail(formData.email)) {
       errors.email = true;
     }
@@ -50,19 +61,21 @@ export default function FindId() {
     return Object.keys(errors).length === 0;
   };
 
-  const handleSubmit = (event) => {
+  // Function to handle form submit
+  const handleSubmit = async (event) => {
     event.preventDefault();
     setSubmitted(true);
 
     if (validateForm()) {
       setSubmitted(false);
 
-      const foundId = 'user123';
-      setFoundId(foundId);
-
-      console.log({
-        ...formData,
-      });
+      try {
+        const response = await HTTP.post('/api/findId', formData);
+        setFoundId(response.data.id);
+      } catch (error) {
+        console.error(error);
+        alert(error.response.data.message);
+      }
     }
   };
 
