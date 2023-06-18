@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { useState } from "react";
+import { useState, useEffect, useCallback } from "react";
 import {
   Box,
   Button,
@@ -8,20 +8,27 @@ import {
   Snackbar,
   TextField,
 } from '@mui/material';
+import Stores from '../../stores';
+import HTTP from '../../apiClient';
 
 export default function MyPage() {
-  const initialFormData = {
-    id: 'making',
-    password: '',
-    passwordCheck: '',
-    name: '조재중',
-    nickname: '부재중',
-    email: 'making@kumoh.co.kr',
-  };
+  const { authStore } = Stores();
+
+  const [editMode, setEditMode] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [snackbarOpen, setSnackbarOpen] = useState(false);
-  const [editMode, setEditMode] = useState(false);
-  const [formData, setFormData] = useState(initialFormData);
+
+  // Define initial form state
+  const [formData, setFormData] = useState({
+    id: '',
+    password: '',
+    passwordCheck: '',
+    name: '',
+    nickname: '',
+    email: '',
+  });
+
+  // Define form error state
   const [formError, setFormError] = useState({
     id: false,
     password: false,
@@ -31,21 +38,43 @@ export default function MyPage() {
     email: false,
   });
 
+  const fetchUser = useCallback(async () => {
+    try {
+      const response = await HTTP.get('/api/user', {
+        headers: {
+          Authorization: `Bearer ${authStore.token}`
+        }
+      });
+      setFormData(response.data);
+    } catch (error) {
+      console.error(error);
+      alert(error.response.data.message);
+    }
+  }, [authStore.token]);
+  
+  useEffect(() => {
+    fetchUser();
+  }, [fetchUser]);
+
+  // Function to handle form change
   const handleChange = event => {
     setFormData({ ...formData, [event.target.name]: event.target.value });
   };
 
+  // Function to handle form cancel
   const handleCancel = () => {
     setSubmitted(false);
     setEditMode(false);
-    setFormData(initialFormData);
+    fetchUser();
   };
 
+  // Function to check if email is valid
   const isValidEmail = email => {
     const re = /^[\w.%+-]+@[\w.-]+\.[A-Za-z]{2,6}$/;
     return re.test(String(email).toLowerCase());
   };
 
+  // Function to validate form
   const validateForm = () => {
     let errors = {};
 
@@ -55,14 +84,17 @@ export default function MyPage() {
       }
     }
 
+    // Check password
     if (formData.password && formData.password.length < 8) {
       errors.password = true;
     }
 
+    // Check password confirmation
     if (formData.password !== formData.passwordCheck) {
       errors.passwordCheck = true;
     }
 
+    // Check email
     if (formData.email && !isValidEmail(formData.email)) {
       errors.email = true;
     }
@@ -71,20 +103,28 @@ export default function MyPage() {
     return Object.keys(errors).length === 0;
   };
 
-  const handleSubmit = (event) => {
+  // Function to handle form submit
+  const handleSubmit = async (event) => {
     event.preventDefault();
     setSubmitted(true);
-
+    
     if (validateForm()) {
       setSubmitted(false);
-      setEditMode(false);
-      setSnackbarOpen(true);
-      
-      setFormData(initialFormData);
 
-      console.log({
-        ...formData,
-      });
+      try {
+        const response = await HTTP.put('/api/user', formData, {
+          headers: {
+            Authorization: `Bearer ${authStore.token}`
+          }
+        });
+        console.log(response.data);
+
+        setEditMode(false);
+        setSnackbarOpen(true);
+        fetchUser();
+      } catch (error) {
+        console.error(error);
+      }
     }
   };
 
@@ -115,7 +155,7 @@ export default function MyPage() {
                 error={submitted && formError.id}
                 helperText={submitted && formError.id && '아이디는 필수항목 입니다.'}
                 InputProps={{
-                  readOnly: !editMode,
+                  readOnly: true,
                 }}
               />
             </Grid>
