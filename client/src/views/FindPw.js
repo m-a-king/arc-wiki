@@ -12,31 +12,38 @@ import {
 import { LockOutlined } from '@mui/icons-material';
 import ViewTitle from '../components/ViewTitle';
 import ResetPw from '../components/ResetPw';
-
+import HTTP from '../apiClient';
 
 export default function FindPw() {
   const [submitted, setSubmitted] = useState(false);
   const [reset, setReset] = useState(false);
+  
+  // Define initial form state
   const [formData, setFormData] = useState({
     id: '',
     name: '',
     email: '',
   });
+  
+  // Define form error state
   const [formError, setFormError] = React.useState({
     id: false,
     name: false,
     email: false,
   });
   
+  // Function to handle form change
   const handleChange = event => {
     setFormData({ ...formData, [event.target.name]: event.target.value });
   };
 
+  // Function to check if email is valid
   const isValidEmail = email => {
     const re = /^[\w.%+-]+@[\w.-]+\.[A-Za-z]{2,6}$/;
     return re.test(String(email).toLowerCase());
   };
 
+  // Function to validate form
   const validateForm = () => {
     let errors = {};
 
@@ -46,6 +53,7 @@ export default function FindPw() {
       }
     }
 
+    // Check email
     if (formData.email && !isValidEmail(formData.email)) {
       errors.email = true;
     }
@@ -54,17 +62,23 @@ export default function FindPw() {
     return Object.keys(errors).length === 0;
   };
 
-  const handleSubmit = (event) => {
+  // Function to handle form submit
+  const handleSubmit = async (event) => {
     event.preventDefault();
     setSubmitted(true);
 
     if (validateForm()) {
       setSubmitted(false);
-      setReset(true);
 
-      console.log({
-        ...formData,
-      });
+      try {
+        const response = await HTTP.post('/api/findPw', formData);
+        console.log(response.data);
+        
+        setReset(true);
+      } catch (error) {
+        console.error(error);
+        alert(error.response.data.message);
+      }
     }
   };
 
@@ -72,7 +86,7 @@ export default function FindPw() {
     <Container component="main" maxWidth="xs">
       {reset ? (
           <>
-            <ResetPw />
+            <ResetPw id={formData.id} />
           </>
         ) : (
           <>

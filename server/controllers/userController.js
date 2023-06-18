@@ -88,6 +88,58 @@ export const signIn = async (req, res) => {
     }
   };
 
+  export const findPw = async (req, res) => {
+    try {
+      const { id, name, email } = req.body;
+  
+      const user = await User.findOne({
+        where: {
+          id: id,
+          name: name,
+          email: email
+        }
+      });
+      if (!user) {
+        return res.status(404).json({ message: 'User not found.' });
+      }
+  
+      res.status(200).json({ message: 'User found. Password reset allowed.' });
+    } catch (error) {
+      res.status(500).json({ message: 'Something went wrong.' });
+      console.log(error);
+    }
+  };
+
+  export const updatePw = async (req, res) => {
+    try {
+      const { id, password } = req.body;
+  
+      const user = await User.findOne({
+        where: {
+          id: id
+        }
+      });
+      if (!user) {
+          return res.status(404).json({ message: 'User not found.' });
+      }
+  
+      const hashedPassword = await bcrypt.hash(password, 12);
+      const updatedUser = await User.update({
+          password: hashedPassword,
+          updateDate: new Date(),
+      }, {
+        where: {
+          id: id
+        }
+      });
+  
+      res.status(200).json(updatedUser);
+    } catch (error) {
+      res.status(500).json({ message: 'Something went wrong.' });
+      console.log(error);
+    }
+  };
+
   export const getUser = async (req, res) => {
     try {
         const { id } = req.user;

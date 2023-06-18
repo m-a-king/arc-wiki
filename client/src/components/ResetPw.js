@@ -12,24 +12,34 @@ import {
 } from '@mui/material';
 import { LockOutlined } from '@mui/icons-material';
 import ViewTitle from './ViewTitle';
+import HTTP from '../apiClient';
 
-export default function ResetPw() {
+export default function ResetPw({ id }) {
   const navigate = useNavigate();
+
   const [submitted, setSubmitted] = useState(false);
   const [snackbarOpen, setSnackbarOpen] = useState(false);
+  
+  // Define initial form state
   const [formData, setFormData] = useState({
+    id: id,
     password: '',
     passwordCheck: '',
   });
+  
+  // Define form error state
   const [formError, setFormError] = React.useState({
+    id: false,
     password: false,
     passwordCheck: false,
   });
   
+  // Function to handle form change
   const handleChange = event => {
     setFormData({ ...formData, [event.target.name]: event.target.value });
   };
 
+  // Function to validate form
   const validateForm = () => {
     let errors = {};
 
@@ -39,10 +49,12 @@ export default function ResetPw() {
       }
     }
 
+    // Check password
     if (formData.password && formData.password.length < 8) {
       errors.password = true;
     }
 
+    // Check password confirmation
     if (formData.password !== formData.passwordCheck) {
       errors.passwordCheck = true;
     }
@@ -51,21 +63,25 @@ export default function ResetPw() {
     return Object.keys(errors).length === 0;
   };
 
-  const handleSubmit = (event) => {
+  // Function to handle form submit
+  const handleSubmit = async (event) => {
     event.preventDefault();
     setSubmitted(true);
 
     if (validateForm()) {
       setSubmitted(false);
-      setSnackbarOpen(true);
       
-      setTimeout(() => {
-        navigate('/signin');
-      }, 1000);
+      try {
+        const response = await HTTP.put('/api/findPw', formData);
+        console.log(response.data);
 
-      console.log({
-        ...formData,
-      });
+        setSnackbarOpen(true);
+        setTimeout(() => {
+          navigate('/signin');
+        }, 1000);
+      } catch (error) {
+        console.error(error);
+      }
     }
   };
 
