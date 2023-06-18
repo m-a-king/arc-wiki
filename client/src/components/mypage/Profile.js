@@ -148,15 +148,15 @@ export default function MyPage() {
                 id="id"
                 label="아이디"
                 name="id"
-                inputProps={{ maxLength: 50 }}
+                inputProps={{
+                  maxLength: 50,
+                  readOnly: true,
+                }}
                 value={formData.id}
                 onChange={handleChange}
                 onBlur={validateForm}
                 error={submitted && formError.id}
                 helperText={submitted && formError.id && '아이디는 필수항목 입니다.'}
-                InputProps={{
-                  readOnly: true,
-                }}
               />
             </Grid>
 
@@ -221,15 +221,15 @@ export default function MyPage() {
                 id="name"
                 label="이름"
                 name="name"
-                inputProps={{ maxLength: 50 }}
+                inputProps={{
+                  maxLength: 50,
+                  readOnly: !editMode,
+                }}
                 value={formData.name}
                 onChange={handleChange}
                 onBlur={validateForm}
                 error={submitted && formError.name}
                 helperText={submitted && formError.name && '이름은 필수항목 입니다.'}
-                InputProps={{
-                  readOnly: !editMode,
-                }}
               />
             </Grid>
 
@@ -241,15 +241,15 @@ export default function MyPage() {
                 id="nickname"
                 label="닉네임"
                 name="nickname"
-                inputProps={{ maxLength: 50 }}
+                inputProps={{
+                  maxLength: 50,
+                  readOnly: !editMode,
+                }}
                 value={formData.nickname}
                 onChange={handleChange}
                 onBlur={validateForm}
                 error={submitted && formError.nickname}
                 helperText={submitted && formError.nickname && '닉네임은 필수항목 입니다.'}
-                InputProps={{
-                  readOnly: !editMode,
-                }}
               />
             </Grid>
 
@@ -261,7 +261,10 @@ export default function MyPage() {
                 id="email"
                 label="이메일"
                 name="email"
-                inputProps={{ maxLength: 100 }}
+                inputProps={{
+                  maxLength: 100,
+                  readOnly: !editMode,
+                }}
                 value={formData.email}
                 onChange={handleChange}
                 onBlur={validateForm}
@@ -273,9 +276,6 @@ export default function MyPage() {
                     ? '이메일은 필수항목 입니다.'
                     : !isValidEmail(formData.email) && '유효하지 않은 이메일 입니다.')
                 }
-                InputProps={{
-                  readOnly: !editMode,
-                }}
               />
             </Grid>
           </Grid>

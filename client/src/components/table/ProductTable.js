@@ -41,7 +41,7 @@ function CustomToolbar({
             onClick={del}
             disabled={selectedRows.length === 0}
           >
-          Delete 
+          삭제 
           </Button>
         )}
         
@@ -51,7 +51,7 @@ function CustomToolbar({
             startIcon={<InsertDriveFileOutlined />}
             onClick={openModal}
           >
-          Add 
+          등록 
           </Button>
         )}
       </Box>
@@ -78,6 +78,9 @@ export default function ProductTable({
         initialState={{
           pagination: {
             paginationModel: { page: 0, pageSize: 10 },
+          },
+          sorting: {
+            sortModel: [{ field: 'createDate', sort: 'desc' }],
           },
         }}
         pageSizeOptions={[10]}

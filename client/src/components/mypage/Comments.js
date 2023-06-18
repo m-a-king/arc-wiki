@@ -4,7 +4,7 @@ import {
   Box,
   Button,
 } from '@mui/material';
-import DataTable from '../DataTable';
+import DataTable from '../table/DataTable';
 
 export default function Comments() {
   const columns = [

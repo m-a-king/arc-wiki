@@ -3,18 +3,26 @@ import { useState } from 'react';
 import {
   Box,
   Button,
-  IconButton,
 } from '@mui/material';
-import {
-  Favorite,
-  FavoriteBorder,
-} from '@mui/icons-material';
-import { pink } from '@mui/material/colors';
-import ProductTable from '../ProductTable';
-import ItemTabs from '../tab/ItemTabs';
+import { ShoppingCartOutlined } from '@mui/icons-material';
+import ViewTitle from '../components/ViewTitle';
+import ItemTabs from '../components/tab/ItemTabs';
+import ProductTable from '../components/table/ProductTable';
+import ProductModal from '../components/modal/ProductModal';
+import { Observer } from "mobx-react-lite";
+import Stores from '../stores';
 
-export default function Scraps() {
+export default function Products() {
+  const { authStore }  = Stores();
+
   const columns = [
+    {
+      field: 'id',
+      headerName: 'id',
+      flex: 1,
+      filterable: false,
+      cellClassName: 'custom-hide-cell',
+    },
     {
       field: 'images',
       headerName: 'images',
@@ -41,23 +49,8 @@ export default function Scraps() {
           >
             {params.value}
           </Button>
-          
-          {/* Scrap */}
-          <IconButton onClick={() => handleScrapToggle(params.id)}>
-            {params.row.scrap ? (
-              <Favorite sx={{ color: pink[500] }} />
-            ) : (
-              <FavoriteBorder sx={{ color: pink[500] }} />
-            )}
-          </IconButton>
         </Box>
       ),
-    },
-    {
-      field: 'scrap',
-      headerName: 'scrap',
-      flex: 1,
-      cellClassName: 'custom-hide-cell',
     },
     {
       field: 'price',
@@ -69,7 +62,7 @@ export default function Scraps() {
 
   const [rows, setRows] = useState([
     {
-      id: 1, title: 'title1', price: '₩1,000', scrap: true,
+      id: 1, title: 'title1', price: '₩1,000',
       images: [
         {id: 1, color: 'red', url: 'https://images.unsplash.com/photo-1551963831-b3b1ca40c98e'},
         {id: 2, color: 'blue', url: 'https://images.unsplash.com/photo-1551782450-a2132b4ba21d'},
@@ -77,7 +70,7 @@ export default function Scraps() {
       ]
     },
     {
-      id: 2, title: 'title2', price: '₩1,000', scrap: true,
+      id: 2, title: 'title2', price: '₩1,000',
       images: [
         {id: 1, color: 'red', url: 'https://images.unsplash.com/photo-1551963831-b3b1ca40c98e'},
         {id: 2, color: 'blue', url: 'https://images.unsplash.com/photo-1551782450-a2132b4ba21d'},
@@ -85,7 +78,7 @@ export default function Scraps() {
       ]
     },
     {
-      id: 3, title: 'title3', price: '₩1,000', scrap: true,
+      id: 3, title: 'title3', price: '₩1,000',
       images: [
         {id: 1, color: 'red', url: 'https://images.unsplash.com/photo-1551963831-b3b1ca40c98e'},
         {id: 2, color: 'blue', url: 'https://images.unsplash.com/photo-1551782450-a2132b4ba21d'},
@@ -93,7 +86,7 @@ export default function Scraps() {
       ]
     },
     {
-      id: 4, title: 'title4', price: '₩1,000', scrap: true,
+      id: 4, title: 'title4', price: '₩1,000',
       images: [
         {id: 1, color: 'red', url: 'https://images.unsplash.com/photo-1551963831-b3b1ca40c98e'},
         {id: 2, color: 'blue', url: 'https://images.unsplash.com/photo-1551782450-a2132b4ba21d'},
@@ -101,7 +94,7 @@ export default function Scraps() {
       ]
     },
     {
-      id: 5, title: 'title5', price: '₩1,000', scrap: true,
+      id: 5, title: 'title5', price: '₩1,000',
       images: [
         {id: 1, color: 'red', url: 'https://images.unsplash.com/photo-1551963831-b3b1ca40c98e'},
         {id: 2, color: 'blue', url: 'https://images.unsplash.com/photo-1551782450-a2132b4ba21d'},
@@ -109,7 +102,7 @@ export default function Scraps() {
       ]
     },
     {
-      id: 6, title: 'title6', price: '₩1,000', scrap: true,
+      id: 6, title: 'title6', price: '₩1,000',
       images: [
         {id: 1, color: 'red', url: 'https://images.unsplash.com/photo-1551963831-b3b1ca40c98e'},
         {id: 2, color: 'blue', url: 'https://images.unsplash.com/photo-1551782450-a2132b4ba21d'},
@@ -117,7 +110,7 @@ export default function Scraps() {
       ]
     },
     {
-      id: 7, title: 'title7', price: '₩1,000', scrap: false,
+      id: 7, title: 'title7', price: '₩1,000',
       images: [
         {id: 1, color: 'red', url: 'https://images.unsplash.com/photo-1551963831-b3b1ca40c98e'},
         {id: 2, color: 'blue', url: 'https://images.unsplash.com/photo-1551782450-a2132b4ba21d'},
@@ -125,7 +118,7 @@ export default function Scraps() {
       ]
     },
     {
-      id: 8, title: 'title8', price: '₩1,000', scrap: false,
+      id: 8, title: 'title8', price: '₩1,000',
       images: [
         {id: 1, color: 'red', url: 'https://images.unsplash.com/photo-1551963831-b3b1ca40c98e'},
         {id: 2, color: 'blue', url: 'https://images.unsplash.com/photo-1551782450-a2132b4ba21d'},
@@ -134,22 +127,33 @@ export default function Scraps() {
     },
   ]);
 
-  const handleScrapToggle = (id) => {
-    setRows(
-      rows.map((row) =>
-        row.id === id ? { ...row, scrap: !row.scrap } : row
-      )
-    );
-  };
-    
+  const [open, setOpen] = useState(false);
+  const openModal = () => setOpen(true);
+  const closeModal = () => setOpen(false);
+
   return (
-    <Box>
-      <ProductTable
-        columns={columns}
-        rows={rows}
-        useDelete={false}
-        useAdd={false}
-      />
-    </Box>
+    <Observer>{() => (
+      <Box sx={{ flex: 1 }}>
+        {/* Title */}
+        <ViewTitle IconComponent={ShoppingCartOutlined} title="상품 목록" />
+        
+        {/* Products */}
+        <ProductTable
+          columns={columns}
+          rows={rows}
+          setRows={setRows}
+          useDelete={false}
+          useAdd={authStore.isAdmin()}
+          openModal={openModal}
+        />
+      
+        {/* Modal */}
+        <ProductModal
+          open={open}
+          onClose={closeModal}
+          title="상품 등록"
+        />
+      </Box>
+    )}</Observer>
   );
 }

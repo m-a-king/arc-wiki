@@ -95,7 +95,7 @@ export default function FindId() {
                   fullWidth
                   label={`${formData.name} 님의 아이디`}
                   value={foundId}
-                  InputProps={{
+                  inputProps={{
                     readOnly: true,
                   }}
                 />

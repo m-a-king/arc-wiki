@@ -7,8 +7,8 @@ import FindId from '../views/FindId';
 import FindPw from '../views/FindPw';
 import MyPage from '../views/MyPage';
 import AdminPage from '../views/AdminPage';
-import Projucts from '../views/Projucts';
-import Projuct from '../views/Projuct';
+import Products from '../views/Products';
+import Product from '../views/Product';
 import Review from '../views/Review';
 import PrivateComponent from './PrivateComponent';
 
@@ -28,8 +28,8 @@ export default function Router() {
           <Route path="/adminpage" element={<PrivateComponent />}>
             <Route index element={<AdminPage />} />
           </Route>
-          <Route path="/products" element={<Projucts />} />
-          <Route path="/product" element={<Projuct />} />
+          <Route path="/products" element={<Products />} />
+          <Route path="/product" element={<Product />} />
           <Route path="/review" element={<Review />} />
           <Route path ="*" element = {<div>There's nothing here!</div>} />
         </Route>

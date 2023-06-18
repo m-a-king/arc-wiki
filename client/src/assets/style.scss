@@ -23,7 +23,7 @@ main > .MuiContainer-root {
 }
 
 /* Input */
-.MuiOutlinedInput-input:read-only {
+.MuiOutlinedInput-input:not(.MuiSelect-select):read-only {
   background-color: #f3f3f3;
 }
 

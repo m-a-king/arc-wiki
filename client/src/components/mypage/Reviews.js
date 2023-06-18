@@ -10,7 +10,7 @@ import {
   StarBorder,
   StarHalf,
 } from '@mui/icons-material';
-import DataTable from '../DataTable';
+import DataTable from '../table/DataTable';
 
 export default function Reviews() {
   const columns = [

@@ -13,7 +13,6 @@ import {
 import { PersonOutlineOutlined } from '@mui/icons-material';
 import ViewTitle from '../components/ViewTitle';
 import Profile from "../components/mypage/Profile";
-import Scraps from "../components/mypage/Scraps";
 import Reviews from "../components/mypage/Reviews";
 import Comments from "../components/mypage/Comments";
 import { reaction } from 'mobx';
@@ -55,9 +54,8 @@ export default function MyPage() {
           sx={{ mb: 6 }}
         >
           <Tab label="프로필" value="1" />
-          <Tab label="스크랩" value="2" />
-          <Tab label="리뷰" value="3" />
-          <Tab label="댓글" value="4" />
+          <Tab label="리뷰" value="2" />
+          <Tab label="댓글" value="3" />
         </TabList>
         
         {/* Profile */}
@@ -65,18 +63,13 @@ export default function MyPage() {
           <Profile />
         </TabPanel>
         
-        {/* Scrap */}
-        <TabPanel value="2" sx={{ p: 0 }}>
-          <Scraps />
-        </TabPanel>
-        
         {/* Review */}
-        <TabPanel value="3" sx={{ p: 0 }}>
+        <TabPanel value="2" sx={{ p: 0 }}>
           <Reviews />
         </TabPanel>
         
         {/* Comments */}
-        <TabPanel value="4" sx={{ p: 0 }}>
+        <TabPanel value="3" sx={{ p: 0 }}>
           <Comments />
         </TabPanel>
       </TabContext>

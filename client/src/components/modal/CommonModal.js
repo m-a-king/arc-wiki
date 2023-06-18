@@ -53,25 +53,25 @@ export default function CommonModal({
               borderColor: 'divider',
             }}
           >
-            {/* Submit */}
-            <Button
-              type="submit"
-              variant="contained"
-              size="small"
-              sx={{ mr: 1 }}
-              onClick={onSubmit}
-            >
-              Submit
-            </Button>
-
             {/* Close */}
             <Button
               variant="contained"
               color="secondary"
               size="small"
+              sx={{ mr: 1 }}
               onClick={onClose}
             >
               Close
+            </Button>
+
+            {/* Submit */}
+            <Button
+              type="submit"
+              variant="contained"
+              size="small"
+              onClick={onSubmit}
+            >
+              Submit
             </Button>
           </Toolbar>
         </Box>
