@@ -9,7 +9,7 @@ class AuthStore {
 
     // Get token from sessionStorage at the start
     this.token = sessionStorage.getItem("token");
-    this.admin = sessionStorage.getItem("admin");
+    this.admin = JSON.parse(sessionStorage.getItem("admin"));
   }
 
   isLoggedIn() {
@@ -22,10 +22,11 @@ class AuthStore {
 
   login(data) {
     this.token = data.token;
+    this.admin = data.result.isAdmin === 1;
 
     // When we login, save token to sessionStorage
-    sessionStorage.setItem("token", data.token);
-    sessionStorage.setItem("admin", data.result.isAdmin === 1);
+    sessionStorage.setItem("token", this.token);
+    sessionStorage.setItem("admin", this.admin);
   }
 
   logout() {

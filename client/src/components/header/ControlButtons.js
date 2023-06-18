@@ -19,7 +19,6 @@ export default function ControlButtons() {
       >
         {authStore.isLoggedIn() ? (
           <>
-          
             {authStore.isAdmin() ? (
               <>
                 {/* Admin page */}
