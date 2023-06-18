@@ -17,11 +17,14 @@ import {
 } from '@mui/material';
 import { LockOutlined } from '@mui/icons-material';
 import ViewTitle from '../components/ViewTitle';
+import HTTP from '../apiClient';
 
 export default function SignUp() {
   const navigate = useNavigate();
   const [submitted, setSubmitted] = useState(false);
   const [snackbarOpen, setSnackbarOpen] = useState(false);
+  
+  // Define initial form state
   const [formData, setFormData] = useState({
     id: '',
     password: '',
@@ -31,6 +34,8 @@ export default function SignUp() {
     email: '',
     allowExtraEmails: false,
   });
+  
+  // Define form error state
   const [formError, setFormError] = useState({
     id: false,
     password: false,
@@ -41,15 +46,18 @@ export default function SignUp() {
     allowExtraEmails: false,
   });
 
+  // Function to handle form change
   const handleChange = event => {
     setFormData({ ...formData, [event.target.name]: event.target.value });
   };
 
+  // Function to check if email is valid
   const isValidEmail = email => {
     const re = /^[\w.%+-]+@[\w.-]+\.[A-Za-z]{2,6}$/;
     return re.test(String(email).toLowerCase());
   };
 
+  // Function to validate form
   const validateForm = () => {
     let errors = {};
 
@@ -59,14 +67,17 @@ export default function SignUp() {
       }
     }
 
+    // Check password
     if (formData.password && formData.password.length < 8) {
       errors.password = true;
     }
 
+    // Check password confirmation
     if (formData.password !== formData.passwordCheck) {
       errors.passwordCheck = true;
     }
 
+    // Check email
     if (formData.email && !isValidEmail(formData.email)) {
       errors.email = true;
     }
@@ -75,21 +86,25 @@ export default function SignUp() {
     return Object.keys(errors).length === 0;
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
     setSubmitted(true);
 
     if (validateForm()) {
       setSubmitted(false);
-      setSnackbarOpen(true);
       
-      setTimeout(() => {
-        navigate('/signin');
-      }, 1000);
+      try {
+        const response = await HTTP.post('/api/signup', formData);
+        console.log(response.data);
       
-      console.log({
-        ...formData,
-      });
+        setSnackbarOpen(true);
+        setTimeout(() => {
+          navigate('/signin');
+        }, 1000);
+      } catch (error) {
+        console.error(error);
+        alert(error.response.data.message);
+      }
     }
   };
 

@@ -13,7 +13,7 @@ const CategoryGroup = sequelize.define('CategoryGroup', {
   }
 }, {
   tableName: 'category_groups',
-  timestamps: false
+  timestamps: false,
 });
 
 export default CategoryGroup;
