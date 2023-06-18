@@ -11,27 +11,35 @@ import {
   TextField,
 } from '@mui/material';
 import { LockOutlined } from '@mui/icons-material';
-import { useAuth } from '../stores/authContext';
 import ViewTitle from '../components/ViewTitle';
+import Stores from '../stores';
+import HTTP from '../apiClient';
 
 export default function SignIn() {
-  const { login } = useAuth();
   const navigate = useNavigate();
+  const { authStore }  = Stores();
+
   const [submitted, setSubmitted] = useState(false);
   const [snackbarOpen, setSnackbarOpen] = useState(false);
+  
+  // Define form error state
   const [formData, setFormData] = useState({
     id: '',
     password: '',
   });
+  
+  // Define form error state
   const [formError, setFormError] = React.useState({
     id: false,
     password: false,
   });
   
+  // Function to handle form change
   const handleChange = event => {
     setFormData({ ...formData, [event.target.name]: event.target.value });
   };
 
+  // Function to validate form
   const validateForm = () => {
     let errors = {};
 
@@ -44,23 +52,27 @@ export default function SignIn() {
     setFormError(errors);
     return Object.keys(errors).length === 0;
   };
-
-  const handleSubmit = (event) => {
+  
+  // Function to handle form submit
+  const handleSubmit = async (event) => {
     event.preventDefault();
     setSubmitted(true);
 
     if (validateForm()) {
       setSubmitted(false);
-      setSnackbarOpen(true);
-      
-      setTimeout(() => {
-        login();
-        navigate('/');
-      }, 1000);
 
-      console.log({
-        ...formData,
-      });
+      try {
+        const response = await HTTP.post('/api/signin', formData);
+        authStore.login(response.data.token);
+  
+        setSnackbarOpen(true);
+        setTimeout(() => {
+          navigate('/');
+        }, 1000);
+      } catch (error) {
+        console.error(error);
+        alert(error.response.data.message);
+      }
     }
   };
 

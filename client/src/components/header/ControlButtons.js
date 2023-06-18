@@ -3,67 +3,70 @@ import {
   Box,
   Button,
 } from '@mui/material';
-import { useAuth } from '../../stores/authContext';
+import { Observer } from "mobx-react-lite";
+import Stores from '../../stores';
 
 export default function ControlButtons() {
-  const { isLoggedIn, logout } = useAuth();
+  const { authStore }  = Stores();
 
   return (
-    <Box
-      sx={{
-        display: 'flex',
-        flexDirection: 'row',
-      }}
-    >
-      {isLoggedIn ? (
-        <>
-          {/* My page */}
-          <Button
-            href="/mypage"
-            variant="text"
-            color="inherit"
-            size="small"
-            sx={{ ml: 2 }}
-          >
-            마이페이지
-          </Button>
+    <Observer>{() => (
+      <Box
+        sx={{
+          display: 'flex',
+          flexDirection: 'row',
+        }}
+      >
+        {authStore.isLoggedIn() ? (
+          <>
+            {/* My page */}
+            <Button
+              href="/mypage"
+              variant="text"
+              color="inherit"
+              size="small"
+              sx={{ ml: 2 }}
+            >
+              마이페이지
+            </Button>
 
-          {/* Log out */}
-          <Button
-            variant="text"
-            color="inherit"
-            size="small"
-            sx={{ ml: 2 }}
-            onClick={() => logout()}
-          >
-            로그아웃
-          </Button>
-        </>
-      ) : (
-        <>
-          {/* Sign up */}
-          <Button
-            href="/signup"
-            variant="text"
-            color="inherit"
-            size="small"
-            sx={{ ml: 2 }}
-          >
-            회원가입
-          </Button>
+            {/* Log out */}
+            <Button
+              variant="text"
+              color="inherit"
+              size="small"
+              sx={{ ml: 2 }}
+              onClick={() => authStore.logout()}
+            >
+              로그아웃
+            </Button>
+          </>
+        ) : (
+          <>
+            {/* Sign up */}
+            <Button
+              href="/signup"
+              variant="text"
+              color="inherit"
+              size="small"
+              sx={{ ml: 2 }}
+            >
+              회원가입
+            </Button>
 
-          {/* Sign in */}
-          <Button
-            href="/signin"
-            variant="text"
-            color="inherit"
-            size="small"
-            sx={{ ml: 2 }}
-          >
-            로그인
-          </Button>
-        </>
-      )}
-    </Box>
+            {/* Sign in */}
+            <Button
+              href="/signin"
+              variant="text"
+              color="inherit"
+              size="small"
+              sx={{ ml: 2 }}
+            >
+              로그인
+            </Button>
+          </>
+        )}
+      </Box>
+    )}</Observer>
   );
 }

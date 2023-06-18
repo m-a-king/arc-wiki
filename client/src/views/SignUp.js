@@ -21,6 +21,7 @@ import HTTP from '../apiClient';
 
 export default function SignUp() {
   const navigate = useNavigate();
+
   const [submitted, setSubmitted] = useState(false);
   const [snackbarOpen, setSnackbarOpen] = useState(false);
   
@@ -86,6 +87,7 @@ export default function SignUp() {
     return Object.keys(errors).length === 0;
   };
 
+  // Function to handle form submit
   const handleSubmit = async (event) => {
     event.preventDefault();
     setSubmitted(true);
