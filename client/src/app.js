@@ -1,5 +1,5 @@
 import './assets/app.css';
-import Router from './router';
+import Router from './routes/router';
 
 export default function App() {
   return (

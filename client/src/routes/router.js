@@ -1,14 +1,15 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import Layout from './layouts/Layout';
-import Home from './views/Home';
-import SignUp from './views/SignUp';
-import SignIn from './views/SignIn';
-import FindId from './views/FindId';
-import FindPw from './views/FindPw';
-import MyPage from './views/MyPage';
-import Projucts from './views/Projucts';
-import Projuct from './views/Projuct';
-import Review from './views/Review';
+import Layout from '../layouts/Layout';
+import Home from '../views/Home';
+import SignUp from '../views/SignUp';
+import SignIn from '../views/SignIn';
+import FindId from '../views/FindId';
+import FindPw from '../views/FindPw';
+import MyPage from '../views/MyPage';
+import Projucts from '../views/Projucts';
+import Projuct from '../views/Projuct';
+import Review from '../views/Review';
+import PrivateComponent from './PrivateComponent';
 
 export default function Router() {
   return (
@@ -20,7 +21,9 @@ export default function Router() {
           <Route path="/signin" element={<SignIn />} />
           <Route path="/findid" element={<FindId />} />
           <Route path="/findpw" element={<FindPw />} />
-          <Route path="/mypage" element={<MyPage />} />
+          <Route path="/mypage" element={<PrivateComponent />}>
+            <Route index element={<MyPage />} />
+          </Route>
           <Route path="/products" element={<Projucts />} />
           <Route path="/product" element={<Projuct />} />
           <Route path="/review" element={<Review />} />

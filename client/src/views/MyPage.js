@@ -1,5 +1,6 @@
 import * as React from 'react';
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useNavigate } from 'react-router-dom';
 import {
   Box,
   Tab,
@@ -16,8 +17,26 @@ import Scraps from "../components/mypage/Scraps";
 import Reviews from "../components/mypage/Reviews";
 import Comments from "../components/mypage/Comments";
 import Requests from "../components/mypage/Requests";
+import { reaction } from 'mobx';
+import Stores from '../stores';
 
 export default function MyPage() {
+  const navigate = useNavigate();
+  const { authStore }  = Stores();
+
+  useEffect(() => {
+    const dispose = reaction(
+      () => authStore.isLoggedIn(),
+      (isLoggedIn) => {
+        if (!isLoggedIn) {
+          navigate("/signin");
+        }
+      }
+    );
+
+    return () => dispose();
+  }, [authStore, navigate]);
+
   const [value, setValue] = useState('1');
 
   return (
