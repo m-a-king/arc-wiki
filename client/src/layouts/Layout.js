@@ -58,7 +58,13 @@ export default function Layout() {
             sx={{
               display: 'flex',
               flex: 1,
-              bgcolor: ["/mypage", "/products", "/product", "/review"].includes(location.pathname) ? 'common.white' : '',
+              bgcolor: [
+                "/mypage",
+                "/adminpage",
+                "/products",
+                "/product",
+                "/review",
+              ].includes(location.pathname) ? 'common.white' : '',
             }}
         >
           <Container

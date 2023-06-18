@@ -34,6 +34,11 @@ const User = sequelize.define('User', {
     type: DataTypes.STRING(100),
     allowNull: false,
   },
+  isAdmin: {
+    field: 'is_admin',
+    type: DataTypes.INTEGER,
+    allowNull: false,
+  },
   createDate: {
     field: 'create_date',
     type: DataTypes.DATE,

@@ -50,9 +50,14 @@ export const signIn = async (req, res) => {
       }
   
       const token = jwt.sign(
-        { id: existingUser.id, name: existingUser.name },
+        {
+          id: existingUser.id,
+          name: existingUser.name,
+        },
         'arcwiki',
-        { expiresIn: '1h' }
+        {
+          expiresIn: '1h'
+        }
       );
   
       res.status(200).json({ result: existingUser, token });

@@ -19,16 +19,34 @@ export default function ControlButtons() {
       >
         {authStore.isLoggedIn() ? (
           <>
-            {/* My page */}
-            <Button
-              href="/mypage"
-              variant="text"
-              color="inherit"
-              size="small"
-              sx={{ ml: 2 }}
-            >
-              마이페이지
-            </Button>
+          
+            {authStore.isAdmin() ? (
+              <>
+                {/* Admin page */}
+                <Button
+                  href="/adminpage"
+                  variant="text"
+                  color="inherit"
+                  size="small"
+                  sx={{ ml: 2 }}
+                >
+                  관리자 페이지
+                </Button>
+              </>
+            ) : (
+              <>
+                {/* My page */}
+                <Button
+                  href="/mypage"
+                  variant="text"
+                  color="inherit"
+                  size="small"
+                  sx={{ ml: 2 }}
+                >
+                  마이페이지
+                </Button>
+              </>
+            )}
 
             {/* Log out */}
             <Button

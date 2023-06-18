@@ -63,7 +63,7 @@ export default function SignIn() {
 
       try {
         const response = await HTTP.post('/api/signin', formData);
-        authStore.login(response.data.token);
+        authStore.login(response.data);
   
         setSnackbarOpen(true);
         setTimeout(() => {

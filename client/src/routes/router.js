@@ -6,6 +6,7 @@ import SignIn from '../views/SignIn';
 import FindId from '../views/FindId';
 import FindPw from '../views/FindPw';
 import MyPage from '../views/MyPage';
+import AdminPage from '../views/AdminPage';
 import Projucts from '../views/Projucts';
 import Projuct from '../views/Projuct';
 import Review from '../views/Review';
@@ -23,6 +24,9 @@ export default function Router() {
           <Route path="/findpw" element={<FindPw />} />
           <Route path="/mypage" element={<PrivateComponent />}>
             <Route index element={<MyPage />} />
+          </Route>
+          <Route path="/adminpage" element={<PrivateComponent />}>
+            <Route index element={<AdminPage />} />
           </Route>
           <Route path="/products" element={<Projucts />} />
           <Route path="/product" element={<Projuct />} />
