@@ -48,7 +48,7 @@ export default function MyPage() {
       setFormData(response.data);
     } catch (error) {
       console.error(error);
-      alert(error.response.data.message);
+      alert(error.response.data.error);
     }
   }, [authStore.token]);
   

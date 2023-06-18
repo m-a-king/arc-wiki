@@ -1,4 +1,4 @@
-import { makeAutoObservable, runInAction } from "mobx";
+import { makeAutoObservable, runInAction, computed } from "mobx";
 import HTTP from '../apiClient';
 
 class CategoryStore {
@@ -8,8 +8,18 @@ class CategoryStore {
   selectedCategories = [];
 
   constructor() {
-    makeAutoObservable(this);
+    makeAutoObservable(this, {
+      activeCategories: computed,
+    });
     this.initialize();
+  }
+
+  get activeCategories() {
+    const activeCategoryGroup = this.categoryGroups[this.activeStep];
+    if (!activeCategoryGroup) {
+      return [];
+    }
+    return this.categories.filter(c => c.groupCode === activeCategoryGroup.code);
   }
 
   async initialize() {
@@ -39,7 +49,7 @@ class CategoryStore {
   }
 
   getSelectedCategoriesCount(categoryGroup) {
-    return this.selectedCategories.filter(c => c.category_group_code === categoryGroup.code).length;
+    return this.selectedCategories.filter(c => c.groupCode === categoryGroup.code).length;
   }
 
   async fetchCategoryGroups() {
@@ -55,11 +65,7 @@ class CategoryStore {
 
   async fetchCategories() {
     try {
-      const response = await HTTP.get('/api/categories', {
-        params: {
-          categoryGroupCode: this.categoryGroups[this.activeStep].code
-        }
-      });
+      const response = await HTTP.get('/api/categories');
       runInAction(() => {
         this.categories = response.data;
       });

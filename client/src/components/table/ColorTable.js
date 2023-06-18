@@ -9,7 +9,7 @@ export default function ColorTable({ rows }) {
       flex: 1,
     },
     {
-      field: 'color',
+      field: 'title',
       headerName: '색상',
       flex: 1,
     },

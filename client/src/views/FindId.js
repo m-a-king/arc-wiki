@@ -74,7 +74,7 @@ export default function FindId() {
         setFoundId(response.data.id);
       } catch (error) {
         console.error(error);
-        alert(error.response.data.message);
+        alert(error.response.data.error);
       }
     }
   };

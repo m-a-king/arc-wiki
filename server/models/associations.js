@@ -1,5 +1,10 @@
-import Category from './Category.js';
 import CategoryGroup from './CategoryGroup.js';
+import Category from './Category.js';
+import Product from './Product.js';
+import Color from './Color.js';
 
-Category.belongsTo(CategoryGroup, { foreignKey: 'category_group_code', as: 'group' });
-CategoryGroup.hasMany(Category, { foreignKey: 'category_group_code' });
+CategoryGroup.hasMany(Category, { foreignKey: 'groupCode' });
+Category.belongsTo(CategoryGroup, { foreignKey: 'groupCode', as: 'group' });
+
+Product.hasMany(Color, { foreignKey: 'productIdx', onDelete: 'CASCADE' });
+Color.belongsTo(Product, { foreignKey: 'productIdx' });

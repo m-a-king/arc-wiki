@@ -113,7 +113,7 @@ export default function Home() {
         />
 
         <Grid container>
-          {categoryStore.categories.map((category) => (
+          {categoryStore.activeCategories.map((category) => (
             <Grid className='custom-card-grid' item key={category.code} md={6}>
               <Card
                 sx={{

@@ -15,6 +15,7 @@ import {
 import CommonModal from './CommonModal';
 import ColorTable from '../table/ColorTable';
 import Stores from '../../stores';
+import HTTP from '../../apiClient';
 
 export default function ProductModal({
   open,
@@ -29,45 +30,46 @@ export default function ProductModal({
   const [formData, setFormData] = useState({
     title: '',
     desc: '',
-    color: [],
+    colors: [],
     price: '',
     size: [],
     weight: '',
-    feature: [],
-    material: [],
-    care: [],
-    category: [],
+    featureCodes: [],
+    materialCodes: [],
+    careCodes: [],
+    categoryCodes: [],
   });
   
   // Define form error state
   const [formError, setFormError] = useState({
     title: false,
     desc: false,
-    color: false,
+    colors: false,
     price: false,
     size: false,
     weight: false,
-    feature: false,
-    material: false,
-    care: false,
-    category: false,
+    featureCodes: false,
+    materialCodes: false,
+    careCodes: false,
+    categoryCodes: false,
   });
   
   // Function to handle form close
   useEffect(() => {
-    setSubmitted(false);
     setFormData({
       title: '',
       desc: '',
-      color: [],
+      colors: [],
       price: '',
       size: [],
       weight: '',
-      feature: [],
-      material: [],
-      care: [],
-      category: [],
+      featureCodes: [],
+      materialCodes: [],
+      careCodes: [],
+      categoryCodes: [],
     });
+    
+    setSubmitted(false);
   }, [onClose]);
 
   // Function to handle form change
@@ -76,15 +78,15 @@ export default function ProductModal({
   };
 
   // Define initial color state
-  const [colorKey, setColorKey] = useState(Date.now());
+  const [titleKey, setTitleKey] = useState(Date.now());
   const [imageKey, setImageKey] = useState(Date.now() + 1);
   const [colorData, setColorData] = useState({
-    color: '',
+    title: '',
     image: '',
   });
 
   // Function to handle color change
-  const handleColorChange = (event) => {
+  const handleTitleChange = (event) => {
     setColorData({ ...colorData, [event.target.name]: event.target.value });
   };
 
@@ -97,16 +99,22 @@ export default function ProductModal({
 
   // Function to handle color add
   const handleColorAdd = () => {
-    setFormData({ 
-      ...formData, 
-      color: [...formData.color, { id: formData.color.length + 1, color: colorData.color, image: colorData.image }] 
+    const color = {
+      id: formData.colors.length + 1,
+      title: colorData.title,
+      image: colorData.image,
+    };
+  
+    setFormData({
+      ...formData,
+      colors: [...formData.colors, color],
     });
 
     // Reset color input after adding
-    setColorData({ color: '', image: '' });
+    setColorData({ title: '', image: '' });
 
     // Reset key to re-render file input
-    setColorKey(Date.now());
+    setTitleKey(Date.now());
     setImageKey(Date.now() + 1);
   };
 
@@ -133,7 +141,7 @@ export default function ProductModal({
   };
 
   // Function to handle form submit
-  const onSubmit = (event) => {
+  const onSubmit = async (event) => {
     event.preventDefault();
     setSubmitted(true);
 
@@ -141,11 +149,30 @@ export default function ProductModal({
       setSubmitted(false);
 
       try {
-        onClose();
+        const form = new FormData();
+        
+        form.append('title', formData.title);
+        form.append('desc', formData.desc);
+        form.append('price', formData.price);
+        form.append('weight', formData.weight);
+        form.append('size', JSON.stringify(formData.size));
+        form.append('featureCodes', JSON.stringify(formData.featureCodes));
+        form.append('materialCodes', JSON.stringify(formData.materialCodes));
+        form.append('careCodes', JSON.stringify(formData.careCodes));
+        form.append('categoryCodes', JSON.stringify(formData.categoryCodes));
+        
+        formData.colors.forEach((color, index) => {
+          form.append(`colors[${index}][title]`, color.title);
+          form.append(`colors[${index}][image]`, color.image);
+        });
+  
+        const response = await HTTP.post('/api/product', form);
+        console.log(response.data);
+        // onClose();
         
       } catch (error) {
         console.error(error);
-        alert(error.response.data.message);
+        alert(error.response.data.error);
       }
     }
   };
@@ -191,7 +218,7 @@ export default function ProductModal({
 
           {/* colors */}
           <Grid item xs={8}>
-            <ColorTable rows={formData.color} />
+            <ColorTable rows={formData.colors} />
           </Grid>
 
           {/* add color */}
@@ -199,13 +226,13 @@ export default function ProductModal({
             {/* color */}
             <TextField
               fullWidth
-              key={colorKey}
-              id="color"
+              key={titleKey}
+              id="title"
               label="색상"
-              name="color"
+              name="title"
               inputProps={{ maxLength: 50 }}
-              onChange={handleColorChange}
-              error={submitted && formError.color}
+              onChange={handleTitleChange}
+              error={submitted && formError.colors}
               sx={{ mb: 1 }}
             />
 
@@ -226,7 +253,7 @@ export default function ProductModal({
             >
               색상 추가
             </Button>
-            {submitted && formError.color && <FormHelperText error>색상은 필수항목 입니다.</FormHelperText>}
+            {submitted && formError.colors && <FormHelperText error>색상은 필수항목 입니다.</FormHelperText>}
           </Grid>
 
           {/* price */}
@@ -300,17 +327,17 @@ export default function ProductModal({
             />
           </Grid>
 
-          {/* feature */}
+          {/* featureCodes */}
           <Grid item xs={12}>
-            <FormControl fullWidth error={submitted && formError.feature}>
+            <FormControl fullWidth error={submitted && formError.featureCodes}>
               <InputLabel>특징</InputLabel>
               <Select
                 multiple
-                value={formData.feature}
+                value={formData.featureCodes}
                 onChange={handleChange}
-                name="feature"
+                name="featureCodes"
                 label="특징"
-                error={submitted && formError.feature}
+                error={submitted && formError.featureCodes}
               >
                 {productStore.features.map((feature) => (
                   <MenuItem key={feature.code} value={feature.code}>
@@ -318,21 +345,21 @@ export default function ProductModal({
                   </MenuItem>
                 ))}
               </Select>
-              {submitted && formError.feature && <FormHelperText>특징은 필수항목 입니다.</FormHelperText>}
+              {submitted && formError.featureCodes && <FormHelperText>특징은 필수항목 입니다.</FormHelperText>}
             </FormControl>
           </Grid>
 
-          {/* material */}
+          {/* materialCodes */}
           <Grid item xs={12}>
-            <FormControl fullWidth error={submitted && formError.material}>
+            <FormControl fullWidth error={submitted && formError.materialCodes}>
               <InputLabel>소재</InputLabel>
               <Select
                 multiple
-                value={formData.material}
+                value={formData.materialCodes}
                 onChange={handleChange}
-                name="material"
+                name="materialCodes"
                 label="소재"
-                error={submitted && formError.material}
+                error={submitted && formError.materialCodes}
               >
                 {productStore.materials.map((material) => (
                   <MenuItem key={material.code} value={material.code}>
@@ -340,21 +367,21 @@ export default function ProductModal({
                   </MenuItem>
                 ))}
               </Select>
-              {submitted && formError.material && <FormHelperText>소재는 필수항목 입니다.</FormHelperText>}
+              {submitted && formError.materialCodes && <FormHelperText>소재는 필수항목 입니다.</FormHelperText>}
             </FormControl>
           </Grid>
 
-          {/* care */}
+          {/* careCodes */}
           <Grid item xs={12}>
-            <FormControl fullWidth error={submitted && formError.care}>
+            <FormControl fullWidth error={submitted && formError.careCodes}>
               <InputLabel>관리</InputLabel>
               <Select
                 multiple
-                value={formData.care}
+                value={formData.careCodes}
                 onChange={handleChange}
-                name="care"
+                name="careCodes"
                 label="관리"
-                error={submitted && formError.care}
+                error={submitted && formError.careCodes}
               >
                 {productStore.cares.map((care) => (
                   <MenuItem key={care.code} value={care.code}>
@@ -362,21 +389,21 @@ export default function ProductModal({
                   </MenuItem>
                 ))}
               </Select>
-              {submitted && formError.care && <FormHelperText>관리는 필수항목 입니다.</FormHelperText>}
+              {submitted && formError.careCodes && <FormHelperText>관리는 필수항목 입니다.</FormHelperText>}
             </FormControl>
           </Grid>
 
           {/* categories */}
           <Grid item xs={12}>
-            <FormControl fullWidth error={submitted && formError.category}>
+            <FormControl fullWidth error={submitted && formError.categoryCodes}>
               <InputLabel>카테고리</InputLabel>
               <Select
                 multiple
-                value={formData.category}
+                value={formData.categoryCodes}
                 onChange={handleChange}
-                name="category"
+                name="categoryCodes"
                 label="카테고리"
-                error={submitted && formError.category}
+                error={submitted && formError.categoryCodes}
               >
                 {categoryStore.categories.map((category) => (
                   <MenuItem key={category.code} value={category.code}>
@@ -384,7 +411,7 @@ export default function ProductModal({
                   </MenuItem>
                 ))}
               </Select>
-              {submitted && formError.category && <FormHelperText>카테고리는 필수항목 입니다.</FormHelperText>}
+              {submitted && formError.categoryCodes && <FormHelperText>카테고리는 필수항목 입니다.</FormHelperText>}
             </FormControl>
           </Grid>
         </Grid>

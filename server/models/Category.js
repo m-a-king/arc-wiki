@@ -7,6 +7,10 @@ const Category = sequelize.define('Category', {
     type: DataTypes.STRING,
     primaryKey: true,
   },
+  groupCode: {
+    field: 'category_group_code',
+    type: DataTypes.STRING,
+  },
   title: {
     field: 'category_title',
     type: DataTypes.STRING,

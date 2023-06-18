@@ -71,7 +71,7 @@ export default function SignIn() {
         }, 1000);
       } catch (error) {
         console.error(error);
-        alert(error.response.data.message);
+        alert(error.response.data.error);
       }
     }
   };
