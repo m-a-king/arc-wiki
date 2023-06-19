@@ -29,7 +29,7 @@ export default function Router() {
             <Route index element={<AdminPage />} />
           </Route>
           <Route path="/products" element={<Products />} />
-          <Route path="/product" element={<Product />} />
+          <Route path="/product/:idx" element={<Product />} />
           <Route path="/review" element={<Review />} />
           <Route path ="*" element = {<div>There's nothing here!</div>} />
         </Route>

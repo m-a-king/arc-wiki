@@ -27,7 +27,7 @@ export default function StepperNavigation() {
             sx={{
               '& .MuiStepLabel-label.MuiStepLabel-alternativeLabel': {
                   color: 'common.white',
-                  fontWeight: 200,
+                  fontWeight: 300,
               },
               '& .MuiStepLabel-label.Mui-active.MuiStepLabel-alternativeLabel': {
                   fontWeight: 500,

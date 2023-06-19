@@ -31,7 +31,15 @@ export default function Products() {
       flex: 1,
       filterable: false,
       cellClassName: 'custom-colors-cell',
-      renderCell: (params) => <ItemTabs colors={params.value} />,
+      renderCell: (params) => (
+        <ItemTabs
+          colors={params.value}
+          mainWidth={248}
+          subWidth={35}
+          value={value}
+          setValue={setValue}
+        />
+      ),
     },
     {
       field: 'title',
@@ -42,7 +50,7 @@ export default function Products() {
         <Box>
           {/* Title */}
           <Button
-            href="/product"
+            href={`/product/${params.row.idx}`}
             variant="text"
             color="primary"
             size="small"
@@ -85,6 +93,9 @@ export default function Products() {
       alert(error.response.data.error);
     }
   };
+  
+  // Define initial value state
+  const [value, setValue] = useState('0');
 
   // Define initial open state
   const [open, setOpen] = useState(false);

@@ -1,65 +1,240 @@
 import * as React from 'react';
+import { useState, useEffect, useCallback } from 'react';
+import { useParams } from 'react-router-dom';
 import {
   Box,
+  Card,
+  CardContent,
+  CardMedia,
+  Chip,
   Paper,
   Table,
   TableBody,
   TableCell,
   TableContainer,
   TableRow,
+  Tooltip,
+  Typography,
 } from '@mui/material';
 import ItemTabs from '../components/tab/ItemTabs';
+import { Observer } from "mobx-react-lite";
+import Stores from '../stores';
+import HTTP from '../apiClient';
 
 export default function ProductInfo() {
-  const image = [
-    {id: 1, color: 'red', url: 'https://images.unsplash.com/photo-1551963831-b3b1ca40c98e'},
-    {id: 2, color: 'blue', url: 'https://images.unsplash.com/photo-1551782450-a2132b4ba21d'},
-    {id: 3, color: 'green', url: 'https://images.unsplash.com/photo-1522770179533-24471fcdba45'},
-  ];
-  const rows = [
-    createData('Cupcake', 305, 3.7),
-    createData('Donut', 452, 25.0),
-    createData('Eclair', 262, 16.0),
-    createData('Frozen yoghurt', 159, 6.0),
-    createData('Gingerbread', 356, 16.0),
-    createData('Honeycomb', 408, 3.2),
-    createData('Ice cream sandwich', 237, 9.0),
-    createData('Jelly Bean', 375, 0.0),
-    createData('KitKat', 518, 26.0),
-    createData('Lollipop', 392, 0.2),
-    createData('Marshmallow', 318, 0),
-    createData('Nougat', 360, 19.0),
-    createData('Oreo', 437, 18.0),
-  ].sort((a, b) => (a.calories < b.calories ? -1 : 1));
+  const { categoryStore, productStore }  = Stores();
+  const { idx } = useParams();
 
-  function createData(name, calories, fat) {
-    return { name, calories, fat };
-  }
+  // Define initial product state
+  const [product, setProduct] = useState({});
+  
+  const fetchProduct = useCallback(async () => {
+    try {
+      const response = await HTTP.get(`/api/product/${idx}`);
+      setProduct(response.data);
+    } catch (error) {
+      console.error(error);
+      alert(error.response.data.error);
+    }
+  }, [idx]);
+
+  // mounted
+  useEffect(() => {
+    fetchProduct();
+  }, [fetchProduct]);
+
+  // Define initial value state
+  const [value, setValue] = useState('0');
+
   return (
-    <Box>
-      {/* Image */}
-      <ItemTabs images={image} />
-      
-      {/* Information */}
-      <TableContainer component={Paper} sx={{ mt: 6 }}>
-        <Table>
-          <TableBody>
-            {rows.map((row) => (
-              <TableRow key={row.name}>
-                <TableCell component="th" scope="row">
-                  {row.name}
+    <Observer>{() => (
+      <Box>
+        {/* Image */}
+        <Box
+          sx={{
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+          }}
+        >
+          {product.colors ? (
+            <ItemTabs
+              colors={product.colors}
+              mainWidth={496}
+              subWidth={70}
+              value={value}
+              setValue={setValue}
+            />
+          ) : '-'}
+        </Box>
+        
+        {/* Information */}
+        <TableContainer component={Paper} sx={{ mt: 6 }}>
+          <Table>
+            <TableBody>
+              <TableRow>
+                {/* title */}
+                <TableCell component="th" scope="row" sx={{ fontWeight: 'bold' }}>
+                  제품명
                 </TableCell>
-                <TableCell style={{ width: 160 }} align="right">
-                  {row.calories}
-                </TableCell>
-                <TableCell style={{ width: 160 }} align="right">
-                  {row.fat}
+                <TableCell>
+                  {product.title}
                 </TableCell>
               </TableRow>
-            ))}
-          </TableBody>
-        </Table>
-      </TableContainer>
-    </Box>
+
+              {/* desc */}
+              <TableRow>
+                <TableCell component="th" scope="row" sx={{ fontWeight: 'bold' }}>
+                  소개글
+                </TableCell>
+                <TableCell>
+                  {product.desc}
+                </TableCell>
+              </TableRow>
+              
+              {/* price */}
+              <TableRow>
+                <TableCell component="th" scope="row" sx={{ fontWeight: 'bold' }}>
+                  가격
+                </TableCell>
+                <TableCell>
+                  {new Intl.NumberFormat('ko-KR', {
+                    style: 'currency',
+                    currency: 'KRW',
+                  }).format(parseFloat(product.price))}
+                </TableCell>
+              </TableRow>
+              
+              {/* colors */}
+              <TableRow>
+                <TableCell component="th" scope="row" sx={{ fontWeight: 'bold' }}>
+                  색상
+                </TableCell>
+                <TableCell>
+                  {product.colors ? product.colors[value]?.title : '-'}
+                </TableCell>
+              </TableRow>
+              
+              {/* size */}
+              <TableRow>
+                <TableCell component="th" scope="row" sx={{ fontWeight: 'bold' }}>
+                  사이즈
+                </TableCell>
+                <TableCell>
+                  {product.size ? JSON.parse(product.size).join(', ') : '-'}
+                </TableCell>
+              </TableRow>
+              
+              {/* weight */}
+              <TableRow>
+                <TableCell component="th" scope="row" sx={{ fontWeight: 'bold' }}>
+                  무게
+                </TableCell>
+                <TableCell>
+                  {new Intl.NumberFormat('ko-KR', {
+                    maximumFractionDigits: 2,
+                  }).format(parseFloat(product.weight))}
+                  g
+                </TableCell>
+              </TableRow>
+              
+              {/* feature */}
+              <TableRow>
+                <TableCell component="th" scope="row" sx={{ fontWeight: 'bold' }}>
+                  특징
+                </TableCell>
+                <TableCell>
+                  {product.featureCodes ? (
+                    JSON.parse(product.featureCodes).map((featureCode) => {
+                      const feature = productStore.features.find((f) => f.code === featureCode);
+                      return feature ? (
+                        <Tooltip key={feature.code} title={feature.desc} arrow>
+                          <Chip label={feature.title} sx={{ mr: 1}} />
+                        </Tooltip>
+                      ) : '-' ;
+                    })
+                  ) : '-'}
+                </TableCell>
+              </TableRow>
+              
+              {/* material */}
+              <TableRow>
+                <TableCell component="th" scope="row" sx={{ fontWeight: 'bold' }}>
+                  소재
+                </TableCell>
+                <TableCell>
+                  {product.materialCodes ? (
+                    JSON.parse(product.materialCodes).map((materialCode) => {
+                      const material = productStore.materials.find((m) => m.code === materialCode);
+                      return material ? (
+                        <Tooltip key={material.code} title={material.desc} arrow>
+                          <Chip label={material.title} sx={{ mr: 1}} />
+                        </Tooltip>
+                      ) : '-';
+                    })
+                  ) : '-'}
+                </TableCell>
+              </TableRow>
+              
+              {/* care */}
+              <TableRow>
+                <TableCell component="th" scope="row" sx={{ fontWeight: 'bold' }}>
+                  관리
+                </TableCell>
+                <TableCell>
+                  {product.careCodes ? (
+                    JSON.parse(product.careCodes).map((careCode) => {
+                      const care = productStore.cares.find((c) => c.code === careCode);
+                      return care ? (
+                        <Tooltip key={care.code} title={care.desc} arrow>
+                          <Chip label={care.title} sx={{ mr: 1}} />
+                        </Tooltip>
+                      ) : '-';
+                    })
+                  ) : '-'}
+                </TableCell>
+              </TableRow>
+              
+              {/* category */}
+              <TableRow>
+                <TableCell component="th" scope="row" sx={{ fontWeight: 'bold' }}>
+                  카테고리
+                </TableCell>
+                <TableCell>
+                  {product.categoryCodes ? (
+                    JSON.parse(product.categoryCodes).map((categoryCode, index) => {
+                      const category = categoryStore.categories.find((c) => c.code === categoryCode);
+                      const isLastItem = index === JSON.parse(product.categoryCodes).length - 1;
+                      return category ? (
+                        <Card key={category.code} sx={{ display: 'flex', mb: isLastItem ? 0 : 1 }}>
+                          {/* Image */}
+                          <CardContent>
+                            <CardMedia
+                              component="img"
+                              image={category.icon.replace('_w.png', '.jpg')}
+                              sx={{ width: 50, heihgt: 50 }}
+                            />
+                          </CardContent>
+          
+                          {/* Desc */}
+                          <CardContent>
+                            <Typography gutterBottom variant="button" sx={{ fontWeight: 'bold' }}>
+                              {category.title}
+                            </Typography>
+                            <Typography variant="body2">
+                              {category.desc}
+                            </Typography>
+                          </CardContent>
+                        </Card>
+                      ) : '-';
+                    })
+                  ) : '-'}
+                </TableCell>
+              </TableRow>
+            </TableBody>
+          </Table>
+        </TableContainer>
+      </Box>
+    )}</Observer>
   );
 }

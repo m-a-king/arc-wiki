@@ -21,7 +21,7 @@ export default function Layout() {
         'sans-serif',
       ].join(','),
       fontSize: 15,
-      fontWeightRegular: 200,
+      fontWeightRegular: 300,
       fontWeightBold: 500,
     },
     palette: {
@@ -59,12 +59,12 @@ export default function Layout() {
               display: 'flex',
               flex: 1,
               bgcolor: [
-                "/mypage",
-                "/adminpage",
-                "/products",
-                "/product",
-                "/review",
-              ].includes(location.pathname) ? 'common.white' : '',
+                "/",
+                "/signup",
+                "/signin",
+                "/findid",
+                "/findpw",
+              ].includes(location.pathname) ? '' : 'common.white',
             }}
         >
           <Container

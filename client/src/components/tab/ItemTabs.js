@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { useState } from 'react';
 import { Tab } from '@mui/material';
 import {
   TabContext,
@@ -7,9 +6,13 @@ import {
   TabPanel,
 } from '@mui/lab';
 
-export default function ItemTabs({ colors }) {
-  const [value, setValue] = useState('0');
-
+export default function ItemTabs({
+  colors,
+  mainWidth,
+  subWidth,
+  value,
+  setValue,
+}) {
   return (
     <TabContext value={value}>
       {colors.map((color, index) => (
@@ -18,7 +21,7 @@ export default function ItemTabs({ colors }) {
             src={color.image}
             alt={color.title}
             loading="lazy"
-            style={{ width: '248px' }}
+            style={{ width: `${mainWidth}px` }}
           />
         </TabPanel>
       ))}
@@ -29,6 +32,7 @@ export default function ItemTabs({ colors }) {
         variant="scrollable"
         scrollButtons="auto"
         onChange={(e, newValue) => setValue(newValue)}
+        sx={{ my: 2 }}
       >
         {colors.map((color, index) => (
           <Tab
@@ -40,7 +44,7 @@ export default function ItemTabs({ colors }) {
                 src={color.image}
                 alt={color.title}
                 loading="lazy"
-                style={{ width: '40px' }}
+                style={{ width: `${subWidth}px` }}
               />
             }
           ></Tab>

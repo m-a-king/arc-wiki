@@ -65,9 +65,33 @@ export const getProducts = async (req, res) => {
   }
 };
 
+export const getProduct = async (req, res) => {
+  try {
+    const { idx } = req.params;
+
+    const product = await Product.findByPk(idx, {
+      include: [
+        {
+          model: Color,
+          as: 'colors',
+        },
+      ],
+    });
+    if (!product) {
+      return res.status(404).json({ error: 'Product not found' });
+    }
+
+    res.status(200).json(product);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+};
+
 export const addProduct = async (req, res) => {
   try {
     const product = req.body;
+    
     const createdProduct = await Product.create(product);
 
     const colors = req.files.map((file, index) => ({

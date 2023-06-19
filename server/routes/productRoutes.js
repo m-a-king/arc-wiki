@@ -5,6 +5,7 @@ import {
   getMaterials,
   getCares,
   getProducts,
+  getProduct,
   addProduct,
 } from '../controllers/productController.js';
 
@@ -14,6 +15,7 @@ router.get('/api/features', getFeatures);
 router.get('/api/materials', getMaterials);
 router.get('/api/cares', getCares);
 router.get('/api/products', getProducts);
+router.get('/api/product/:idx', getProduct);
 router.post('/api/product', upload.any(), addProduct);
 
 export default router;
