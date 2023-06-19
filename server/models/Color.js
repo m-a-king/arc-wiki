@@ -26,7 +26,7 @@ const Color = sequelize.define('Color', {
   },
   image: {
     field: 'color_image',
-    type: DataTypes.TEXT,
+    type: DataTypes.STRING(200),
     allowNull: true,
   },
   createDate: {

@@ -61,7 +61,7 @@ export default function CommonModal({
               sx={{ mr: 1 }}
               onClick={onClose}
             >
-              Close
+              취소
             </Button>
 
             {/* Submit */}
@@ -71,7 +71,7 @@ export default function CommonModal({
               size="small"
               onClick={onSubmit}
             >
-              Submit
+              등록
             </Button>
           </Toolbar>
         </Box>

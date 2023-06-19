@@ -77,13 +77,14 @@ export default function ProductTable({
         columns={columns}
         initialState={{
           pagination: {
-            paginationModel: { page: 0, pageSize: 10 },
+            paginationModel: { page: 0, pageSize: 25 },
           },
           sorting: {
             sortModel: [{ field: 'createDate', sort: 'desc' }],
           },
         }}
-        pageSizeOptions={[10]}
+        pageSizeOptions={[25]}
+        getRowId={(row) => row.idx}
         rowSelectionModel={selectedRows}
         onRowSelectionModelChange={(row) => {
           setSelectedRows(row);

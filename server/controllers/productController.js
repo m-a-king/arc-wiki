@@ -36,7 +36,27 @@ export const getCares = async (req, res) => {
 
 export const getProducts = async (req, res) => {
   try {
-    const products = await Product.findAll();
+    const products = await Product.findAll({
+      include: [{
+          model: Color,
+          required: true,
+          as: 'colors',
+      }],
+      order: [
+        [
+          'createDate',
+          'DESC',
+        ],
+        [
+          {
+            model: Color,
+            as: 'colors',
+          },
+          'idx',
+          'ASC',
+        ],
+      ],
+    });
     
     res.status(200).json(products);
   } catch (error) {
@@ -50,12 +70,12 @@ export const addProduct = async (req, res) => {
     const product = req.body;
     const createdProduct = await Product.create(product);
 
-    const colorData = product.colors.map((c) => ({
+    const colors = req.files.map((file, index) => ({
       productIdx: createdProduct.idx,
-      title: c.title,
-      image: c.image,
+      title: req.body[`colors[${index}].title`],
+      image: `/colors/${file.filename}`,
     }));
-    await Color.bulkCreate(colorData);
+    await Color.bulkCreate(colors);
     
     res.status(201).json(createdProduct);
   } catch (error) {

@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import {
   Box,
   Button,
+  Divider,
   FormControl,
   FormHelperText,
   Grid,
@@ -162,13 +163,17 @@ export default function ProductModal({
         form.append('categoryCodes', JSON.stringify(formData.categoryCodes));
         
         formData.colors.forEach((color, index) => {
-          form.append(`colors[${index}][title]`, color.title);
-          form.append(`colors[${index}][image]`, color.image);
+          form.append(`colors[${index}].title`, color.title);
+          form.append(`colors[${index}].image`, color.image);
         });
   
-        const response = await HTTP.post('/api/product', form);
+        const response = await HTTP.post('/api/product', form, {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+          },
+        });
         console.log(response.data);
-        // onClose();
+        onClose();
         
       } catch (error) {
         console.error(error);
@@ -405,11 +410,24 @@ export default function ProductModal({
                 label="카테고리"
                 error={submitted && formError.categoryCodes}
               >
-                {categoryStore.categories.map((category) => (
-                  <MenuItem key={category.code} value={category.code}>
-                    {category.title}
-                  </MenuItem>
-                ))}
+                {categoryStore.categories.flatMap((category, index) => {
+                  const isFirstCategory = index === 0 || category.group.code !== categoryStore.categories[index - 1].group.code;
+                  const nextCategory = categoryStore.categories[index + 1];
+                  const items = [
+                    isFirstCategory && (
+                      <MenuItem disabled key={`group-title-${category.code}`}>
+                        {category.group.title}
+                      </MenuItem>
+                    ),
+                    <MenuItem value={category.code} key={`menu-item-${category.code}`}>
+                      {category.title}
+                    </MenuItem>
+                  ];
+                  if (nextCategory && category.group.code !== nextCategory.group.code) {
+                    items.push(<Divider sx={{ my: 0.5 }} key={`divider-${category.code}`} />);
+                  }
+                  return items;
+                })}
               </Select>
               {submitted && formError.categoryCodes && <FormHelperText>카테고리는 필수항목 입니다.</FormHelperText>}
             </FormControl>

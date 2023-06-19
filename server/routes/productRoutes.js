@@ -14,8 +14,6 @@ router.get('/api/features', getFeatures);
 router.get('/api/materials', getMaterials);
 router.get('/api/cares', getCares);
 router.get('/api/products', getProducts);
-router.post('/api/product', upload.fields([
-  { name: 'colors[].image', maxCount: 1 },
-]), addProduct);
+router.post('/api/product', upload.any(), addProduct);
 
 export default router;

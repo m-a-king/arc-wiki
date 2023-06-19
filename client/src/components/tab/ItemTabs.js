@@ -1,24 +1,24 @@
 import * as React from 'react';
 import { useState } from 'react';
+import { Tab } from '@mui/material';
 import {
   TabContext,
   TabList,
   TabPanel,
 } from '@mui/lab';
-import ImageTab from './ImageTab';
 
-export default function ItemTabs({ images }) {
-  const [value, setValue] = useState(images[0]?.id.toString());
+export default function ItemTabs({ colors }) {
+  const [value, setValue] = useState('0');
 
   return (
     <TabContext value={value}>
-      {images.map((image) => (
-        <TabPanel key={image.id} value={image.id.toString()} sx={{ p: 0 }}>
+      {colors.map((color, index) => (
+        <TabPanel key={index} value={index.toString()} sx={{ p: 0 }}>
           <img
-            src={`${image.url}?w=248&fit=crop&auto=format`}
-            srcSet={`${image.url}?w=248&fit=crop&auto=format&dpr=2 2x`}
-            alt={image.color}
+            src={color.image}
+            alt={color.title}
             loading="lazy"
+            style={{ width: '248px' }}
           />
         </TabPanel>
       ))}
@@ -30,8 +30,20 @@ export default function ItemTabs({ images }) {
         scrollButtons="auto"
         onChange={(e, newValue) => setValue(newValue)}
       >
-        {images.map((image) => (
-          <ImageTab key={image.id} value={image.id.toString()} image={image} />
+        {colors.map((color, index) => (
+          <Tab
+            key={index}
+            value={index.toString()}
+            sx={{ minWidth: 0, p: 1 }}
+            label={
+              <img
+                src={color.image}
+                alt={color.title}
+                loading="lazy"
+                style={{ width: '40px' }}
+              />
+            }
+          ></Tab>
         ))}
       </TabList>
     </TabContext>

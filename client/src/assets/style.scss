@@ -119,13 +119,26 @@ main > .MuiContainer-root {
   .MuiDataGrid-cell {
     display: flex;
     flex-direction: column;
-    max-width: 25% !important;
     max-height: none !important;
+    min-height: auto !important;
     border: 0 !important;
   }
 
   .custom-hide-cell {
     display: none !important;
+  }
+
+  .custom-colors-cell {
+    display: block !important;
+    padding: 1rem 1rem 0 !important;
+  }
+
+  .custom-title-cell {
+    padding-bottom: .25rem !important;
+  }
+
+  .custom-price-cell {
+    padding-bottom: 1rem !important;
   }
 }
 
