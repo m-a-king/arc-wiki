@@ -5,7 +5,7 @@ import {
  } from '@mui/material';
 import Logo from '../components/header/Logo';
 import StepperNavigation from '../components/header/StepperNavigation';
-import SearchField from '../components/header/SearchField';
+// import SearchField from '../components/header/SearchField';
 import ControlButtons from '../components/header/ControlButtons';
 
 export default function Header() {
@@ -39,7 +39,7 @@ export default function Header() {
           }}
         >
           {/* Search field */}
-          <SearchField />
+          {/* <SearchField /> */}
 
           {/* SignUp, SignIn, MyPage, Logout */}
           <ControlButtons />
