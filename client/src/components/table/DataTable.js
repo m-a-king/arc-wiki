@@ -15,21 +15,12 @@ import {
 } from '@mui/icons-material';
 
 function CustomToolbar({
-  rows,
   selectedRows,
-  setRows,
   useDelete,
+  deleteRows,
   useAdd,
   openModal,
 }) {
-  const del = () => {
-    const newRows = rows.filter(
-      (row) => !selectedRows.includes(row.id)
-    );
-    setRows(newRows);
-    console.log("Delete", selectedRows);
-  };
-
   return (
     <GridToolbarContainer sx={{ justifyContent: 'space-between' }}>
       <GridToolbarFilterButton />
@@ -38,7 +29,7 @@ function CustomToolbar({
         {useDelete && (
           <Button
             startIcon={<DeleteOutline />}
-            onClick={del}
+            onClick={deleteRows ? () => deleteRows(selectedRows) : null}
             disabled={selectedRows.length === 0}
             sx={{ mr: 1 }}
           >
@@ -65,6 +56,7 @@ export default function DataTable({
   rows,
   setRows,
   useDelete,
+  deleteRows,
   useAdd,
   openModal
 }) {
@@ -94,10 +86,9 @@ export default function DataTable({
         }}
         componentsProps={{
           toolbar: {
-            rows,
             selectedRows,
-            setRows,
             useDelete,
+            deleteRows,
             useAdd,
             openModal,
           },

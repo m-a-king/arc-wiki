@@ -213,6 +213,23 @@ export const addReview = async (req, res) => {
   }
 };
 
+export const deleteReviews = async (req, res) => {
+  try {
+    const { idxs } = req.body;
+
+    await Review.destroy({
+      where: {
+        idx: idxs,
+      },
+    });
+
+    res.status(200).json({ message: 'Reviews successfully deleted' });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+};
+
 export const getComments = async (req, res) => {
   try {
     const comments = await Comment.findAll({
@@ -288,6 +305,23 @@ export const addComment = async (req, res) => {
     const createdComment = await Comment.create(comment);
 
     res.status(201).json(createdComment);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+};
+
+export const deleteComments = async (req, res) => {
+  try {
+    const { idxs } = req.body;
+
+    await Comment.destroy({
+      where: {
+        idx: idxs,
+      },
+    });
+
+    res.status(200).json({ message: 'Comments successfully deleted' });
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: 'Internal server error' });

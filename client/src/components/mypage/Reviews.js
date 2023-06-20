@@ -109,6 +109,23 @@ export default function Reviews() {
   useEffect(() => {
     fetchReviews();
   }, [fetchReviews]);
+
+  const deleteRows = async (selectedRows) => {
+    try {
+      const response = await HTTP.delete('/api/reviews', {
+        data: {
+          idxs: selectedRows
+        }
+      });
+      
+      if (response.status === 200) {
+        fetchReviews();
+      }
+    } catch (error) {
+      console.error(error);
+      alert(error.response.data.error);
+    }
+  };
   
   return (
     <Box>
@@ -117,6 +134,7 @@ export default function Reviews() {
         rows={rows}
         setRows={setRows}
         useDelete={true}
+        deleteRows={deleteRows}
         useAdd={false}
       />
     </Box>

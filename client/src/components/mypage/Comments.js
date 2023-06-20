@@ -106,6 +106,23 @@ export default function Comments() {
   useEffect(() => {
     fetchComments();
   }, [fetchComments]);
+
+  const deleteRows = async (selectedRows) => {
+    try {
+      const response = await HTTP.delete('/api/comments', {
+        data: {
+          idxs: selectedRows
+        }
+      });
+      
+      if (response.status === 200) {
+        fetchComments();
+      }
+    } catch (error) {
+      console.error(error);
+      alert(error.response.data.error);
+    }
+  };
   
   return (
     <Box>
@@ -114,6 +131,7 @@ export default function Comments() {
         rows={rows}
         setRows={setRows}
         useDelete={true}
+        deleteRows={deleteRows}
         useAdd={false}
       />
     </Box>
