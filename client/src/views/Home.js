@@ -100,8 +100,8 @@ export default function Home() {
   };
 
   const handleSubmitClick = () => {
-    console.log('Selected categories:', categoryStore.selectedCategories);
-    navigate('/products');
+    const categoryCodes = categoryStore.selectedCategories.map((category) => category.code);
+    navigate('/products', { state: { categoryCodes: categoryCodes } });
   };
   
   return (

@@ -1,3 +1,4 @@
+import sequelize from '../config/db.js';
 import Feature from '../models/Feature.js';
 import Material from '../models/Material.js';
 import Care from '../models/Care.js';
@@ -39,7 +40,10 @@ export const getCares = async (req, res) => {
 
 export const getProducts = async (req, res) => {
   try {
+    const codes = req.query.codes ? req.query.codes.split(',') : null;
+
     const products = await Product.findAll({
+      where: codes ? sequelize.literal(`JSON_CONTAINS(category_codes, '${JSON.stringify(codes)}')`) : {},
       include: [{
           model: Color,
           required: true,
@@ -141,6 +145,9 @@ export const getReviews = async (req, res) => {
 export const getMyReviews = async (req, res) => {
   try {
     const reviews = await Review.findAll({
+      where: {
+        userIdx: req.user.idx,
+      },
       include: [
         {
           model: User,
@@ -156,9 +163,6 @@ export const getMyReviews = async (req, res) => {
       order: [
         ['createDate', 'DESC'],
       ],
-      where: {
-        userIdx: req.user.idx,
-      },
     });
     
     res.status(200).json(reviews);
@@ -233,6 +237,9 @@ export const deleteReviews = async (req, res) => {
 export const getComments = async (req, res) => {
   try {
     const comments = await Comment.findAll({
+      where: {
+        userIdx: req.user.idx,
+      },
       include: [
         {
           model: User,
@@ -253,9 +260,6 @@ export const getComments = async (req, res) => {
       order: [
         ['createDate', 'DESC'],
       ],
-      where: {
-        userIdx: req.user.idx,
-      },
     });
     
     res.status(200).json(comments);

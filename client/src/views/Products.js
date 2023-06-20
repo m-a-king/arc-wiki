@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { useState, useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 import {
   Box,
   Button,
@@ -14,6 +15,7 @@ import Stores from '../stores';
 import HTTP from '../apiClient';
 
 export default function Products() {
+  const location = useLocation();
   const { authStore }  = Stores();
 
   // Define initial columns state
@@ -79,12 +81,16 @@ export default function Products() {
 
   // mounted
   useEffect(() => {
-    fetchProducts();
-  }, []);
+    fetchProducts(location.state?.categoryCodes);
+  }, [location.state]);
   
-  const fetchProducts = async () => {
+  const fetchProducts = async (codes) => {
     try {
-      const response = await HTTP.get('/api/products');
+      let url = '/api/products';
+      if (codes) {
+        url += '?codes=' + codes.join(',');
+      }
+      const response = await HTTP.get(url);
       setRows(response.data);
     } catch (error) {
       console.error(error);
