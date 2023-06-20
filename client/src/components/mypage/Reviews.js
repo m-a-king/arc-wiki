@@ -93,7 +93,7 @@ export default function Reviews() {
 
   const fetchReviews = useCallback(async () => {
     try {
-      const response = await HTTP.get('/api/mypage/reviews', {
+      const response = authStore.isAdmin() ? await HTTP.get('/api/reviews') : await HTTP.get('/api/mypage/reviews', {
         headers: {
           Authorization: `Bearer ${authStore.token}`
         }
@@ -103,7 +103,7 @@ export default function Reviews() {
       console.error(error);
       alert(error.response.data.error);
     }
-  }, [authStore.token]);
+  }, [authStore]);
 
   // mounted
   useEffect(() => {

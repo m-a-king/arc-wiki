@@ -90,7 +90,7 @@ export default function Comments() {
   
   const fetchComments = useCallback(async () => {
     try {
-      const response = await HTTP.get('/api/mypage/comments', {
+      const response = authStore.isAdmin() ? await HTTP.get('/api/comments') : await HTTP.get('/api/mypage/comments', {
         headers: {
           Authorization: `Bearer ${authStore.token}`
         }
@@ -100,7 +100,7 @@ export default function Comments() {
       console.error(error);
       alert(error.response.data.error);
     }
-  }, [authStore.token]);
+  }, [authStore]);
 
   // mounted
   useEffect(() => {
