@@ -129,7 +129,7 @@ export default function ProductModal({
             <TableBody>
               {/* title */}
               <TableRow>
-                <TableCell component="th" scope="row" sx={{ minWidth: 120, fontWeight: 'bold' }}>
+                <TableCell component="th" scope="row" sx={{ width: 120, fontWeight: 'bold' }}>
                   제목
                   <span style={{ marginLeft: '.25rem', color: 'red' }}>*</span>
                 </TableCell>
@@ -151,7 +151,7 @@ export default function ProductModal({
 
               {/* content */}
               <TableRow>
-                <TableCell component="th" scope="row" sx={{ fontWeight: 'bold' }}>
+                <TableCell component="th" scope="row" sx={{ width: 120, fontWeight: 'bold' }}>
                   내용
                   <span style={{ marginLeft: '.25rem', color: 'red' }}>*</span>
                 </TableCell>
@@ -175,7 +175,7 @@ export default function ProductModal({
 
               {/* content */}
               <TableRow>
-                <TableCell component="th" scope="row" sx={{ fontWeight: 'bold' }}>
+                <TableCell component="th" scope="row" sx={{ width: 120, fontWeight: 'bold' }}>
                   별점
                 </TableCell>
                 <TableCell>
@@ -188,7 +188,7 @@ export default function ProductModal({
 
               {/* content */}
               <TableRow>
-                <TableCell component="th" scope="row" sx={{ fontWeight: 'bold' }}>
+                <TableCell component="th" scope="row" sx={{ width: 120, fontWeight: 'bold' }}>
                   이미지
                   <span style={{ marginLeft: '.25rem', color: 'red' }}>*</span>
                 </TableCell>

@@ -58,7 +58,7 @@ export default function ReviewInfo() {
           <TableBody>
             {/* title */}
             <TableRow>
-              <TableCell component="th" scope="row" sx={{ minWidth: 120, fontWeight: 'bold' }}>
+              <TableCell component="th" scope="row" sx={{ width: 120, fontWeight: 'bold' }}>
                 제목
               </TableCell>
               <TableCell>
@@ -68,7 +68,7 @@ export default function ReviewInfo() {
 
             {/* content */}
             <TableRow>
-              <TableCell component="th" scope="row" sx={{ minWidth: 120, fontWeight: 'bold' }}>
+              <TableCell component="th" scope="row" sx={{ width: 120, fontWeight: 'bold' }}>
                 내용
               </TableCell>
               <TableCell>
@@ -78,7 +78,7 @@ export default function ReviewInfo() {
 
             {/* rating */}
             <TableRow>
-              <TableCell component="th" scope="row" sx={{ minWidth: 120, fontWeight: 'bold' }}>
+              <TableCell component="th" scope="row" sx={{ width: 120, fontWeight: 'bold' }}>
                 별점
               </TableCell>
               <TableCell>
@@ -88,7 +88,7 @@ export default function ReviewInfo() {
 
             {/* user */}
             <TableRow>
-              <TableCell component="th" scope="row" sx={{ minWidth: 120, fontWeight: 'bold' }}>
+              <TableCell component="th" scope="row" sx={{ width: 120, fontWeight: 'bold' }}>
                 작성자
               </TableCell>
               <TableCell>
@@ -98,7 +98,7 @@ export default function ReviewInfo() {
 
             {/* create date */}
             <TableRow>
-              <TableCell component="th" scope="row" sx={{ minWidth: 120, fontWeight: 'bold' }}>
+              <TableCell component="th" scope="row" sx={{ width: 120, fontWeight: 'bold' }}>
                 작성일
               </TableCell>
               <TableCell>

@@ -201,8 +201,9 @@ export default function ProductModal({
             <TableBody>
               {/* title */}
               <TableRow>
-                <TableCell component="th" scope="row" sx={{ minWidth: 120, fontWeight: 'bold' }}>
+                <TableCell component="th" scope="row" sx={{ width: 120, fontWeight: 'bold' }}>
                   제품명
+                  <span style={{ marginLeft: '.25rem', color: 'red' }}>*</span>
                 </TableCell>
                 <TableCell>
                   <TextField
@@ -222,7 +223,7 @@ export default function ProductModal({
 
               {/* desc */}
               <TableRow>
-                <TableCell component="th" scope="row" sx={{ fontWeight: 'bold' }}>
+                <TableCell component="th" scope="row" sx={{ width: 120, fontWeight: 'bold' }}>
                   소개글
                 </TableCell>
                 <TableCell>
@@ -241,8 +242,9 @@ export default function ProductModal({
 
               {/* colors */}
               <TableRow>
-                <TableCell component="th" scope="row" sx={{ fontWeight: 'bold' }}>
+                <TableCell component="th" scope="row" sx={{ width: 120, fontWeight: 'bold' }}>
                   색상
+                  <span style={{ marginLeft: '.25rem', color: 'red' }}>*</span>
                 </TableCell>
                 <TableCell>
                   {/* colors */}
@@ -250,6 +252,7 @@ export default function ProductModal({
 
                   {/* color */}
                   <TextField
+                    required
                     fullWidth
                     key={titleKey}
                     id="title"
@@ -284,8 +287,9 @@ export default function ProductModal({
 
               {/* price */}
               <TableRow>
-                <TableCell component="th" scope="row" sx={{ fontWeight: 'bold' }}>
+                <TableCell component="th" scope="row" sx={{ width: 120, fontWeight: 'bold' }}>
                   가격
+                  <span style={{ marginLeft: '.25rem', color: 'red' }}>*</span>
                 </TableCell>
                 <TableCell>
                   <TextField
@@ -312,8 +316,9 @@ export default function ProductModal({
 
               {/* size */}
               <TableRow>
-                <TableCell component="th" scope="row" sx={{ fontWeight: 'bold' }}>
+                <TableCell component="th" scope="row" sx={{ width: 120, fontWeight: 'bold' }}>
                   사이즈
+                  <span style={{ marginLeft: '.25rem', color: 'red' }}>*</span>
                 </TableCell>
                 <TableCell>
                   <FormControl fullWidth error={submitted && formError.size}>
@@ -342,8 +347,9 @@ export default function ProductModal({
 
               {/* weight */}
               <TableRow>
-                <TableCell component="th" scope="row" sx={{ fontWeight: 'bold' }}>
+                <TableCell component="th" scope="row" sx={{ width: 120, fontWeight: 'bold' }}>
                   무게
+                  <span style={{ marginLeft: '.25rem', color: 'red' }}>*</span>
                 </TableCell>
                 <TableCell>
                   <TextField
@@ -370,8 +376,9 @@ export default function ProductModal({
 
               {/* featureCodes */}
               <TableRow>
-                <TableCell component="th" scope="row" sx={{ fontWeight: 'bold' }}>
+                <TableCell component="th" scope="row" sx={{ width: 120, fontWeight: 'bold' }}>
                   특징
+                  <span style={{ marginLeft: '.25rem', color: 'red' }}>*</span>
                 </TableCell>
                 <TableCell>
                   <FormControl fullWidth error={submitted && formError.featureCodes}>
@@ -397,8 +404,9 @@ export default function ProductModal({
 
               {/* materialCodes */}
               <TableRow>
-                <TableCell component="th" scope="row" sx={{ fontWeight: 'bold' }}>
+                <TableCell component="th" scope="row" sx={{ width: 120, fontWeight: 'bold' }}>
                   소재
+                  <span style={{ marginLeft: '.25rem', color: 'red' }}>*</span>
                 </TableCell>
                 <TableCell>
                   <FormControl fullWidth error={submitted && formError.materialCodes}>
@@ -424,8 +432,9 @@ export default function ProductModal({
 
               {/* careCodes */}
               <TableRow>
-                <TableCell component="th" scope="row" sx={{ fontWeight: 'bold' }}>
+                <TableCell component="th" scope="row" sx={{ width: 120, fontWeight: 'bold' }}>
                   관리
+                  <span style={{ marginLeft: '.25rem', color: 'red' }}>*</span>
                 </TableCell>
                 <TableCell>
                   <FormControl fullWidth error={submitted && formError.careCodes}>
@@ -451,8 +460,9 @@ export default function ProductModal({
 
               {/* categories */}
               <TableRow>
-                <TableCell component="th" scope="row" sx={{ fontWeight: 'bold' }}>
+                <TableCell component="th" scope="row" sx={{ width: 120, fontWeight: 'bold' }}>
                   카테고리
+                  <span style={{ marginLeft: '.25rem', color: 'red' }}>*</span>
                 </TableCell>
                 <TableCell>
                   <FormControl fullWidth error={submitted && formError.categoryCodes}>

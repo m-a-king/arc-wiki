@@ -27,7 +27,7 @@ export const signUp = async (req, res) => {
     res.status(201).json({ user: result.id });
   } catch (error) {
     console.error(error);
-    res.status(500).json({ error: 'Internal server error' });
+    res.status(500).json({ error: '서버 내부에서 오류가 발생하였습니다.' });
   }
 };
 
@@ -41,12 +41,12 @@ export const signIn = async (req, res) => {
       }
     });
     if (!existingUser) {
-      return res.status(404).json({ error: 'User not found.' });
+      return res.status(404).json({ error: '사용자를 찾을 수 없습니다.' });
     }
 
     const isPasswordCorrect = await bcrypt.compare(password, existingUser.password);
     if (!isPasswordCorrect) {
-      return res.status(400).json({ error: 'Invalid credentials.' });
+      return res.status(400).json({ error: '사용자 정보가 일치하지 않습니다.' });
     }
 
     const token = jwt.sign(
@@ -63,7 +63,7 @@ export const signIn = async (req, res) => {
     res.status(200).json({ result: existingUser, token });
   } catch (error) {
     console.error(error);
-    res.status(500).json({ error: 'Internal server error' });
+    res.status(500).json({ error: '서버 내부에서 오류가 발생하였습니다.' });
   }
 };
   
@@ -78,13 +78,13 @@ export const findId = async (req, res) => {
       }
     });
     if (!user) {
-      return res.status(404).json({ error: 'User not found.' });
+      return res.status(404).json({ error: '사용자를 찾을 수 없습니다.' });
     }
 
     res.status(200).json({ id: user.id });
   } catch (error) {
     console.error(error);
-    res.status(500).json({ error: 'Internal server error' });
+    res.status(500).json({ error: '서버 내부에서 오류가 발생하였습니다.' });
   }
 };
 
@@ -100,13 +100,13 @@ export const findPw = async (req, res) => {
       }
     });
     if (!user) {
-      return res.status(404).json({ error: 'User not found.' });
+      return res.status(404).json({ error: '사용자를 찾을 수 없습니다.' });
     }
 
-    res.status(200).json({ message: 'User found. Password reset allowed.' });
+    res.status(200).json({ message: '비밀번호를 재설정 합니다.' });
   } catch (error) {
     console.error(error);
-    res.status(500).json({ error: 'Internal server error' });
+    res.status(500).json({ error: '서버 내부에서 오류가 발생하였습니다.' });
   }
 };
 
@@ -120,7 +120,7 @@ export const updatePw = async (req, res) => {
       }
     });
     if (!user) {
-        return res.status(404).json({ error: 'User not found.' });
+        return res.status(404).json({ error: '사용자를 찾을 수 없습니다.' });
     }
 
     const hashedPassword = await bcrypt.hash(password, 12);
@@ -136,7 +136,7 @@ export const updatePw = async (req, res) => {
     res.status(200).json(updatedUser);
   } catch (error) {
     console.error(error);
-    res.status(500).json({ error: 'Internal server error' });
+    res.status(500).json({ error: '서버 내부에서 오류가 발생하였습니다.' });
   }
 };
 
@@ -150,7 +150,7 @@ export const getUser = async (req, res) => {
       }
     });
     if (!user) {
-      return res.status(404).json({ error: 'User not found.' });
+      return res.status(404).json({ error: '사용자를 찾을 수 없습니다.' });
     }
 
     const userInfo = {
@@ -165,7 +165,7 @@ export const getUser = async (req, res) => {
     res.status(200).json(userInfo);
   } catch (error) {
     console.error(error);
-    res.status(500).json({ error: 'Internal server error' });
+    res.status(500).json({ error: '서버 내부에서 오류가 발생하였습니다.' });
   }
 };
 
@@ -180,7 +180,7 @@ export const updateUser = async (req, res) => {
       }
     });
     if (!user) {
-      return res.status(404).json({ error: 'User not found.' });
+      return res.status(404).json({ error: '사용자를 찾을 수 없습니다.' });
     }
 
     const hashedPassword = await bcrypt.hash(password, 12);
@@ -199,6 +199,6 @@ export const updateUser = async (req, res) => {
     res.status(200).json(updatedUser);
   } catch (error) {
     console.error(error);
-    res.status(500).json({ error: 'Internal server error' });
+    res.status(500).json({ error: '서버 내부에서 오류가 발생하였습니다.' });
   }
 };

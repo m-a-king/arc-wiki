@@ -14,7 +14,7 @@ export const getFeatures = async (req, res) => {
     res.json(features);
   } catch (error) {
     console.error(error);
-    res.status(500).json({ error: 'Internal server error' });
+    res.status(500).json({ error: '서버 내부에서 오류가 발생하였습니다.' });
   }
 };
 
@@ -24,7 +24,7 @@ export const getMaterials = async (req, res) => {
     res.json(materials);
   } catch (error) {
     console.error(error);
-    res.status(500).json({ error: 'Internal server error' });
+    res.status(500).json({ error: '서버 내부에서 오류가 발생하였습니다.' });
   }
 };
 
@@ -34,7 +34,7 @@ export const getCares = async (req, res) => {
     res.json(cares);
   } catch (error) {
     console.error(error);
-    res.status(500).json({ error: 'Internal server error' });
+    res.status(500).json({ error: '서버 내부에서 오류가 발생하였습니다.' });
   }
 };
 
@@ -68,7 +68,7 @@ export const getProducts = async (req, res) => {
     res.status(200).json(products);
   } catch (error) {
     console.error(error);
-    res.status(500).json({ error: 'Internal server error' });
+    res.status(500).json({ error: '서버 내부에서 오류가 발생하였습니다.' });
   }
 };
 
@@ -85,13 +85,13 @@ export const getProduct = async (req, res) => {
       ],
     });
     if (!product) {
-      return res.status(404).json({ error: 'Product not found' });
+      return res.status(404).json({ error: '제품을 찾을 수 없습니다.' });
     }
 
     res.status(200).json(product);
   } catch (error) {
     console.error(error);
-    res.status(500).json({ error: 'Internal server error' });
+    res.status(500).json({ error: '서버 내부에서 오류가 발생하였습니다.' });
   }
 };
 
@@ -111,7 +111,7 @@ export const addProduct = async (req, res) => {
     res.status(201).json(createdProduct);
   } catch (error) {
     console.error(error);
-    res.status(500).json({ error: 'Internal server error' });
+    res.status(500).json({ error: '서버 내부에서 오류가 발생하였습니다.' });
   }
 };
 
@@ -138,7 +138,7 @@ export const getReviews = async (req, res) => {
     res.status(200).json(reviews);
   } catch (error) {
     console.error(error);
-    res.status(500).json({ error: 'Internal server error' });
+    res.status(500).json({ error: '서버 내부에서 오류가 발생하였습니다.' });
   }
 };
 
@@ -168,7 +168,7 @@ export const getMyReviews = async (req, res) => {
     res.status(200).json(reviews);
   } catch (error) {
     console.error(error);
-    res.status(500).json({ error: 'Internal server error' });
+    res.status(500).json({ error: '서버 내부에서 오류가 발생하였습니다.' });
   }
 };
 
@@ -192,13 +192,13 @@ export const getReview = async (req, res) => {
     });
     
     if (!review) {
-      return res.status(404).json({ error: 'Review not found' });
+      return res.status(404).json({ error: '리뷰를 찾을 수 없습니다.' });
     }
     
     res.status(200).json(review);
   } catch (error) {
     console.error(error);
-    res.status(500).json({ error: 'Internal server error' });
+    res.status(500).json({ error: '서버 내부에서 오류가 발생하였습니다.' });
   }
 };
 
@@ -213,7 +213,7 @@ export const addReview = async (req, res) => {
     res.status(201).json(createdReview);
   } catch (error) {
     console.error(error);
-    res.status(500).json({ error: 'Internal server error' });
+    res.status(500).json({ error: '서버 내부에서 오류가 발생하였습니다.' });
   }
 };
 
@@ -227,10 +227,10 @@ export const deleteReviews = async (req, res) => {
       },
     });
 
-    res.status(200).json({ message: 'Reviews successfully deleted' });
+    res.status(200).json({ message: '리뷰가 삭제되었습니다.' });
   } catch (error) {
     console.error(error);
-    res.status(500).json({ error: 'Internal server error' });
+    res.status(500).json({ error: '서버 내부에서 오류가 발생하였습니다.' });
   }
 };
 
@@ -265,7 +265,7 @@ export const getComments = async (req, res) => {
     res.status(200).json(comments);
   } catch (error) {
     console.error(error);
-    res.status(500).json({ error: 'Internal server error' });
+    res.status(500).json({ error: '서버 내부에서 오류가 발생하였습니다.' });
   }
 };
 
@@ -297,7 +297,7 @@ export const getMyComments = async (req, res) => {
     res.status(200).json(comments);
   } catch (error) {
     console.error(error);
-    res.status(500).json({ error: 'Internal server error' });
+    res.status(500).json({ error: '서버 내부에서 오류가 발생하였습니다.' });
   }
 };
 
@@ -311,7 +311,7 @@ export const addComment = async (req, res) => {
     res.status(201).json(createdComment);
   } catch (error) {
     console.error(error);
-    res.status(500).json({ error: 'Internal server error' });
+    res.status(500).json({ error: '서버 내부에서 오류가 발생하였습니다.' });
   }
 };
 
@@ -325,9 +325,9 @@ export const deleteComments = async (req, res) => {
       },
     });
 
-    res.status(200).json({ message: 'Comments successfully deleted' });
+    res.status(200).json({ message: '댓글이 삭제되었습니다.' });
   } catch (error) {
     console.error(error);
-    res.status(500).json({ error: 'Internal server error' });
+    res.status(500).json({ error: '서버 내부에서 오류가 발생하였습니다.' });
   }
 };

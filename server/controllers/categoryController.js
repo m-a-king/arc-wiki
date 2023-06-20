@@ -8,7 +8,7 @@ export const getCategoryGroups = async (req, res) => {
     res.status(200).json(categoryGroups);
   } catch (error) {
     console.error(error);
-    res.status(500).json({ error: 'Internal server error' });
+    res.status(500).json({ error: '서버 내부에서 오류가 발생하였습니다.' });
   }
 };
 
@@ -25,6 +25,6 @@ export const getCategories = async (req, res) => {
     res.status(200).json(categories);
   } catch (error) {
     console.error(error);
-    res.status(500).json({ error: 'Internal server error' });
+    res.status(500).json({ error: '서버 내부에서 오류가 발생하였습니다.' });
   }
 };

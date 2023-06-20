@@ -103,7 +103,7 @@ export default function ProductModal({
             <TableBody>
               {/* content */}
               <TableRow>
-                <TableCell component="th" scope="row" sx={{ fontWeight: 'bold' }}>
+                <TableCell component="th" scope="row" sx={{ width: 120, fontWeight: 'bold' }}>
                   내용
                   <span style={{ marginLeft: '.25rem', color: 'red' }}>*</span>
                 </TableCell>

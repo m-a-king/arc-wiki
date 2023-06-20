@@ -74,7 +74,7 @@ export default function ProductInfo() {
             <TableBody>
               {/* title */}
               <TableRow>
-                <TableCell component="th" scope="row" sx={{ minWidth: 120, fontWeight: 'bold' }}>
+                <TableCell component="th" scope="row" sx={{ width: 120, fontWeight: 'bold' }}>
                   제품명
                 </TableCell>
                 <TableCell>
@@ -84,7 +84,7 @@ export default function ProductInfo() {
 
               {/* desc */}
               <TableRow>
-                <TableCell component="th" scope="row" sx={{ fontWeight: 'bold' }}>
+                <TableCell component="th" scope="row" sx={{ width: 120, fontWeight: 'bold' }}>
                   소개글
                 </TableCell>
                 <TableCell>
@@ -94,7 +94,7 @@ export default function ProductInfo() {
               
               {/* price */}
               <TableRow>
-                <TableCell component="th" scope="row" sx={{ fontWeight: 'bold' }}>
+                <TableCell component="th" scope="row" sx={{ width: 120, fontWeight: 'bold' }}>
                   가격
                 </TableCell>
                 <TableCell>
@@ -107,7 +107,7 @@ export default function ProductInfo() {
               
               {/* colors */}
               <TableRow>
-                <TableCell component="th" scope="row" sx={{ fontWeight: 'bold' }}>
+                <TableCell component="th" scope="row" sx={{ width: 120, fontWeight: 'bold' }}>
                   색상
                 </TableCell>
                 <TableCell>
@@ -117,7 +117,7 @@ export default function ProductInfo() {
               
               {/* size */}
               <TableRow>
-                <TableCell component="th" scope="row" sx={{ fontWeight: 'bold' }}>
+                <TableCell component="th" scope="row" sx={{ width: 120, fontWeight: 'bold' }}>
                   사이즈
                 </TableCell>
                 <TableCell>
@@ -127,7 +127,7 @@ export default function ProductInfo() {
               
               {/* weight */}
               <TableRow>
-                <TableCell component="th" scope="row" sx={{ fontWeight: 'bold' }}>
+                <TableCell component="th" scope="row" sx={{ width: 120, fontWeight: 'bold' }}>
                   무게
                 </TableCell>
                 <TableCell>
@@ -140,7 +140,7 @@ export default function ProductInfo() {
               
               {/* feature */}
               <TableRow>
-                <TableCell component="th" scope="row" sx={{ fontWeight: 'bold' }}>
+                <TableCell component="th" scope="row" sx={{ width: 120, fontWeight: 'bold' }}>
                   특징
                 </TableCell>
                 <TableCell>
@@ -159,7 +159,7 @@ export default function ProductInfo() {
               
               {/* material */}
               <TableRow>
-                <TableCell component="th" scope="row" sx={{ fontWeight: 'bold' }}>
+                <TableCell component="th" scope="row" sx={{ width: 120, fontWeight: 'bold' }}>
                   소재
                 </TableCell>
                 <TableCell>
@@ -178,7 +178,7 @@ export default function ProductInfo() {
               
               {/* care */}
               <TableRow>
-                <TableCell component="th" scope="row" sx={{ fontWeight: 'bold' }}>
+                <TableCell component="th" scope="row" sx={{ width: 120, fontWeight: 'bold' }}>
                   관리
                 </TableCell>
                 <TableCell>
@@ -197,7 +197,7 @@ export default function ProductInfo() {
               
               {/* category */}
               <TableRow>
-                <TableCell component="th" scope="row" sx={{ fontWeight: 'bold' }}>
+                <TableCell component="th" scope="row" sx={{ width: 120, fontWeight: 'bold' }}>
                   카테고리
                 </TableCell>
                 <TableCell>
@@ -218,7 +218,7 @@ export default function ProductInfo() {
           
                           {/* Desc */}
                           <CardContent>
-                            <Typography gutterBottom variant="button" sx={{ fontWeight: 'bold' }}>
+                            <Typography gutterBottom variant="button" sx={{ width: 120, fontWeight: 'bold' }}>
                               {category.title}
                             </Typography>
                             <Typography variant="body2">
