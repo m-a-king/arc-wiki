@@ -9,13 +9,13 @@ export default function Product() {
   return (
     <Box sx={{ flex: 1 }}>
       {/* Title */}
-      <ViewTitle IconComponent={ShoppingCartOutlined} title="상품 상세" />
+      <ViewTitle IconComponent={ShoppingCartOutlined} title="제품 상세" />
 
       {/* Product info */}
       <ProductInfo />
 
       {/* Title */}
-      <ViewTitle IconComponent={StarBorder} title="상품 리뷰" />
+      <ViewTitle IconComponent={StarBorder} title="제품 리뷰" />
 
       {/* Reviews */}
       <Reviews />

@@ -123,12 +123,42 @@ export const getReviews = async (req, res) => {
         {
           model: Product,
           as: 'product',
-          attributes: ['idx', 'title', 'desc'],
+          attributes: ['idx', 'title'],
         },
       ],
       order: [
         ['createDate', 'DESC'],
       ],
+    });
+    
+    res.status(200).json(reviews);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+};
+
+export const getMyReviews = async (req, res) => {
+  try {
+    const reviews = await Review.findAll({
+      include: [
+        {
+          model: User,
+          as: 'user',
+          attributes: ['idx', 'id', 'name', 'nickname'],
+        },
+        {
+          model: Product,
+          as: 'product',
+          attributes: ['idx', 'title'],
+        },
+      ],
+      order: [
+        ['createDate', 'DESC'],
+      ],
+      where: {
+        userIdx: req.user.idx,
+      },
     });
     
     res.status(200).json(reviews);
@@ -152,7 +182,7 @@ export const getReview = async (req, res) => {
         {
           model: Product,
           as: 'product',
-          attributes: ['idx', 'title', 'desc'],
+          attributes: ['idx', 'title'],
         },
       ],
     });
@@ -190,12 +220,52 @@ export const getComments = async (req, res) => {
         {
           model: User,
           as: 'user',
-          attributes: ['idx', 'nickname'],
+          attributes: ['idx', 'id', 'name', 'nickname'],
         },
         {
           model: Review,
           as: 'review',
           attributes: ['idx', 'title'],
+          include: [{
+            model: Product,
+            as: 'product',
+            attributes: ['idx', 'title'],
+          }]
+        },
+      ],
+      order: [
+        ['createDate', 'DESC'],
+      ],
+      where: {
+        userIdx: req.user.idx,
+      },
+    });
+    
+    res.status(200).json(comments);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+};
+
+export const getMyComments = async (req, res) => {
+  try {
+    const comments = await Comment.findAll({
+      include: [
+        {
+          model: User,
+          as: 'user',
+          attributes: ['idx', 'id', 'name', 'nickname'],
+        },
+        {
+          model: Review,
+          as: 'review',
+          attributes: ['idx', 'title'],
+          include: [{
+            model: Product,
+            as: 'product',
+            attributes: ['idx', 'title'],
+          }]
         },
       ],
       order: [

@@ -1,47 +1,47 @@
 import * as React from 'react';
-import { useState } from 'react';
+import { useState, useEffect, useCallback } from "react";
 import {
   Box,
   Button,
+  Rating,
   Typography,
-} from '@mui/material';
-import {
-  Star,
-  StarBorder,
-  StarHalf,
-} from '@mui/icons-material';
+} from '@mui/material'
 import DataTable from '../table/DataTable';
+import Stores from '../../stores';
+import HTTP from '../../apiClient';
 
 export default function Reviews() {
+  const { authStore } = Stores();
+
+  // Define initial columns state
   const columns = [
     {
-      field: 'id',
-      headerName: 'ID',
+      field: 'idx',
+      headerName: '번호',
       width: 50,
       filterable: false,
     },
     {
-      field: 'reviewImage',
-      headerName: 'Review image',
+      field: 'product',
+      headerName: '제품',
       flex: 1,
       filterable: false,
-      renderCell: (params) => 
-        <img
-          src={`${params.value}?w=100&fit=crop&auto=format`}
-          srcSet={`${params.value}?w=100&fit=crop&auto=format&dpr=2 2x`}
-          alt={params.row.reviewTitle}
-          loading="lazy"
-        />,
+      renderCell: (params) => (
+        <Button
+          href={`/product/${params.value.idx}`}
+          variant="text"
+          color="primary"
+          size="small"
+          sx={{ width: 'fit-content' }}
+        >
+          {params.value.title}
+        </Button>
+      ),
     },
     {
-      field: 'productName',
-      headerName: 'Product name',
-      flex: 1,
-    },
-    {
-      field: 'reviewTitle',
-      headerName: 'Review title',
-      flex: 2,
+      field: 'title',
+      headerName: '리뷰',
+      flex: 3,
       renderCell: (params) => (
         <Box
           sx={{
@@ -51,53 +51,34 @@ export default function Reviews() {
         >
           {/* Title */}
           <Button
-            href="/review"
+            href={`/review/${params.row.idx}`}
             variant="text"
             color="primary"
             size="small"
-            sx={{
-              minWidth: 0,
-              padding: '4px 0',
-            }}
+            sx={{ width: 'fit-content' }}
           >
             {params.value}
           </Button>
           
           {/* Content */}
-          <Typography variant="caption">
-            { params.row.reviewContent }
+          <Typography variant="caption" sx={{ pl: '0.25rem', pb: '0.25rem' }}>
+            { params.row.content }
           </Typography>
         </Box>
       ),
     },
     {
-      field: 'reviewScore',
-      headerName: 'Review score',
+      field: 'rating',
+      headerName: '별점',
+      width: 116,
       renderCell: (params) => {
-        const reviewScore = params.value;
-        const fullStars = Math.floor(reviewScore);
-        const halfStar = reviewScore % 1 >= 0.5 ? 1 : 0;
-        const emptyStars = 5 - fullStars - halfStar;
-        
-        return (
-          <Box>
-            {[...Array(fullStars)].map((x, i) =>
-              <Star key={i} sx={{ fontSize: 15 }} />
-            )}
-            {halfStar === 1 &&
-              <StarHalf sx={{ fontSize: 15 }} />
-            }
-            {[...Array(emptyStars)].map((x, i) =>
-              <StarBorder key={i} sx={{ fontSize: 15 }} />
-            )}
-          </Box>
-        );
+        const rating = Number(params.value);
+        return <Rating value={rating} size="small" readOnly />
       },
     },
     {
       field: 'createDate',
-      headerName: 'Create date',
-      width: 120,
+      headerName: '등록일',
       valueFormatter: (params) => {
         const date = new Date(params.value);
         return date.getFullYear()
@@ -107,17 +88,27 @@ export default function Reviews() {
     },
   ];
   
-  const [rows, setRows] = useState([
-    { id: 1, reviewImage: 'https://images.unsplash.com/photo-1551963831-b3b1ca40c98e', productName: 'Snow', reviewTitle: 'Snow', reviewContent: 'Jon', reviewScore: 4.5, createDate: '2023-06-10 00:00:01' },
-    { id: 2, reviewImage: 'https://images.unsplash.com/photo-1551963831-b3b1ca40c98e', productName: 'Lannister', reviewTitle: 'Lannister', reviewContent: 'Cersei', reviewScore: 5, createDate: '2023-06-10 00:00:02' },
-    { id: 3, reviewImage: 'https://images.unsplash.com/photo-1551963831-b3b1ca40c98e', productName: 'Lannister', reviewTitle: 'Lannister', reviewContent: 'Jaime', reviewScore: 4, createDate: '2023-06-10 00:00:03' },
-    { id: 4, reviewImage: 'https://images.unsplash.com/photo-1551963831-b3b1ca40c98e', productName: 'Stark', reviewTitle: 'Stark', reviewContent: 'Arya', reviewScore: 4, createDate: '2023-06-10 00:00:04' },
-    { id: 5, reviewImage: 'https://images.unsplash.com/photo-1551963831-b3b1ca40c98e', productName: 'Targaryen', reviewTitle: 'Targaryen', reviewContent: 'Daenerys', reviewScore: 3, createDate: '2023-06-10 00:00:05' },
-    { id: 6, reviewImage: 'https://images.unsplash.com/photo-1551963831-b3b1ca40c98e', productName: 'Melisandre', reviewTitle: 'Melisandre', reviewContent: 'making', reviewScore: 3, createDate: '2023-06-10 00:00:06' },
-    { id: 7, reviewImage: 'https://images.unsplash.com/photo-1551963831-b3b1ca40c98e', productName: 'Clifford', reviewTitle: 'Clifford', reviewContent: 'Ferrara', reviewScore: 2, createDate: '2023-06-10 00:00:07' },
-    { id: 8, reviewImage: 'https://images.unsplash.com/photo-1551963831-b3b1ca40c98e', productName: 'Frances', reviewTitle: 'Frances', reviewContent: 'Rossini', reviewScore: 2, createDate: '2023-06-10 00:00:08' },
-    { id: 9, reviewImage: 'https://images.unsplash.com/photo-1551963831-b3b1ca40c98e', productName: 'Roxie', reviewTitle: 'Roxie', reviewContent: 'Harvey', reviewScore: 0, createDate: '2023-06-10 00:00:09' },
-  ]);
+  // Define initial rows state
+  const [rows, setRows] = useState([]);
+
+  const fetchReviews = useCallback(async () => {
+    try {
+      const response = await HTTP.get('/api/mypage/reviews', {
+        headers: {
+          Authorization: `Bearer ${authStore.token}`
+        }
+      });
+      setRows(response.data);
+    } catch (error) {
+      console.error(error);
+      alert(error.response.data.error);
+    }
+  }, [authStore.token]);
+
+  // mounted
+  useEffect(() => {
+    fetchReviews();
+  }, [fetchReviews]);
   
   return (
     <Box>

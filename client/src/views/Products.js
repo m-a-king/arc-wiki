@@ -104,7 +104,7 @@ export default function Products() {
     <Observer>{() => (
       <Box sx={{ flex: 1 }}>
         {/* Title */}
-        <ViewTitle IconComponent={ShoppingCartOutlined} title="상품 목록" />
+        <ViewTitle IconComponent={ShoppingCartOutlined} title="제품 목록" />
         
         {/* Products */}
         <ProductTable
@@ -120,7 +120,7 @@ export default function Products() {
         <ProductModal
           open={open}
           onClose={closeModal}
-          title="상품 등록"
+          title="제품 등록"
         />
       </Box>
     )}</Observer>

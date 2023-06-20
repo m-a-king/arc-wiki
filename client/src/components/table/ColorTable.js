@@ -7,6 +7,7 @@ export default function ColorTable({ rows }) {
       field: 'id',
       headerName: '번호',
       flex: 1,
+      filterable: false,
     },
     {
       field: 'title',
@@ -17,6 +18,7 @@ export default function ColorTable({ rows }) {
       field: 'image',
       headerName: '이미지',
       flex: 1,
+      filterable: false,
       renderCell: (params) => (
         <img
           src={URL.createObjectURL(params.value)}

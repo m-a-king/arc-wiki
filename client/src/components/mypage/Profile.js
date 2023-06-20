@@ -52,6 +52,7 @@ export default function MyPage() {
     }
   }, [authStore.token]);
   
+  // mounted
   useEffect(() => {
     fetchUser();
   }, [fetchUser]);

@@ -1,52 +1,81 @@
 import * as React from 'react';
-import { useState } from 'react';
+import { useState, useEffect, useCallback } from "react";
 import {
   Box,
   Button,
+  Typography,
 } from '@mui/material';
 import DataTable from '../table/DataTable';
+import Stores from '../../stores';
+import HTTP from '../../apiClient';
 
 export default function Comments() {
+  const { authStore } = Stores();
+  
+  // Define initial columns state
   const columns = [
     {
-      field: 'id',
-      headerName: 'ID',
+      field: 'idx',
+      headerName: '번호',
       width: 50,
       filterable: false,
     },
     {
-      field: 'productName',
-      headerName: 'Product name',
+      field: 'product',
+      headerName: '제품',
       flex: 1,
-    },
-    {
-      field: 'reviewTitle',
-      headerName: 'Review title',
-      flex: 1,
+      filterable: false,
       renderCell: (params) => (
         <Button
-          href="/review"
+          href={`/product/${params.row.review.product.idx}`}
           variant="text"
           color="primary"
           size="small"
-          sx={{
-            minWidth: 0,
-            padding: '4px 0',
-          }}
+          sx={{ width: 'fit-content' }}
         >
-          {params.value}
+          {params.row.review.product.title}
         </Button>
       ),
     },
     {
-      field: 'comment',
-      headerName: 'Comment',
+      field: 'title',
+      headerName: '리뷰',
+      flex: 1,
+      renderCell: (params) => (
+        <Box
+          sx={{
+            display: 'flex',
+            flexDirection: 'column',
+          }}
+        >
+          {/* Title */}
+          <Button
+            href={`/review/${params.row.review.idx}`}
+            variant="text"
+            color="primary"
+            size="small"
+            sx={{ width: 'fit-content' }}
+          >
+            {params.row.review.title}
+          </Button>
+        </Box>
+      ),
+    },
+    {
+      field: 'content',
+      headerName: '댓글',
       flex: 2,
     },
     {
+      field: 'user',
+      headerName: '작성자',
+      renderCell: (params) => (
+        <Typography variant="body2">{params.value.nickname}</Typography>
+      ),
+    },
+    {
       field: 'createDate',
-      headerName: 'Create date',
-      width: 120,
+      headerName: '등록일',
       valueFormatter: (params) => {
         const date = new Date(params.value);
         return date.getFullYear()
@@ -56,17 +85,27 @@ export default function Comments() {
     },
   ];
   
-  const [rows, setRows] = useState([
-    { id: 1, productName: 'Snow', reviewTitle: 'Snow', comment: 'Jon', createDate: '2023-06-10 00:00:01' },
-    { id: 2, productName: 'Lannister', reviewTitle: 'Lannister', comment: 'Cersei', createDate: '2023-06-10 00:00:02' },
-    { id: 3, productName: 'Lannister', reviewTitle: 'Lannister', comment: 'Jaime', createDate: '2023-06-10 00:00:03' },
-    { id: 4, productName: 'Stark', reviewTitle: 'Stark', comment: 'Arya', createDate: '2023-06-10 00:00:04' },
-    { id: 5, productName: 'Targaryen', reviewTitle: 'Targaryen', comment: 'Daenerys', createDate: '2023-06-10 00:00:05' },
-    { id: 6, productName: 'Melisandre', reviewTitle: 'Melisandre', comment: 'making', createDate: '2023-06-10 00:00:06' },
-    { id: 7, productName: 'Clifford', reviewTitle: 'Clifford', comment: 'Ferrara', createDate: '2023-06-10 00:00:07' },
-    { id: 8, productName: 'Frances', reviewTitle: 'Frances', comment: 'Rossini', createDate: '2023-06-10 00:00:08' },
-    { id: 9, productName: 'Roxie', reviewTitle: 'Roxie', comment: 'Harvey', createDate: '2023-06-10 00:00:09' },
-  ]);
+  // Define initial rows state
+  const [rows, setRows] = useState([]);
+  
+  const fetchComments = useCallback(async () => {
+    try {
+      const response = await HTTP.get('/api/mypage/comments', {
+        headers: {
+          Authorization: `Bearer ${authStore.token}`
+        }
+      });
+      setRows(response.data);
+    } catch (error) {
+      console.error(error);
+      alert(error.response.data.error);
+    }
+  }, [authStore.token]);
+
+  // mounted
+  useEffect(() => {
+    fetchComments();
+  }, [fetchComments]);
   
   return (
     <Box>
