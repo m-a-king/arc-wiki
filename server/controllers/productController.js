@@ -5,6 +5,7 @@ import Product from '../models/Product.js';
 import Color from '../models/Color.js';
 import Review from '../models/Review.js';
 import User from '../models/User.js';
+import Comment from '../models/Comment.js';
 
 export const getFeatures = async (req, res) => {
   try {
@@ -176,6 +177,47 @@ export const addReview = async (req, res) => {
     const createdReview = await Review.create(review);
 
     res.status(201).json(createdReview);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+};
+
+export const getComments = async (req, res) => {
+  try {
+    const comments = await Comment.findAll({
+      include: [
+        {
+          model: User,
+          as: 'user',
+          attributes: ['idx', 'nickname'],
+        },
+        {
+          model: Review,
+          as: 'review',
+          attributes: ['idx', 'title'],
+        },
+      ],
+      order: [
+        ['createDate', 'DESC'],
+      ],
+    });
+    
+    res.status(200).json(comments);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+};
+
+export const addComment = async (req, res) => {
+  try {
+    const comment = req.body;
+    comment.userIdx = req.user.idx;
+
+    const createdComment = await Comment.create(comment);
+
+    res.status(201).json(createdComment);
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: 'Internal server error' });

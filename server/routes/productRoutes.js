@@ -11,6 +11,8 @@ import {
   getReviews,
   getReview,
   addReview,
+  getComments,
+  addComment,
 } from '../controllers/productController.js';
 
 const router = express.Router();
@@ -24,5 +26,7 @@ router.post('/api/product', colorUpload.any(), addProduct);
 router.get('/api/reviews', getReviews);
 router.get('/api/review/:idx', getReview);
 router.post('/api/review',  auth, reviewUpload.single('image'), addReview);
+router.get('/api/comments', getComments);
+router.post('/api/comment',  auth, addComment);
 
 export default router;

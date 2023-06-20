@@ -10,7 +10,7 @@ import DataTable from '../table/DataTable';
 import ReviewModal from '../modal/ReviewModal';
 import HTTP from '../../apiClient';
 
-export default function Reviews() {  
+export default function Reviews() {
   // Define initial columns state
   const columns = [
     {
@@ -46,7 +46,7 @@ export default function Reviews() {
         >
           {/* Title */}
           <Button
-            href="/review"
+            href={`/review/${params.row.idx}`}
             variant="text"
             color="primary"
             size="small"
@@ -63,13 +63,6 @@ export default function Reviews() {
       ),
     },
     {
-      field: 'user',
-      headerName: '작성자',
-      renderCell: (params) => (
-        <Typography variant="body1">{params.value.nickname}</Typography>
-      ),
-    },
-    {
       field: 'rating',
       headerName: '별점',
       width: 116,
@@ -77,6 +70,13 @@ export default function Reviews() {
         const rating = Number(params.value);
         return <Rating value={rating} size="small" readOnly />
       },
+    },
+    {
+      field: 'user',
+      headerName: '작성자',
+      renderCell: (params) => (
+        <Typography variant="body2">{params.value.nickname}</Typography>
+      ),
     },
     {
       field: 'createDate',
