@@ -1,5 +1,6 @@
 import express from 'express';
-import upload from '../middleware/multer.js';
+import auth from '../middleware/auth.js';
+import { colorUpload, reviewUpload } from '../middleware/multer.js';
 import {
   getFeatures,
   getMaterials,
@@ -7,6 +8,9 @@ import {
   getProducts,
   getProduct,
   addProduct,
+  getReviews,
+  getReview,
+  addReview,
 } from '../controllers/productController.js';
 
 const router = express.Router();
@@ -16,6 +20,9 @@ router.get('/api/materials', getMaterials);
 router.get('/api/cares', getCares);
 router.get('/api/products', getProducts);
 router.get('/api/product/:idx', getProduct);
-router.post('/api/product', upload.any(), addProduct);
+router.post('/api/product', colorUpload.any(), addProduct);
+router.get('/api/reviews', getReviews);
+router.get('/api/review/:idx', getReview);
+router.post('/api/review',  auth, reviewUpload.single('image'), addReview);
 
 export default router;

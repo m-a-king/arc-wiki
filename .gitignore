@@ -3,6 +3,7 @@ node_modules
 
 # private
 client/public/colors
+client/public/review
 # sessionOption.js
 
 # dependencies

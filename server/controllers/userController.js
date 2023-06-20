@@ -51,8 +51,8 @@ export const signIn = async (req, res) => {
 
     const token = jwt.sign(
       {
+        idx: existingUser.idx,
         id: existingUser.id,
-        name: existingUser.name,
       },
       'arcwiki',
       {

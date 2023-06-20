@@ -19,31 +19,29 @@ export default function Products() {
   // Define initial columns state
   const columns = [
     {
-      field: 'id',
-      headerName: 'id',
+      field: 'idx',
+      headerName: '번호',
       flex: 1,
       filterable: false,
       cellClassName: 'custom-hide-cell',
     },
     {
       field: 'colors',
-      headerName: 'colors',
+      headerName: '색상',
       flex: 1,
       filterable: false,
       cellClassName: 'custom-colors-cell',
       renderCell: (params) => (
         <ItemTabs
           colors={params.value}
-          mainWidth={248}
+          mainWidth={240}
           subWidth={35}
-          value={value}
-          setValue={setValue}
         />
       ),
     },
     {
       field: 'title',
-      headerName: 'title',
+      headerName: '제품명',
       flex: 1,
       cellClassName: 'custom-title-cell',
       renderCell: (params) => (
@@ -62,7 +60,7 @@ export default function Products() {
     },
     {
       field: 'price',
-      headerName: 'price',
+      headerName: '가격',
       flex: 1,
       cellClassName: 'custom-price-cell',
       renderCell: (params) => (
@@ -93,9 +91,6 @@ export default function Products() {
       alert(error.response.data.error);
     }
   };
-  
-  // Define initial value state
-  const [value, setValue] = useState('0');
 
   // Define initial open state
   const [open, setOpen] = useState(false);

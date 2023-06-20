@@ -1,9 +1,9 @@
 import * as React from 'react';
 import { Box } from '@mui/material';
-import { ShoppingCartOutlined } from '@mui/icons-material';
+import { ShoppingCartOutlined, StarBorder } from '@mui/icons-material';
 import ViewTitle from '../components/ViewTitle';
-import ProductInfo from '../components/ProductInfo';
-import Reviews from "../components/mypage/Reviews";
+import ProductInfo from '../components/product/ProductInfo';
+import Reviews from "../components/product/Reviews";
 
 export default function Product() {
   return (
@@ -13,6 +13,9 @@ export default function Product() {
 
       {/* Product info */}
       <ProductInfo />
+
+      {/* Title */}
+      <ViewTitle IconComponent={StarBorder} title="상품 리뷰" />
 
       {/* Reviews */}
       <Reviews />

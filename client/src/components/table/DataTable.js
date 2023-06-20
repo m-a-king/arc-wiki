@@ -40,6 +40,7 @@ function CustomToolbar({
             startIcon={<DeleteOutline />}
             onClick={del}
             disabled={selectedRows.length === 0}
+            sx={{ mr: 1 }}
           >
           삭제 
           </Button>
@@ -83,6 +84,7 @@ export default function DataTable({
           },
         }}
         pageSizeOptions={[5, 10]}
+        getRowId={(row) => row.idx}
         rowSelectionModel={selectedRows}
         onRowSelectionModelChange={(row) => {
           setSelectedRows(row);

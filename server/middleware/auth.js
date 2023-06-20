@@ -5,7 +5,7 @@ const auth = async (req, res, next) => {
         const token = req.headers.authorization.split(" ")[1];
 
         if (!token) {
-            return res.status(403).json({ message: "A token is required for authentication" });
+            return res.status(403).json({ error: "A token is required for authentication" });
         }
 
         const decoded = jwt.verify(token, 'arcwiki');
@@ -14,7 +14,7 @@ const auth = async (req, res, next) => {
 
         next();
     } catch (error) {
-        return res.status(401).json({ message: "Invalid Token" });
+        return res.status(401).json({ error: "Invalid Token" });
     }
 };
 

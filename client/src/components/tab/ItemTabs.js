@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { useState } from 'react';
 import { Tab } from '@mui/material';
 import {
   TabContext,
@@ -13,8 +14,11 @@ export default function ItemTabs({
   value,
   setValue,
 }) {
+  // Define initial rows state
+  const [innerValue, setInnerValue] = useState('0');
+
   return (
-    <TabContext value={value}>
+    <TabContext value={value ? value : innerValue}>
       {colors.map((color, index) => (
         <TabPanel key={index} value={index.toString()} sx={{ p: 0 }}>
           <img
@@ -31,7 +35,7 @@ export default function ItemTabs({
         indicatorColor="inherit"
         variant="scrollable"
         scrollButtons="auto"
-        onChange={(e, newValue) => setValue(newValue)}
+        onChange={(e, newValue) => value ? setValue(newValue) : setInnerValue(newValue)}
         sx={{ my: 2 }}
       >
         {colors.map((color, index) => (

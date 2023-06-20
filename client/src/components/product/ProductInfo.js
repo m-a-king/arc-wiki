@@ -16,10 +16,10 @@ import {
   Tooltip,
   Typography,
 } from '@mui/material';
-import ItemTabs from '../components/tab/ItemTabs';
+import ItemTabs from '../tab/ItemTabs';
 import { Observer } from "mobx-react-lite";
-import Stores from '../stores';
-import HTTP from '../apiClient';
+import Stores from '../../stores';
+import HTTP from '../../apiClient';
 
 export default function ProductInfo() {
   const { categoryStore, productStore }  = Stores();
@@ -48,7 +48,7 @@ export default function ProductInfo() {
 
   return (
     <Observer>{() => (
-      <Box>
+      <Box sx={{ mb: 6 }}>
         {/* Image */}
         <Box
           sx={{
@@ -60,7 +60,7 @@ export default function ProductInfo() {
           {product.colors ? (
             <ItemTabs
               colors={product.colors}
-              mainWidth={496}
+              mainWidth={480}
               subWidth={70}
               value={value}
               setValue={setValue}
@@ -72,9 +72,9 @@ export default function ProductInfo() {
         <TableContainer component={Paper} sx={{ mt: 6 }}>
           <Table>
             <TableBody>
+              {/* title */}
               <TableRow>
-                {/* title */}
-                <TableCell component="th" scope="row" sx={{ fontWeight: 'bold' }}>
+                <TableCell component="th" scope="row" sx={{ minWidth: 120, fontWeight: 'bold' }}>
                   제품명
                 </TableCell>
                 <TableCell>
