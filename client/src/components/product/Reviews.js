@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { useState, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
 import {
   Box,
   Button,
@@ -11,6 +12,8 @@ import ReviewModal from '../modal/ReviewModal';
 import HTTP from '../../apiClient';
 
 export default function Reviews() {
+  const { idx } = useParams();
+
   // Define initial columns state
   const columns = [
     {
@@ -100,7 +103,7 @@ export default function Reviews() {
   
   const fetchReviews = async () => {
     try {
-      const response = await HTTP.get('/api/reviews');
+      const response = await HTTP.get(`/api/reviews/${idx}`);
       setRows(response.data);
     } catch (error) {
       console.error(error);

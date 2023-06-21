@@ -117,7 +117,12 @@ export const addProduct = async (req, res) => {
 
 export const getReviews = async (req, res) => {
   try {
+    const { idx } = req.params;
+
     const reviews = await Review.findAll({
+      where: idx ? {
+        product_idx: idx,
+      } : {},
       include: [
         {
           model: User,
@@ -236,10 +241,12 @@ export const deleteReviews = async (req, res) => {
 
 export const getComments = async (req, res) => {
   try {
+    const { idx } = req.params;
+
     const comments = await Comment.findAll({
-      where: {
-        userIdx: req.user.idx,
-      },
+      where: idx ? {
+        review_idx: idx,
+      } : {},
       include: [
         {
           model: User,
@@ -272,6 +279,9 @@ export const getComments = async (req, res) => {
 export const getMyComments = async (req, res) => {
   try {
     const comments = await Comment.findAll({
+      where: {
+        userIdx: req.user.idx,
+      },
       include: [
         {
           model: User,

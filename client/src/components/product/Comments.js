@@ -1,5 +1,6 @@
 import * as React from 'react';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
+import { useParams } from 'react-router-dom';
 import {
   Box,
   Typography,
@@ -9,6 +10,8 @@ import CommentModal from '../modal/CommentModal';
 import HTTP from '../../apiClient';
 
 export default function Comments() {
+  const { idx } = useParams();
+
   // Define initial columns state
   const columns = [
     {
@@ -43,21 +46,21 @@ export default function Comments() {
   
   // Define initial rows state
   const [rows, setRows] = useState([]);
-
-  // mounted
-  useEffect(() => {
-    fetchComments();
-  }, []);
   
-  const fetchComments = async () => {
+  const fetchComments = useCallback(async () => {
     try {
-      const response = await HTTP.get('/api/comments');
+      const response = await HTTP.get(`/api/comments/${idx}`);
       setRows(response.data);
     } catch (error) {
       console.error(error);
       alert(error.response.data.error);
     }
-  };
+  }, [idx]);
+
+  // mounted
+  useEffect(() => {
+    fetchComments();
+  }, [fetchComments]);
 
   // Define initial open state
   const [open, setOpen] = useState(false);
