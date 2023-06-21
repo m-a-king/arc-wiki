@@ -1,16 +1,15 @@
 import * as React from 'react';
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect } from "react";
 import {
   Box,
   Button,
-} from '@mui/material';
+  Rating,
+  Typography,
+} from '@mui/material'
 import DataTable from '../table/DataTable';
-import Stores from '../../stores';
 import HTTP from '../../apiClient';
 
-export default function Comments() {
-  const { authStore } = Stores();
-  
+export default function Reviews() {
   // Define initial columns state
   const columns = [
     {
@@ -26,20 +25,20 @@ export default function Comments() {
       filterable: false,
       renderCell: (params) => (
         <Button
-          href={`/product/${params.row.review.product.idx}`}
+          href={`/product/${params.value.idx}`}
           variant="text"
           color="primary"
           size="small"
           sx={{ width: 'fit-content' }}
         >
-          {params.row.review.product.title}
+          {params.value.title}
         </Button>
       ),
     },
     {
       field: 'title',
       headerName: '리뷰',
-      flex: 1,
+      flex: 3,
       renderCell: (params) => (
         <Box
           sx={{
@@ -49,21 +48,37 @@ export default function Comments() {
         >
           {/* Title */}
           <Button
-            href={`/review/${params.row.review.idx}`}
+            href={`/review/${params.row.idx}`}
             variant="text"
             color="primary"
             size="small"
             sx={{ width: 'fit-content' }}
           >
-            {params.row.review.title}
+            {params.value}
           </Button>
+          
+          {/* Content */}
+          <Typography variant="caption" sx={{ pl: '0.25rem', pb: '0.25rem' }}>
+            { params.row.content }
+          </Typography>
         </Box>
       ),
     },
     {
-      field: 'content',
-      headerName: '댓글',
-      flex: 2,
+      field: 'rating',
+      headerName: '별점',
+      width: 116,
+      renderCell: (params) => {
+        const rating = Number(params.value);
+        return <Rating value={rating} size="small" readOnly />
+      },
+    },
+    {
+      field: 'user',
+      headerName: '작성자',
+      renderCell: (params) => (
+        <Typography variant="body2">{params.value.nickname}</Typography>
+      ),
     },
     {
       field: 'createDate',
@@ -79,36 +94,32 @@ export default function Comments() {
   
   // Define initial rows state
   const [rows, setRows] = useState([]);
-  
-  const fetchComments = useCallback(async () => {
+
+  const fetchReviews = async () => {
     try {
-      const response = authStore.isAdmin() ? await HTTP.get('/api/comments') : await HTTP.get('/api/mypage/comments', {
-        headers: {
-          Authorization: `Bearer ${authStore.token}`
-        }
-      });
+      const response = await HTTP.get('/api/reviews');
       setRows(response.data);
     } catch (error) {
       console.error(error);
       alert(error.response.data.error);
     }
-  }, [authStore]);
+  };
 
   // mounted
   useEffect(() => {
-    fetchComments();
-  }, [fetchComments]);
+    fetchReviews();
+  }, []);
 
   const deleteRows = async (selectedRows) => {
     try {
-      const response = await HTTP.delete('/api/comments', {
+      const response = await HTTP.delete('/api/reviews', {
         data: {
           idxs: selectedRows
         }
       });
       
       if (response.status === 200) {
-        fetchComments();
+        fetchReviews();
       }
     } catch (error) {
       console.error(error);
@@ -118,7 +129,7 @@ export default function Comments() {
   
   return (
     <Box>
-      <DataTable        
+      <DataTable
         columns={columns}
         rows={rows}
         setRows={setRows}

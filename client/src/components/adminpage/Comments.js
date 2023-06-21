@@ -1,16 +1,14 @@
 import * as React from 'react';
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect } from "react";
 import {
   Box,
   Button,
+  Typography,
 } from '@mui/material';
 import DataTable from '../table/DataTable';
-import Stores from '../../stores';
 import HTTP from '../../apiClient';
 
-export default function Comments() {
-  const { authStore } = Stores();
-  
+export default function Comments() {  
   // Define initial columns state
   const columns = [
     {
@@ -66,6 +64,13 @@ export default function Comments() {
       flex: 2,
     },
     {
+      field: 'user',
+      headerName: '작성자',
+      renderCell: (params) => (
+        <Typography variant="body2">{params.value.nickname}</Typography>
+      ),
+    },
+    {
       field: 'createDate',
       headerName: '등록일',
       valueFormatter: (params) => {
@@ -80,24 +85,20 @@ export default function Comments() {
   // Define initial rows state
   const [rows, setRows] = useState([]);
   
-  const fetchComments = useCallback(async () => {
+  const fetchComments = async () => {
     try {
-      const response = authStore.isAdmin() ? await HTTP.get('/api/comments') : await HTTP.get('/api/mypage/comments', {
-        headers: {
-          Authorization: `Bearer ${authStore.token}`
-        }
-      });
+      const response = await HTTP.get('/api/comments');
       setRows(response.data);
     } catch (error) {
       console.error(error);
       alert(error.response.data.error);
     }
-  }, [authStore]);
+  };
 
   // mounted
   useEffect(() => {
     fetchComments();
-  }, [fetchComments]);
+  }, []);
 
   const deleteRows = async (selectedRows) => {
     try {

@@ -93,7 +93,7 @@ export default function Reviews() {
 
   const fetchReviews = useCallback(async () => {
     try {
-      const response = authStore.isAdmin() ? await HTTP.get('/api/reviews') : await HTTP.get('/api/mypage/reviews', {
+      const response = await HTTP.get('/api/mypage/reviews', {
         headers: {
           Authorization: `Bearer ${authStore.token}`
         }

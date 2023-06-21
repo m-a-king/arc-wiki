@@ -13,8 +13,8 @@ import {
 import { PersonOutlineOutlined } from '@mui/icons-material';
 import ViewTitle from '../components/ViewTitle';
 import Profile from "../components/mypage/Profile";
-import Reviews from "../components/mypage/Reviews";
-import Comments from "../components/mypage/Comments";
+import Reviews from "../components/adminpage/Reviews";
+import Comments from "../components/adminpage/Comments";
 import { reaction } from 'mobx';
 import Stores from '../stores';
 
