@@ -67,13 +67,15 @@ export default function ProductModal({
   const onSubmit = async (event) => {
     event.preventDefault();
     setSubmitted(true);
-
+  
     if (validateForm()) {
       setSubmitted(false);
-
+  
       try {
-        formData.reviewIdx = idx;  
-
+        // 1. 폼 데이터에 리뷰 인덱스 추가
+        formData.reviewIdx = idx;
+  
+        // 2. 댓글 생성 요청
         const response = await HTTP.post('/api/comment', formData, {
           headers: {
             Authorization: `Bearer ${authStore.token}`,
@@ -81,9 +83,9 @@ export default function ProductModal({
         });
         console.log(response.data);
         onClose();
-        
       } catch (error) {
         console.error(error);
+        // 3. 에러 응답의 에러 메시지를 알림으로 표시
         alert(error.response.data.error);
       }
     }

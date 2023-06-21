@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { useParams } from 'react-router-dom';
 import {
   Box,
@@ -95,21 +95,23 @@ export default function Reviews() {
   
   // Define initial rows state
   const [rows, setRows] = useState([]);
-
-  // mounted
-  useEffect(() => {
-    fetchReviews();
-  }, []);
   
-  const fetchReviews = async () => {
+  const fetchReviews = useCallback(async () => {
     try {
+      // 1. 리뷰 정보 가져오기
       const response = await HTTP.get(`/api/reviews/${idx}`);
       setRows(response.data);
     } catch (error) {
       console.error(error);
+      // 2. 에러 응답의 에러 메시지를 알림으로 표시
       alert(error.response.data.error);
     }
-  };
+  }, [idx]);
+
+  // mounted
+  useEffect(() => {
+    fetchReviews();
+  }, [fetchReviews]);
 
   // Define initial open state
   const [open, setOpen] = useState(false);

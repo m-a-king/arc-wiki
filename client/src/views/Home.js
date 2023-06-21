@@ -100,7 +100,10 @@ export default function Home() {
   };
 
   const handleSubmitClick = () => {
+    // 1. 선택된 카테고리의 코드들을 추출합니다.
     const categoryCodes = categoryStore.selectedCategories.map((category) => category.code);
+  
+    // 2. '/products' 경로로 이동하고, 선택된 카테고리 코드들을 상태로 전달합니다.
     navigate('/products', { state: { categoryCodes: categoryCodes } });
   };
   

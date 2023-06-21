@@ -57,20 +57,23 @@ export default function SignIn() {
   const handleSubmit = async (event) => {
     event.preventDefault();
     setSubmitted(true);
-
+  
     if (validateForm()) {
       setSubmitted(false);
-
+  
       try {
+        // 1. '/api/signin' 엔드포인트에 폼 데이터를 전송하여 로그인 요청
         const response = await HTTP.post('/api/signin', formData);
         authStore.login(response.data);
   
+        // 2. 스낵바를 열고 1초 후에 '/' 경로로 이동
         setSnackbarOpen(true);
         setTimeout(() => {
           navigate('/');
         }, 1000);
       } catch (error) {
         console.error(error);
+        // 3. 에러 응답의 에러 메시지를 알림으로 표시
         alert(error.response.data.error);
       }
     }

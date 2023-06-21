@@ -149,14 +149,16 @@ export default function ProductModal({
   // Function to handle form submit
   const onSubmit = async (event) => {
     event.preventDefault();
+    // 1. 폼 제출 시작
     setSubmitted(true);
-
+  
     if (validateForm()) {
       setSubmitted(false);
-
+  
       try {
         const form = new FormData();
         
+        // 2. 사용자 입력 값을 form 데이터에 추가
         form.append('title', formData.title);
         form.append('desc', formData.desc);
         form.append('price', formData.price);
@@ -172,6 +174,7 @@ export default function ProductModal({
           form.append(`colors[${index}].image`, color.image);
         });
   
+        // 3. form 데이터를 서버에 전송하여 상품 등록
         const response = await HTTP.post('/api/product', form, {
           headers: {
             'Content-Type': 'multipart/form-data',
@@ -181,6 +184,7 @@ export default function ProductModal({
         onClose();
         
       } catch (error) {
+        // 4. 오류 발생 시, 오류 메시지를 알림으로 표시
         console.error(error);
         alert(error.response.data.error);
       }

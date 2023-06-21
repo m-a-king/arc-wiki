@@ -87,7 +87,6 @@ export default function SignUp() {
     return Object.keys(errors).length === 0;
   };
 
-  // Function to handle form submit
   const handleSubmit = async (event) => {
     event.preventDefault();
     setSubmitted(true);
@@ -96,15 +95,18 @@ export default function SignUp() {
       setSubmitted(false);
       
       try {
+        // 1. '/api/signup' 엔드포인트에 폼 데이터를 전송하여 회원가입 요청
         const response = await HTTP.post('/api/signup', formData);
         console.log(response.data);
       
+        // 2. 스낵바를 열고 1초 후에 '/signin' 경로로 이동
         setSnackbarOpen(true);
         setTimeout(() => {
           navigate('/signin');
         }, 1000);
       } catch (error) {
         console.error(error);
+        // 3. 에러 응답의 에러 메시지를 알림으로 표시
         alert(error.response.data.error);
       }
     }

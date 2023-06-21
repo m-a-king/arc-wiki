@@ -49,10 +49,12 @@ export default function Comments() {
   
   const fetchComments = useCallback(async () => {
     try {
+      // 1. 댓글 정보 가져오기
       const response = await HTTP.get(`/api/comments/${idx}`);
       setRows(response.data);
     } catch (error) {
       console.error(error);
+      // 2. 에러 응답의 에러 메시지를 알림으로 표시
       alert(error.response.data.error);
     }
   }, [idx]);

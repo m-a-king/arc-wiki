@@ -67,14 +67,16 @@ export default function ResetPw({ id }) {
   const handleSubmit = async (event) => {
     event.preventDefault();
     setSubmitted(true);
-
+  
     if (validateForm()) {
       setSubmitted(false);
       
       try {
+        // 1. '/api/findPw' 엔드포인트에 폼 데이터를 전송하여 비밀번호 재설정 요청
         const response = await HTTP.put('/api/findPw', formData);
         console.log(response.data);
-
+  
+        // 2. 스낵바를 열고 1초 후에 '/signin' 경로로 이동
         setSnackbarOpen(true);
         setTimeout(() => {
           navigate('/signin');

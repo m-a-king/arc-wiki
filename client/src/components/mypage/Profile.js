@@ -40,6 +40,7 @@ export default function MyPage() {
 
   const fetchUser = useCallback(async () => {
     try {
+      // 1. 사용자 정보 가져오기
       const response = await HTTP.get('/api/user', {
         headers: {
           Authorization: `Bearer ${authStore.token}`
@@ -48,6 +49,7 @@ export default function MyPage() {
       setFormData(response.data);
     } catch (error) {
       console.error(error);
+      // 2. 에러 응답의 에러 메시지를 알림으로 표시
       alert(error.response.data.error);
     }
   }, [authStore.token]);
@@ -111,15 +113,17 @@ export default function MyPage() {
     
     if (validateForm()) {
       setSubmitted(false);
-
+  
       try {
+        // 1. 사용자 정보 수정 요청
         const response = await HTTP.put('/api/user', formData, {
           headers: {
             Authorization: `Bearer ${authStore.token}`
           }
         });
         console.log(response.data);
-
+  
+        // 2. 상태 업데이트
         setEditMode(false);
         setSnackbarOpen(true);
         fetchUser();

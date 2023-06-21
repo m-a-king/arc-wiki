@@ -93,6 +93,7 @@ export default function Reviews() {
 
   const fetchReviews = useCallback(async () => {
     try {
+      // 1. 리뷰 목록 가져오기
       const response = await HTTP.get('/api/mypage/reviews', {
         headers: {
           Authorization: `Bearer ${authStore.token}`
@@ -101,6 +102,7 @@ export default function Reviews() {
       setRows(response.data);
     } catch (error) {
       console.error(error);
+      // 2. 에러 응답의 에러 메시지를 알림으로 표시
       alert(error.response.data.error);
     }
   }, [authStore]);
@@ -112,17 +114,20 @@ export default function Reviews() {
 
   const deleteRows = async (selectedRows) => {
     try {
+      // 1. 선택한 행의 리뷰를 삭제
       const response = await HTTP.delete('/api/reviews', {
         data: {
           idxs: selectedRows
         }
       });
-      
+        
+      // 2. 응답이 성공적으로 이루어지면 리뷰 목록을 다시 가져옴
       if (response.status === 200) {
         fetchReviews();
       }
     } catch (error) {
       console.error(error);
+      // 3. 에러 응답의 에러 메시지를 알림으로 표시
       alert(error.response.data.error);
     }
   };

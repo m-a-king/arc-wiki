@@ -86,14 +86,18 @@ export default function Products() {
   
   const fetchProducts = async (codes) => {
     try {
+      // 1. URL 생성
       let url = '/api/products';
       if (codes) {
         url += '?codes=' + codes.join(',');
       }
+      
+      // 2. 제품 정보 가져오기
       const response = await HTTP.get(url);
       setRows(response.data);
     } catch (error) {
       console.error(error);
+      // 3. 에러 응답의 에러 메시지를 알림으로 표시
       alert(error.response.data.error);
     }
   };

@@ -82,14 +82,21 @@ export default function Comments() {
   
   const fetchComments = useCallback(async () => {
     try {
-      const response = authStore.isAdmin() ? await HTTP.get('/api/comments') : await HTTP.get('/api/mypage/comments', {
-        headers: {
-          Authorization: `Bearer ${authStore.token}`
-        }
-      });
+      // 1. 사용자가 관리자인 경우 모든 댓글을 조회
+      //    일반 사용자인 경우 자신의 댓글을 조회
+      const response = authStore.isAdmin()
+        ? await HTTP.get('/api/comments')
+        : await HTTP.get('/api/mypage/comments', {
+            headers: {
+              Authorization: `Bearer ${authStore.token}`
+            }
+          });
+  
+      // 2. 가져온 댓글을 상태 업데이트로 화면에 표시
       setRows(response.data);
     } catch (error) {
       console.error(error);
+      // 3. 에러 응답의 에러 메시지를 알림으로 표시
       alert(error.response.data.error);
     }
   }, [authStore]);
@@ -101,16 +108,19 @@ export default function Comments() {
 
   const deleteRows = async (selectedRows) => {
     try {
+      // 1. 선택된 댓글 삭제
       const response = await HTTP.delete('/api/comments', {
         data: {
           idxs: selectedRows
         }
       });
       
+      // 2. 삭제가 성공하면 댓글 목록을 다시 불러옴
       if (response.status === 200) {
         fetchComments();
       }
     } catch (error) {
+      // 3. 오류 발생 시, 오류 메시지를 알림으로 표시
       console.error(error);
       alert(error.response.data.error);
     }

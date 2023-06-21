@@ -86,19 +86,20 @@ export default function ProductModal({
   const onSubmit = async (event) => {
     event.preventDefault();
     setSubmitted(true);
-
+  
     if (validateForm()) {
       setSubmitted(false);
-
+  
       try {
+        // 1. 폼 데이터 생성 및 값 추가
         const form = new FormData();
-        
         form.append('productIdx', idx);
         form.append('title', formData.title);
         form.append('content', formData.content);
         form.append('rating', formData.rating);
         form.append('image', formData.image);
   
+        // 2. 리뷰 생성 요청
         const response = await HTTP.post('/api/review', form, {
           headers: {
             Authorization: `Bearer ${authStore.token}`,
@@ -107,9 +108,9 @@ export default function ProductModal({
         });
         console.log(response.data);
         onClose();
-        
       } catch (error) {
         console.error(error);
+        // 3. 에러 응답의 에러 메시지를 알림으로 표시
         alert(error.response.data.error);
       }
     }

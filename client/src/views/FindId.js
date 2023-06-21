@@ -65,15 +65,17 @@ export default function FindId() {
   const handleSubmit = async (event) => {
     event.preventDefault();
     setSubmitted(true);
-
+  
     if (validateForm()) {
       setSubmitted(false);
-
+  
       try {
+        // 1. '/api/findId' 엔드포인트에 폼 데이터를 전송하여 아이디 찾기 요청
         const response = await HTTP.post('/api/findId', formData);
         setFoundId(response.data.id);
       } catch (error) {
         console.error(error);
+        // 2. 에러 응답의 에러 메시지를 알림으로 표시
         alert(error.response.data.error);
       }
     }

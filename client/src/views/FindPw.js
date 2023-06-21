@@ -66,17 +66,20 @@ export default function FindPw() {
   const handleSubmit = async (event) => {
     event.preventDefault();
     setSubmitted(true);
-
+  
     if (validateForm()) {
       setSubmitted(false);
-
+  
       try {
+        // 1. '/api/findPw' 엔드포인트에 폼 데이터를 전송하여 비밀번호 찾기 요청
         const response = await HTTP.post('/api/findPw', formData);
         console.log(response.data);
         
+        // 2. 비밀번호 재설정 상태로 설정
         setReset(true);
       } catch (error) {
         console.error(error);
+        // 3. 에러 응답의 에러 메시지를 알림으로 표시
         alert(error.response.data.error);
       }
     }

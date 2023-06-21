@@ -21,10 +21,12 @@ export default function ReviewInfo() {
   
   const fetchReview = useCallback(async () => {
     try {
+      // 1. 리뷰 정보 가져오기
       const response = await HTTP.get(`/api/review/${idx}`);
       setProduct(response.data);
     } catch (error) {
       console.error(error);
+      // 2. 에러 응답의 에러 메시지를 알림으로 표시
       alert(error.response.data.error);
     }
   }, [idx]);
